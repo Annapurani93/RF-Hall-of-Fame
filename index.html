@@ -26,36 +26,27 @@
 ========================================================= */
 
 :root {
-  --ink: #11110f;
-  --ink-soft: #1b1b19;
+  --ink:#11110f;
+  --paper:#f4f0e7;
+  --paper-deep:#ebe5d9;
+  --white:#fff;
 
-  --paper: #f4f0e7;
-  --paper-deep: #ebe5d9;
-  --white: #ffffff;
+  --muted:#77736b;
+  --line:#d8d1c4;
 
-  --muted: #77736b;
-  --muted-light: #aaa49a;
+  --green:#355b49;
+  --clay:#b65435;
+  --blue:#28577d;
+  --gold:#b58a39;
 
-  --line: #d8d1c4;
-  --line-dark: #3b3a36;
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:Inter,Arial,sans-serif;
+  --mono:"DM Mono",monospace;
 
-  --green: #355b49;
-  --green-light: #557566;
+  --content:1100px;
+  --reading:760px;
 
-  --clay: #b65435;
-  --blue: #28577d;
-  --gold: #b58a39;
-
-  --poem-paper: #eee8dc;
-
-  --serif: "Playfair Display", Georgia, serif;
-  --sans: Inter, Arial, sans-serif;
-  --mono: "DM Mono", monospace;
-
-  --content: 1100px;
-  --reading: 760px;
-
-  --ease: cubic-bezier(.2,.8,.2,1);
+  --ease:cubic-bezier(.2,.8,.2,1);
 }
 
 
@@ -64,116 +55,188 @@
 ========================================================= */
 
 * {
-  box-sizing: border-box;
+  box-sizing:border-box;
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior:smooth;
 }
 
 body {
-  margin: 0;
-  color: var(--ink);
-  background: var(--paper);
-  font-family: var(--sans);
-  overflow-x: hidden;
+  margin:0;
+  overflow-x:hidden;
+  color:var(--ink);
+  background:var(--paper);
+  font-family:var(--sans);
 }
 
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 999;
-  pointer-events: none;
-  opacity: .035;
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  pointer-events:none;
+  opacity:.035;
 
-  background-image:
-    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 button {
-  font: inherit;
+  font:inherit;
 }
 
 a {
-  color: inherit;
+  color:inherit;
 }
 
 section {
-  width: 100%;
+  width:100%;
 }
 
 .wrap {
-  width: min(var(--content), 90vw);
-  margin-inline: auto;
+  width:min(var(--content),90vw);
+  margin-inline:auto;
 }
 
 ::selection {
-  color: var(--paper);
-  background: var(--ink);
+  color:var(--paper);
+  background:var(--ink);
 }
 
 
 /* =========================================================
-   TYPOGRAPHY
+   TYPE
 ========================================================= */
 
 .kicker {
-  color: var(--muted);
-  font-family: var(--mono);
-  font-size: 13px;
-  letter-spacing: .12em;
-  line-height: 1.6;
-  text-transform: uppercase;
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.12em;
+  line-height:1.6;
+  text-transform:uppercase;
 }
 
 .display {
-  font-family: var(--serif);
-  font-weight: 500;
-  letter-spacing: -.055em;
-  line-height: .91;
+  margin:0;
+  font-family:var(--serif);
+  font-weight:500;
+  letter-spacing:-.055em;
+  line-height:.91;
 }
 
 p {
-  font-size: 19px;
-  line-height: 1.85;
+  font-size:19px;
+  line-height:1.85;
 }
 
 
 /* =========================================================
-   SCROLL PROGRESS
+   GLOBAL PROGRESS
 ========================================================= */
 
 #progress {
-  position: fixed;
-  z-index: 1000;
-  top: 0;
-  left: 0;
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:5000;
 
-  width: 0;
-  height: 4px;
+  width:0;
+  height:4px;
 
-  background: var(--gold);
+  background:var(--gold);
+
+  transform-origin:left;
 }
 
 
 /* =========================================================
-   REVEAL
+   CHAPTER NAVIGATION
+========================================================= */
+
+.chapter-nav {
+  position:fixed;
+  z-index:4000;
+  right:24px;
+  top:50%;
+  transform:translateY(-50%);
+
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+}
+
+.chapter-dot {
+  position:relative;
+
+  width:8px;
+  height:8px;
+
+  padding:0;
+  border:0;
+  border-radius:50%;
+
+  background:#aaa;
+
+  cursor:pointer;
+
+  transition:
+    transform .3s var(--ease),
+    background .3s ease;
+}
+
+.chapter-dot::after {
+  content:attr(data-label);
+
+  position:absolute;
+  right:18px;
+  top:50%;
+  transform:translateY(-50%) translateX(6px);
+
+  padding:5px 8px;
+
+  color:white;
+  background:var(--ink);
+
+  font-family:var(--mono);
+  font-size:9px;
+  white-space:nowrap;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease;
+}
+
+.chapter-dot:hover::after {
+  opacity:1;
+  transform:translateY(-50%) translateX(0);
+}
+
+.chapter-dot.active {
+  background:var(--gold);
+  transform:scale(1.8);
+}
+
+
+/* =========================================================
+   SCROLL REVEAL
 ========================================================= */
 
 .reveal {
-  /* Safe by default: content stays visible even if JavaScript fails. */
-  opacity: 1;
-  transform: translateY(28px);
+  opacity:0;
+  transform:translateY(35px);
 
   transition:
-    opacity .9s var(--ease),
-    transform .9s var(--ease);
+    opacity 1s var(--ease),
+    transform 1s var(--ease);
 }
 
 .reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+  opacity:1;
+  transform:none;
 }
 
 
@@ -182,101 +245,124 @@ p {
 ========================================================= */
 
 .hero {
-  min-height: 100svh;
+  min-height:100svh;
 
-  display: flex;
-  align-items: center;
+  display:flex;
+  align-items:center;
 
-  color: var(--paper);
-  background:
-    radial-gradient(
-      circle at 78% 30%,
-      rgba(181,138,57,.08),
-      transparent 28%
-    ),
-    var(--ink);
+  position:relative;
+  overflow:hidden;
+
+  color:var(--paper);
+  background:#11110f;
+}
+
+.hero::before {
+  content:"";
+
+  position:absolute;
+  width:700px;
+  height:700px;
+
+  left:var(--hero-x,70%);
+  top:var(--hero-y,20%);
+
+  transform:translate(-50%,-50%);
+
+  background:radial-gradient(
+    circle,
+    rgba(181,138,57,.16),
+    transparent 65%
+  );
+
+  pointer-events:none;
+  transition:left .2s ease,top .2s ease;
 }
 
 .hero .wrap {
-  padding: 100px 0 80px;
+  position:relative;
+  z-index:2;
+
+  padding:100px 0 80px;
 }
 
 .hero h1 {
-  margin: 32px 0 45px;
+  margin:30px 0 45px;
 
-  font-size: clamp(76px, 14vw, 185px);
+  font-size:clamp(76px,14vw,185px);
+
+  transform:translateY(var(--hero-shift,0px));
 }
 
 .hero h1 span {
-  color: #bdb5a8;
+  color:#bdb5a8;
 }
 
 .hero-question {
-  max-width: 780px;
+  max-width:780px;
 
-  color: #cfc8bc;
+  color:#cfc8bc;
 
-  font-family: var(--serif);
-  font-size: clamp(28px, 3.4vw, 45px);
-  line-height: 1.3;
+  font-family:var(--serif);
+  font-size:clamp(28px,3.4vw,45px);
+  line-height:1.3;
 }
 
 .hero-metrics {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
 
-  max-width: 800px;
+  max-width:800px;
 
-  margin-top: 100px;
+  margin-top:100px;
 
-  border-top: 1px solid #393939;
+  border-top:1px solid #393939;
 }
 
 .hero-metric {
-  padding: 27px 20px 0 0;
+  padding:27px 20px 0 0;
 }
 
 .hero-metric b {
-  display: block;
+  display:block;
 
-  font-family: var(--mono);
-  font-size: clamp(38px, 5vw, 64px);
-  font-weight: 400;
-  letter-spacing: -.04em;
+  font-family:var(--mono);
+  font-size:clamp(38px,5vw,64px);
+  font-weight:400;
+  letter-spacing:-.04em;
 }
 
 .hero-metric span {
-  display: block;
+  display:block;
+  max-width:190px;
 
-  max-width: 190px;
+  margin-top:12px;
 
-  margin-top: 12px;
+  color:#aaa;
 
-  color: #aaa;
-
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.6;
-  text-transform: uppercase;
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.6;
+  text-transform:uppercase;
 }
 
 .scroll {
-  display: inline-block;
+  display:inline-block;
 
-  margin-top: 90px;
+  margin-top:90px;
 
-  color: #8f8a82;
+  color:#8f8a82;
 
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: .16em;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.16em;
 
-  animation: pulse 2.2s infinite;
+  animation:pulse 2.2s infinite;
 }
 
 @keyframes pulse {
-  0%,100% { opacity: .45; }
-  50% { opacity: 1; }
+  0%,100% {opacity:.4}
+  50% {opacity:1}
 }
 
 
@@ -285,276 +371,271 @@ p {
 ========================================================= */
 
 .intro {
-  padding: 170px 0;
+  padding:170px 0;
 }
 
 .intro-grid {
-  display: grid;
-  grid-template-columns: .9fr 1.25fr;
-  gap: 100px;
+  display:grid;
+  grid-template-columns:.9fr 1.25fr;
+  gap:100px;
 }
 
 .intro h2 {
-  margin: 20px 0 0;
-
-  font-size: clamp(62px, 8.5vw, 125px);
+  margin:20px 0 0;
+  font-size:clamp(62px,8.5vw,125px);
 }
 
 .intro-copy {
-  padding-top: 25px;
+  padding-top:25px;
 }
 
 .intro-copy p {
-  max-width: 650px;
-
-  color: #494743;
-
-  font-size: 20px;
-  line-height: 1.9;
+  max-width:650px;
+  color:#494743;
+  font-size:20px;
+  line-height:1.9;
 }
 
 .intro-copy .big-line {
-  margin-top: 65px;
-  padding-top: 32px;
+  margin-top:65px;
+  padding-top:32px;
 
-  border-top: 1px solid var(--line);
+  border-top:1px solid var(--line);
 
-  font-family: var(--serif);
-  font-size: clamp(30px, 3.8vw, 48px);
-  line-height: 1.25;
+  font-family:var(--serif);
+  font-size:clamp(30px,3.8vw,48px);
+  line-height:1.25;
 }
 
 
 /* =========================================================
-   RISE
+   RISE / INTERACTIVE TIMELINE
 ========================================================= */
 
 .rise {
-  padding: 150px 0 170px;
-
-  background: var(--white);
+  padding:150px 0 170px;
+  background:#fff;
 }
 
 .section-heading {
-  margin-bottom: 90px;
+  margin-bottom:90px;
 }
 
 .section-heading h2 {
-  margin: 18px 0 0;
-
-  font-size: clamp(58px, 7.5vw, 105px);
+  margin:18px 0 0;
+  font-size:clamp(58px,7.5vw,105px);
 }
 
 .timeline {
-  position: relative;
+  position:relative;
 }
 
-.timeline::before {
-  position: absolute;
+.timeline-line {
+  position:absolute;
 
-  top: 50%;
-  left: 0;
-  right: 0;
+  left:0;
+  right:0;
+  top:50%;
 
-  height: 1px;
+  height:2px;
 
-  background: var(--line);
+  background:var(--line);
+}
 
-  content: "";
+.timeline-progress {
+  position:absolute;
+
+  left:0;
+  top:50%;
+
+  width:0;
+  height:2px;
+
+  background:var(--ink);
+
+  transition:width 1s var(--ease);
 }
 
 .timeline-items {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
 
-  position: relative;
+  position:relative;
 }
 
 .timeline-item {
-  position: relative;
+  position:relative;
 
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  min-height:350px;
 
-  min-height: 300px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
 
-  padding-right: 35px;
-}
+  padding-right:35px;
 
-.timeline-item::before {
-  position: absolute;
-
-  top: calc(50% - 7px);
-  left: 0;
-
-  width: 14px;
-  height: 14px;
-
-  border-radius: 50%;
-
-  background: var(--ink);
-
-  content: "";
-
-  z-index: 2;
+  cursor:pointer;
 }
 
 .timeline-item:nth-child(even) {
-  justify-content: flex-end;
+  justify-content:flex-end;
+}
+
+.timeline-dot {
+  position:absolute;
+
+  top:calc(50% - 8px);
+  left:0;
+
+  width:16px;
+  height:16px;
+
+  border-radius:50%;
+
+  background:var(--ink);
+
+  transition:
+    transform .3s var(--ease),
+    background .3s ease;
+}
+
+.timeline-item:hover .timeline-dot,
+.timeline-item.active .timeline-dot {
+  transform:scale(1.8);
+  background:var(--gold);
 }
 
 .timeline-year {
-  margin-bottom: 13px;
+  margin-bottom:13px;
 
-  font-family: var(--mono);
-  font-size: 38px;
-  letter-spacing: -.03em;
+  font-family:var(--mono);
+  font-size:38px;
 }
 
 .timeline-event {
-  max-width: 220px;
+  max-width:220px;
 
-  padding-left: 27px;
+  padding-left:27px;
 
-  font-size: 18px;
-  line-height: 1.65;
+  font-size:18px;
+  line-height:1.65;
+}
+
+.timeline-extra {
+  max-height:0;
+  overflow:hidden;
+
+  max-width:230px;
+
+  padding-left:27px;
+
+  color:var(--muted);
+
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.6;
+
+  opacity:0;
+
+  transition:
+    max-height .5s var(--ease),
+    opacity .5s ease,
+    margin .5s ease;
+}
+
+.timeline-item.active .timeline-extra {
+  max-height:100px;
+  margin-top:14px;
+  opacity:1;
 }
 
 .rise-sentence {
-  max-width: 750px;
+  max-width:750px;
 
-  margin: 100px 0 0 auto;
+  margin:100px 0 0 auto;
 
-  font-family: var(--serif);
-  font-size: clamp(32px, 3.9vw, 55px);
-  line-height: 1.22;
+  font-family:var(--serif);
+  font-size:clamp(32px,3.9vw,55px);
+  line-height:1.22;
 }
 
 
 /* =========================================================
-   POETRY SYSTEM
+   POETRY
 ========================================================= */
 
 .poem-section {
-  position: relative;
-  overflow: hidden;
+  position:relative;
+  overflow:hidden;
 
-  --mouse-x: 50%;
-  --mouse-y: 45%;
+  --mouse-x:50%;
+  --mouse-y:45%;
 }
 
-
-/* =========================================================
-   POETRY INTERACTION
-   The poems themselves become the interaction.
-========================================================= */
-
 .poem-section::before {
-  content: "";
+  content:"";
 
-  position: absolute;
-  inset: -25%;
-
-  pointer-events: none;
+  position:absolute;
+  inset:-20%;
 
   background:
     radial-gradient(
       circle at var(--mouse-x) var(--mouse-y),
-      rgba(255,255,255,.08),
-      transparent 24%
+      rgba(255,255,255,.10),
+      transparent 25%
     );
 
-  opacity: .55;
-
-  transition:
-    opacity .7s ease,
-    background-position .15s linear;
-
-  z-index: 0;
-}
-
-.poem-section::after {
-  content: "";
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-
-  height: 1px;
-
-  background: currentColor;
-
-  opacity: .12;
-
-  pointer-events: none;
+  pointer-events:none;
+  opacity:.5;
+  transition:opacity .5s ease;
 }
 
 .poem-inner {
-  position: relative;
-  z-index: 1;
+  position:relative;
+  z-index:1;
 
-  width: min(880px, 88vw);
-  margin-inline: auto;
+  width:min(880px,88vw);
+  margin-inline:auto;
 }
 
 .poem-label {
-  display: flex;
-  align-items: center;
-  gap: 17px;
+  display:flex;
+  align-items:center;
+  gap:17px;
 
-  margin-bottom: 62px;
+  margin-bottom:62px;
 
-  color: var(--gold);
+  color:var(--gold);
 
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
 }
 
 .poem-label::after {
-  width: 65px;
-  height: 1px;
+  content:"";
 
-  background: currentColor;
+  width:65px;
+  height:1px;
 
-  content: "";
+  background:currentColor;
 
-  transform-origin: left center;
-
-  transition:
-    width .8s var(--ease);
+  transition:width .8s var(--ease);
 }
 
 .poem-section.visible .poem-label::after {
-  width: 110px;
-}
-
-.poem-byline {
-  margin-top: -55px;
-  margin-bottom: 65px;
-
-  color: inherit;
-  opacity: .6;
-
-  font-family: var(--mono);
-  font-size: 11px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
+  width:110px;
 }
 
 .poem-title {
-  margin: 0 0 70px;
+  margin:0 0 70px;
 
-  font-family: var(--serif);
-  font-size: clamp(48px, 7vw, 100px);
-  font-weight: 500;
-  letter-spacing: -.05em;
-  line-height: .94;
-
-  transform-origin: left center;
+  font-family:var(--serif);
+  font-size:clamp(48px,7vw,100px);
+  font-weight:500;
+  letter-spacing:-.05em;
+  line-height:.94;
 
   transition:
     letter-spacing 1s var(--ease),
@@ -562,257 +643,100 @@ p {
 }
 
 .poem-section.visible .poem-title {
-  letter-spacing: -.065em;
+  letter-spacing:-.065em;
+  transform:translateY(-3px);
+}
+
+.poem-byline {
+  margin-top:-55px;
+  margin-bottom:65px;
+
+  opacity:.6;
+
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
 }
 
 .poem-body {
-  max-width: var(--reading);
-  margin-inline: auto;
+  max-width:var(--reading);
+  margin-inline:auto;
 }
 
-
-/* ---------------------------------------------------------
-   POEM PARAGRAPH REVEAL
---------------------------------------------------------- */
-
 .poem-body p {
-  position: relative;
+  margin:0 0 48px;
 
-  margin: 0 0 48px;
+  font-family:var(--serif);
+  font-size:clamp(22px,2.25vw,30px);
+  line-height:1.72;
 
-  font-family: var(--serif);
-  font-size: clamp(22px, 2.25vw, 30px);
-  line-height: 1.72;
+  opacity:.12;
 
-  opacity: .13;
+  transform:translateY(35px);
 
-  transform:
-    translateY(35px)
-    scale(.985);
-
-  filter: blur(2px);
+  filter:blur(2px);
 
   transition:
-    opacity 1.1s var(--ease),
-    transform 1.1s var(--ease),
-    filter 1.1s var(--ease);
+    opacity 1s var(--ease),
+    transform 1s var(--ease),
+    filter 1s var(--ease);
 }
 
 .poem-body p.poem-visible {
-  opacity: 1;
-
-  transform:
-    translateY(0)
-    scale(1);
-
-  filter: blur(0);
+  opacity:1;
+  transform:none;
+  filter:none;
 }
-
-
-/* ---------------------------------------------------------
-   WORD-LEVEL INTERACTION
---------------------------------------------------------- */
 
 .poem-word {
-  display: inline-block;
-
-  opacity: .25;
-
-  transform:
-    translate3d(
-      0,
-      calc(12px * (1 - var(--word-progress, 0))),
-      0
-    )
-    scale(.98);
+  display:inline-block;
 
   transition:
-    opacity .65s var(--ease),
-    transform .65s var(--ease),
-    color .35s ease,
-    text-shadow .35s ease;
-
-  transition-delay:
-    calc(var(--word-index) * 18ms);
-
-  will-change: transform, opacity;
+    color .25s ease,
+    transform .25s var(--ease),
+    opacity .25s ease;
 }
-
-.poem-visible .poem-word {
-  opacity: 1;
-
-  transform:
-    translate3d(0,0,0)
-    scale(1);
-}
-
-
-/* ---------------------------------------------------------
-   HOVERING A WORD
---------------------------------------------------------- */
 
 .poem-word:hover {
-  position: relative;
-
-  color: var(--gold);
-
-  transform:
-    translate3d(0,-5px,0)
-    scale(1.035);
-
-  text-shadow:
-    0 8px 25px rgba(181,138,57,.22);
-
-  z-index: 4;
+  color:var(--gold);
+  transform:translateY(-4px) scale(1.035);
 }
 
-
-/* neighbouring words subtly react */
-
-.poem-body:has(.poem-word:hover) .poem-word {
-  opacity: .48;
+.poem-body.word-hovering .poem-word {
+  opacity:.45;
 }
 
-.poem-body:has(.poem-word:hover) .poem-word:hover {
-  opacity: 1;
+.poem-body.word-hovering .poem-word:hover {
+  opacity:1;
 }
 
+.poem-emphasis {
+  padding-left:35px;
 
-/* ---------------------------------------------------------
-   EMPHASIS
---------------------------------------------------------- */
+  border-left:1px solid currentColor;
 
-.poem-body .poem-emphasis {
-  font-size: clamp(30px, 3.5vw, 48px);
-  line-height: 1.35;
-
-  margin-top: 75px;
-  margin-bottom: 75px;
-
-  padding-left: 35px;
-
-  border-left: 1px solid currentColor;
-
-  opacity: .18;
-
-  transform:
-    translateX(-25px)
-    translateY(25px);
-
-  transition:
-    opacity 1.1s var(--ease),
-    transform 1.1s var(--ease),
-    border-color .7s ease;
+  font-size:clamp(30px,3.5vw,48px)!important;
+  line-height:1.35!important;
 }
 
-.poem-body .poem-emphasis.poem-visible {
-  opacity: 1;
+.poem-final {
+  margin-top:75px!important;
+  padding-top:45px;
 
-  transform:
-    translateX(0)
-    translateY(0);
-}
+  border-top:1px solid currentColor;
 
-.poem-emphasis .poem-word {
-  opacity: .22;
-}
-
-.poem-emphasis.poem-visible .poem-word {
-  opacity: 1;
-}
-
-
-/* ---------------------------------------------------------
-   FINAL LINES
---------------------------------------------------------- */
-
-.poem-body .poem-final {
-  position: relative;
-
-  margin-top: 75px;
-  padding-top: 45px;
-
-  border-top: 1px solid currentColor;
-
-  font-size: clamp(28px, 3.5vw, 46px);
-  line-height: 1.42;
-
-  opacity: .12;
-
-  transform:
-    translateY(50px)
-    scale(.97);
-
-  transition:
-    opacity 1.4s var(--ease),
-    transform 1.4s var(--ease),
-    letter-spacing 1.4s var(--ease);
-}
-
-.poem-body .poem-final.poem-visible {
-  opacity: 1;
-
-  transform:
-    translateY(0)
-    scale(1);
-
-  letter-spacing: -.01em;
-}
-
-
-/* ---------------------------------------------------------
-   ACTIVE POEM ATMOSPHERE
---------------------------------------------------------- */
-
-.poem-section.poem-active::before {
-  opacity: 1;
-}
-
-.poem-section.poem-active .poem-label {
-  transform: translateX(3px);
-}
-
-.poem-section.poem-active .poem-title {
-  transform: translateY(-2px);
-}
-
-
-/* ---------------------------------------------------------
-   POEM READING MARKER
---------------------------------------------------------- */
-
-.poem-reading-line {
-  position: absolute;
-
-  left: 0;
-  right: 0;
-
-  height: 1px;
-
-  background: currentColor;
-
-  opacity: 0;
-
-  pointer-events: none;
-
-  transition: opacity .5s ease;
-
-  z-index: 3;
-}
-
-.poem-section.poem-active .poem-reading-line {
-  opacity: .08;
+  font-size:clamp(28px,3.5vw,46px)!important;
 }
 
 
 /* =========================================================
-   POEM 4
+   POEM THEMES
 ========================================================= */
 
 .poem-four {
-  padding: 190px 0 215px;
-
-  color: #f4eee3;
+  padding:190px 0 215px;
+  color:#f4eee3;
 
   background:
     radial-gradient(
@@ -823,648 +747,28 @@ p {
     #171717;
 }
 
-.poem-four .poem-label {
-  color: #d1b273;
-}
-
-.poem-four .poem-body {
-  max-width: 800px;
-}
-
-
-/* =========================================================
-   MAJORS
-========================================================= */
-
-.majors {
-  padding: 170px 0 180px;
-
-  color: var(--paper);
-  background: var(--ink);
-}
-
-.majors-head {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 70px;
-  align-items: end;
-
-  margin-bottom: 85px;
-}
-
-.majors h2 {
-  margin: 20px 0 0;
-
-  font-size: clamp(100px, 16vw, 215px);
-}
-
-.majors-head p {
-  max-width: 470px;
-
-  margin: 0;
-
-  color: #c9c1b4;
-
-  font-family: var(--serif);
-  font-size: 31px;
-  line-height: 1.38;
-}
-
-.major-grid {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 14px;
-}
-
-.major {
-  aspect-ratio: 1;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border: 1px solid #625d55;
-  border-radius: 50%;
-
-  color: inherit;
-  background: transparent;
-
-  cursor: pointer;
-
-  transition:
-    transform .3s var(--ease),
-    background .3s var(--ease),
-    border-color .3s var(--ease),
-    color .3s var(--ease);
-}
-
-.major:hover,
-.major:focus-visible,
-.major.active {
-  color: var(--ink);
-
-  background: var(--paper);
-  border-color: var(--paper);
-
-  transform: scale(1.13);
-
-  z-index: 2;
-}
-
-.major:focus-visible {
-  outline: 2px solid #e0b84e;
-  outline-offset: 4px;
-}
-
-.major span {
-  font-family: var(--mono);
-  font-size: 15px;
-}
-
-.major.active[data-slam="Australian Open"] {
-  background: #e0b84e;
-  border-color: #e0b84e;
-}
-
-.major.active[data-slam="Roland-Garros"] {
-  color: white;
-  background: var(--clay);
-  border-color: var(--clay);
-}
-
-.major.active[data-slam="Wimbledon"] {
-  color: white;
-  background: #80a68d;
-  border-color: #80a68d;
-}
-
-.major.active[data-slam="US Open"] {
-  background: #7ca9d2;
-  border-color: #7ca9d2;
-}
-
-.major-info {
-  min-height: 105px;
-
-  margin-top: 45px;
-  padding-top: 23px;
-
-  border-top: 1px solid #383838;
-
-  color: #aaa297;
-
-  font-size: 17px;
-  line-height: 1.7;
-}
-
-.major-info strong {
-  display: block;
-
-  margin-bottom: 6px;
-
-  color: var(--paper);
-
-  font-family: var(--mono);
-  font-size: 14px;
-  letter-spacing: .05em;
-  text-transform: uppercase;
-}
-
-
-/* =========================================================
-   DISTRIBUTION
-========================================================= */
-
-.distribution {
-  padding: 175px 0;
-}
-
-.distribution h2 {
-  margin: 25px 0 105px;
-
-  font-size: clamp(60px, 8.5vw, 125px);
-}
-
-.slam-row {
-  display: grid;
-  grid-template-columns: 180px 1fr 65px;
-  gap: 30px;
-  align-items: center;
-
-  margin: 34px 0;
-}
-
-.slam-name {
-  font-family: var(--mono);
-  font-size: 14px;
-  line-height: 1.5;
-  text-transform: uppercase;
-}
-
-.slam-track {
-  height: 42px;
-
-  overflow: hidden;
-
-  background: #e5dfd4;
-
-  border-radius: 1px;
-}
-
-.slam-fill {
-  width: 0;
-  height: 100%;
-
-  transition:
-    width 1.4s var(--ease);
-}
-
-.slam-value {
-  font-family: var(--mono);
-  font-size: 40px;
-}
-
-
-/* =========================================================
-   CAREER GRAND SLAM
-========================================================= */
-
-.missing {
-  padding: 175px 0;
-
-  color: var(--paper);
-  background: var(--green);
-}
-
-.missing-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 100px;
-}
-
-.missing h2 {
-  margin: 22px 0;
-
-  font-size: clamp(65px, 9.5vw, 145px);
-}
-
-.paris {
-  margin-top: 110px;
-
-  font-family: var(--serif);
-  font-size: clamp(34px, 4.8vw, 68px);
-  line-height: 1.15;
-}
-
-.missing-description {
-  margin-top: 42px;
-
-  color: #d4d7cb;
-
-  font-size: 19px;
-  line-height: 1.9;
-}
-
-.checks {
-  display: grid;
-  gap: 1px;
-
-  background: #537464;
-}
-
-.check {
-  display: flex;
-  justify-content: space-between;
-
-  padding: 25px;
-
-  background: var(--green);
-
-  font-family: var(--mono);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.tick {
-  color: #d4d7cb;
-}
-
-
-/* =========================================================
-   REIGN
-========================================================= */
-
-.reign {
-  padding: 175px 0;
-
-  background: var(--white);
-}
-
-.reign h2 {
-  margin: 18px 0 55px;
-
-  font-size: clamp(70px, 10.5vw, 155px);
-}
-
-.reign-copy {
-  max-width: 680px;
-
-  color: #55514c;
-
-  font-size: 21px;
-  line-height: 1.8;
-}
-
-.week-grid {
-  display: grid;
-  grid-template-columns: repeat(31, 1fr);
-  gap: 5px;
-
-  margin-top: 85px;
-}
-
-.week {
-  aspect-ratio: 1;
-
-  background: #ded8ce;
-
-  border-radius: 1px;
-
-  transition: transform .2s ease;
-}
-
-.week.consecutive {
-  background: var(--ink);
-}
-
-.week:hover {
-  transform: scale(1.35);
-}
-
-.week-note {
-  display: flex;
-  justify-content: space-between;
-
-  margin-top: 20px;
-
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.week-note span:last-child {
-  color: var(--muted);
-  text-align: right;
-}
-
-.reign-reveal {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 75px;
-  align-items: end;
-
-  margin-top: 125px;
-}
-
-.reign-237 {
-  font-family: var(--mono);
-  font-size: clamp(125px, 19vw, 285px);
-  line-height: .78;
-  letter-spacing: -.08em;
-}
-
-.reign-text {
-  font-family: var(--serif);
-  font-size: clamp(32px, 3.8vw, 58px);
-  line-height: 1.18;
-}
-
-
-/* =========================================================
-   STREAKS
-========================================================= */
-
-.streaks {
-  padding: 175px 0;
-
-  color: var(--paper);
-  background: var(--ink);
-}
-
-.streaks h2 {
-  margin: 22px 0 90px;
-
-  font-size: clamp(55px, 7.5vw, 115px);
-}
-
-.streak {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 55px;
-
-  padding: 58px 0;
-
-  border-top: 1px solid #343434;
-}
-
-.streak:last-child {
-  border-bottom: 1px solid #343434;
-}
-
-.streak-number {
-  color: #d2b26e;
-
-  font-family: var(--mono);
-  font-size: clamp(70px, 8vw, 125px);
-  line-height: .8;
-  letter-spacing: -.07em;
-}
-
-.streak-text {
-  max-width: 750px;
-
-  font-family: var(--serif);
-  font-size: clamp(30px, 3.8vw, 52px);
-  line-height: 1.18;
-}
-
-
-/* =========================================================
-   POEM 3
-========================================================= */
-
 .poem-three {
-  padding: 195px 0;
-
-  color: var(--ink);
-  background: var(--poem-paper);
+  padding:195px 0;
+  background:#eee8dc;
 }
 
 .poem-three .poem-label {
-  color: var(--clay);
+  color:var(--clay);
 }
-
-
-/* =========================================================
-   COMEBACK
-========================================================= */
-
-.comeback {
-  padding: 190px 0;
-
-  color: #fff8ef;
-  background: var(--clay);
-}
-
-.comeback .year {
-  opacity: .8;
-
-  font-family: var(--mono);
-  font-size: 14px;
-  letter-spacing: .08em;
-}
-
-.comeback h2 {
-  margin: 30px 0;
-
-  font-size: clamp(80px, 13vw, 180px);
-}
-
-.comeback-copy {
-  max-width: 850px;
-
-  font-family: var(--serif);
-  font-size: clamp(29px, 3.8vw, 55px);
-  line-height: 1.25;
-}
-
-.comeback-sequence {
-  display: grid;
-  gap: 80px;
-
-  margin-top: 125px;
-}
-
-.comeback-card {
-  padding-top: 27px;
-
-  border-top: 1px solid rgba(255,255,255,.35);
-}
-
-.comeback-small {
-  font-family: var(--mono);
-  font-size: 14px;
-  letter-spacing: .08em;
-  line-height: 1.7;
-}
-
-.comeback-big {
-  margin-top: 22px;
-
-  font-family: var(--mono);
-  font-size: clamp(100px, 17vw, 250px);
-  line-height: .8;
-  letter-spacing: -.08em;
-}
-
-.score {
-  margin-top: 28px;
-
-  font-family: var(--mono);
-  font-size: clamp(20px, 2.7vw, 34px);
-  line-height: 1.8;
-}
-
-
-/* =========================================================
-   POEM 2
-========================================================= */
 
 .poem-two {
-  padding: 195px 0;
-
-  color: #f7f0e5;
-  background: var(--green);
+  padding:195px 0;
+  color:#f7f0e5;
+  background:var(--green);
 }
 
 .poem-two .poem-label {
-  color: #d4b56f;
+  color:#d4b56f;
 }
-
-
-/* =========================================================
-   FINAL TWO
-========================================================= */
-
-.twenty {
-  padding: 175px 0;
-}
-
-.twenty h2 {
-  margin: 20px 0;
-
-  font-size: clamp(105px, 17vw, 245px);
-}
-
-.final-dot-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 13px;
-
-  max-width: 700px;
-
-  margin: 75px 0;
-}
-
-.final-dot {
-  width: 43px;
-  height: 43px;
-
-  border-radius: 50%;
-
-  background: var(--ink);
-
-  opacity: 0;
-  transform: scale(.6);
-}
-
-.twenty-words {
-  max-width: 900px;
-
-  font-family: var(--serif);
-  font-size: clamp(36px, 4.8vw, 70px);
-  line-height: 1.2;
-}
-
-
-/* =========================================================
-   HALL OF FAME
-========================================================= */
-
-.hall {
-  padding: 175px 0;
-
-  color: var(--paper);
-  background: var(--ink);
-
-  text-align: center;
-}
-
-.hall .kicker {
-  color: #aaa297;
-}
-
-.hall h2 {
-  margin: 35px 0;
-
-  font-size: clamp(70px, 11.5vw, 175px);
-}
-
-.hall-year {
-  color: #d1b273;
-
-  font-family: var(--mono);
-  font-size: clamp(40px, 4.8vw, 72px);
-}
-
-.final-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-
-  margin-top: 120px;
-
-  border-top: 1px solid #383838;
-}
-
-.final-stat {
-  padding: 38px 20px;
-
-  border-bottom: 1px solid #383838;
-}
-
-.final-stat b {
-  display: block;
-
-  color: #d1b273;
-
-  font-family: var(--mono);
-  font-size: 45px;
-  font-weight: 400;
-  letter-spacing: -.04em;
-}
-
-.final-stat span {
-  display: block;
-
-  margin-top: 12px;
-
-  color: #aaa297;
-
-  font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1.7;
-  text-transform: uppercase;
-}
-
-.induction-note {
-  margin-top: 85px;
-
-  color: #aaa297;
-
-  font-family: var(--mono);
-  font-size: 14px;
-  line-height: 1.9;
-}
-
-
-/* =========================================================
-   FINAL POEM
-========================================================= */
 
 .poem-one {
-  padding: 215px 0 230px;
-
-  color: #eee8dc;
+  padding:215px 0 230px;
+  color:#eee8dc;
 
   background:
     radial-gradient(
@@ -1475,78 +779,750 @@ p {
     #0d0d0d;
 }
 
-.poem-one .poem-inner {
-  width: min(920px, 88vw);
+
+/* =========================================================
+   MAJORS
+========================================================= */
+
+.majors {
+  position:relative;
+
+  padding:170px 0 180px;
+
+  color:var(--paper);
+  background:var(--ink);
 }
 
-.poem-one .poem-body {
-  max-width: 800px;
+.majors-head {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:end;
+
+  margin-bottom:70px;
 }
 
-.poem-one .poem-final {
-  border-color: #5b554c;
+.majors h2 {
+  margin:20px 0 0;
+  font-size:clamp(100px,16vw,215px);
+}
+
+.majors-head p {
+  max-width:470px;
+  margin:0;
+
+  color:#c9c1b4;
+
+  font-family:var(--serif);
+  font-size:31px;
+  line-height:1.38;
+}
+
+.major-grid {
+  position:relative;
+
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:14px;
+
+  padding:40px 0;
+}
+
+.major-grid::before {
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  right:0;
+  top:50%;
+
+  height:1px;
+
+  background:#383838;
+}
+
+.major {
+  position:relative;
+  z-index:2;
+
+  aspect-ratio:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid #625d55;
+  border-radius:50%;
+
+  color:inherit;
+  background:var(--ink);
+
+  cursor:pointer;
+
+  transition:
+    transform .35s var(--ease),
+    background .35s ease,
+    border-color .35s ease,
+    color .35s ease;
+}
+
+.major:hover,
+.major:focus-visible,
+.major.active {
+  color:var(--ink);
+  background:var(--paper);
+  border-color:var(--paper);
+  transform:scale(1.18);
+}
+
+.major.active {
+  box-shadow:0 0 0 5px rgba(181,138,57,.16);
+}
+
+.major[data-slam="Australian Open"].active {
+  background:#e0b84e;
+  border-color:#e0b84e;
+}
+
+.major[data-slam="Roland-Garros"].active {
+  color:#fff;
+  background:var(--clay);
+  border-color:var(--clay);
+}
+
+.major[data-slam="Wimbledon"].active {
+  color:#fff;
+  background:#80a68d;
+  border-color:#80a68d;
+}
+
+.major[data-slam="US Open"].active {
+  background:#7ca9d2;
+  border-color:#7ca9d2;
+}
+
+.major span {
+  font-family:var(--mono);
+  font-size:15px;
+}
+
+.major-info {
+  min-height:110px;
+
+  margin-top:20px;
+  padding-top:23px;
+
+  border-top:1px solid #383838;
+
+  color:#aaa297;
+
+  font-size:17px;
+  line-height:1.7;
+
+  transition:transform .3s ease,opacity .3s ease;
+}
+
+.major-info strong {
+  display:block;
+
+  margin-bottom:6px;
+
+  color:var(--paper);
+
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+.major-counter {
+  margin-top:50px;
+
+  color:#777;
+
+  font-family:var(--mono);
+  font-size:11px;
+  text-transform:uppercase;
 }
 
 
 /* =========================================================
-   SOURCES
+   DISTRIBUTION
+========================================================= */
+
+.distribution {
+  padding:175px 0;
+}
+
+.distribution h2 {
+  margin:25px 0 105px;
+  font-size:clamp(60px,8.5vw,125px);
+}
+
+.slam-row {
+  display:grid;
+  grid-template-columns:180px 1fr 65px;
+  gap:30px;
+  align-items:center;
+
+  margin:34px 0;
+}
+
+.slam-name {
+  font-family:var(--mono);
+  font-size:14px;
+  text-transform:uppercase;
+}
+
+.slam-track {
+  height:42px;
+  overflow:hidden;
+  background:#e5dfd4;
+}
+
+.slam-fill {
+  width:0;
+  height:100%;
+
+  position:relative;
+
+  transition:width 1.5s var(--ease);
+}
+
+.slam-fill::after {
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,.3),
+    transparent
+  );
+
+  transform:translateX(-100%);
+}
+
+.distribution.active .slam-fill::after {
+  animation:shine 1.8s ease forwards;
+}
+
+@keyframes shine {
+  to {transform:translateX(100%)}
+}
+
+.slam-value {
+  font-family:var(--mono);
+  font-size:40px;
+}
+
+
+/* =========================================================
+   MISSING PIECE
+========================================================= */
+
+.missing {
+  padding:175px 0;
+  color:var(--paper);
+  background:var(--green);
+}
+
+.missing-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;
+}
+
+.missing h2 {
+  margin:22px 0;
+  font-size:clamp(65px,9.5vw,145px);
+}
+
+.paris {
+  margin-top:110px;
+
+  font-family:var(--serif);
+  font-size:clamp(34px,4.8vw,68px);
+  line-height:1.15;
+}
+
+.missing-description {
+  margin-top:42px;
+  color:#d4d7cb;
+  font-size:19px;
+  line-height:1.9;
+}
+
+.checks {
+  display:grid;
+  gap:1px;
+  background:#537464;
+}
+
+.check {
+  display:flex;
+  justify-content:space-between;
+
+  padding:25px;
+
+  background:var(--green);
+
+  font-family:var(--mono);
+  font-size:15px;
+}
+
+.tick {
+  color:#d4d7cb;
+}
+
+
+/* =========================================================
+   REIGN — 310 WEEK FIELD
+========================================================= */
+
+.reign {
+  padding:175px 0;
+  background:#fff;
+}
+
+.reign h2 {
+  margin:18px 0 55px;
+  font-size:clamp(70px,10.5vw,155px);
+}
+
+.reign-copy {
+  max-width:680px;
+  color:#55514c;
+  font-size:21px;
+  line-height:1.8;
+}
+
+.week-grid {
+  display:grid;
+  grid-template-columns:repeat(31,1fr);
+  gap:5px;
+
+  margin-top:85px;
+}
+
+.week {
+  position:relative;
+
+  aspect-ratio:1;
+
+  background:#ded8ce;
+
+  cursor:pointer;
+
+  transition:
+    transform .2s ease,
+    background .2s ease;
+}
+
+.week.consecutive {
+  background:var(--ink);
+}
+
+.week:hover {
+  transform:scale(1.8);
+  z-index:3;
+  background:var(--gold);
+}
+
+.week-tooltip {
+  position:fixed;
+  z-index:6000;
+
+  padding:8px 10px;
+
+  color:#fff;
+  background:#111;
+
+  font-family:var(--mono);
+  font-size:10px;
+
+  pointer-events:none;
+
+  opacity:0;
+
+  transform:translateY(5px);
+
+  transition:opacity .15s ease,transform .15s ease;
+}
+
+.week-tooltip.show {
+  opacity:1;
+  transform:none;
+}
+
+.week-note {
+  display:flex;
+  justify-content:space-between;
+
+  margin-top:20px;
+
+  font-family:var(--mono);
+  font-size:13px;
+}
+
+.week-note span:first-child {
+  color:var(--ink);
+}
+
+.week-note span:last-child {
+  color:var(--muted);
+}
+
+.reign-reveal {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:75px;
+  align-items:end;
+
+  margin-top:125px;
+}
+
+.reign-237 {
+  font-family:var(--mono);
+  font-size:clamp(125px,19vw,285px);
+  line-height:.78;
+  letter-spacing:-.08em;
+}
+
+.reign-text {
+  font-family:var(--serif);
+  font-size:clamp(32px,3.8vw,58px);
+  line-height:1.18;
+}
+
+
+/* =========================================================
+   STREAKS
+========================================================= */
+
+.streaks {
+  padding:175px 0;
+  color:var(--paper);
+  background:var(--ink);
+}
+
+.streaks h2 {
+  margin:22px 0 90px;
+  font-size:clamp(55px,7.5vw,115px);
+}
+
+.streak {
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:55px;
+
+  padding:58px 0;
+
+  border-top:1px solid #343434;
+
+  transition:
+    padding-left .4s var(--ease),
+    background .4s ease;
+}
+
+.streak:hover {
+  padding-left:20px;
+}
+
+.streak:last-child {
+  border-bottom:1px solid #343434;
+}
+
+.streak-number {
+  color:#d2b26e;
+
+  font-family:var(--mono);
+  font-size:clamp(70px,8vw,125px);
+  line-height:.8;
+  letter-spacing:-.07em;
+}
+
+.streak-text {
+  max-width:750px;
+
+  font-family:var(--serif);
+  font-size:clamp(30px,3.8vw,52px);
+  line-height:1.18;
+}
+
+
+/* =========================================================
+   COMEBACK
+========================================================= */
+
+.comeback {
+  padding:190px 0;
+  color:#fff8ef;
+  background:var(--clay);
+}
+
+.comeback .year {
+  opacity:.8;
+  font-family:var(--mono);
+  font-size:14px;
+}
+
+.comeback h2 {
+  margin:30px 0;
+  font-size:clamp(80px,13vw,180px);
+}
+
+.comeback-copy {
+  max-width:850px;
+
+  font-family:var(--serif);
+  font-size:clamp(29px,3.8vw,55px);
+  line-height:1.25;
+}
+
+.comeback-sequence {
+  display:grid;
+  gap:80px;
+
+  margin-top:125px;
+}
+
+.comeback-card {
+  padding-top:27px;
+  border-top:1px solid rgba(255,255,255,.35);
+
+  transition:transform .5s var(--ease);
+}
+
+.comeback-card:hover {
+  transform:translateX:15px);
+}
+
+.comeback-small {
+  font-family:var(--mono);
+  font-size:14px;
+}
+
+.comeback-big {
+  margin-top:22px;
+
+  font-family:var(--mono);
+  font-size:clamp(100px,17vw,250px);
+  line-height:.8;
+  letter-spacing:-.08em;
+}
+
+.score {
+  margin-top:28px;
+  font-family:var(--mono);
+  font-size:clamp(20px,2.7vw,34px);
+}
+
+
+/* =========================================================
+   FINAL 20
+========================================================= */
+
+.twenty {
+  padding:175px 0;
+}
+
+.twenty h2 {
+  margin:20px 0;
+  font-size:clamp(105px,17vw,245px);
+}
+
+.final-orbit {
+  position:relative;
+
+  width:min(520px,85vw);
+  height:min(520px,85vw);
+
+  margin:70px auto;
+
+  border:1px solid var(--line);
+  border-radius:50%;
+}
+
+.final-orbit::before {
+  content:"20";
+
+  position:absolute;
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  color:#d0c7b8;
+
+  font-family:var(--mono);
+  font-size:clamp(70px,10vw,120px);
+  letter-spacing:-.08em;
+}
+
+.final-dot {
+  position:absolute;
+
+  width:42px;
+  height:42px;
+
+  border-radius:50%;
+
+  background:var(--ink);
+
+  opacity:0;
+
+  transform:scale(.2);
+
+  transition:
+    opacity .5s ease,
+    transform .5s var(--ease),
+    background .3s ease;
+}
+
+.final-dot:hover {
+  background:var(--gold);
+  transform:scale(1.4)!important;
+  z-index:4;
+}
+
+.twenty.active .final-dot {
+  opacity:1;
+  transform:scale(1);
+}
+
+.twenty-words {
+  max-width:900px;
+
+  font-family:var(--serif);
+  font-size:clamp(36px,4.8vw,70px);
+  line-height:1.2;
+}
+
+
+/* =========================================================
+   HALL OF FAME
+========================================================= */
+
+.hall {
+  padding:175px 0;
+
+  color:var(--paper);
+  background:var(--ink);
+
+  text-align:center;
+}
+
+.hall h2 {
+  margin:35px 0;
+  font-size:clamp(70px,11.5vw,175px);
+}
+
+.hall-year {
+  color:#d1b273;
+
+  font-family:var(--mono);
+  font-size:clamp(40px,4.8vw,72px);
+}
+
+.final-stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  margin-top:120px;
+
+  border-top:1px solid #383838;
+}
+
+.final-stat {
+  padding:38px 20px;
+  border-bottom:1px solid #383838;
+}
+
+.final-stat b {
+  display:block;
+
+  color:#d1b273;
+
+  font-family:var(--mono);
+  font-size:45px;
+  font-weight:400;
+}
+
+.final-stat span {
+  display:block;
+
+  margin-top:12px;
+
+  color:#aaa297;
+
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.7;
+  text-transform:uppercase;
+}
+
+.induction-note {
+  margin-top:85px;
+
+  color:#aaa297;
+
+  font-family:var(--mono);
+  font-size:14px;
+  line-height:1.9;
+}
+
+
+/* =========================================================
+   SOURCES / FOOTER
 ========================================================= */
 
 .sources {
-  padding: 75px 0;
-
-  color: #aaa;
-
-  background: #1a1a1a;
+  padding:75px 0;
+  color:#aaa;
+  background:#1a1a1a;
 }
 
 .sources p {
-  max-width: 980px;
-
-  font-size: 15px;
-  line-height: 1.9;
+  max-width:980px;
+  font-size:15px;
+  line-height:1.9;
 }
 
 .sources a {
-  color: #d1b273;
-
-  text-decoration: none;
+  color:#d1b273;
+  text-decoration:none;
 }
 
-.sources a:hover,
-.sources a:focus-visible {
-  color: white;
-  text-decoration: underline;
+.sources a:hover {
+  color:white;
+  text-decoration:underline;
 }
-
-
-/* =========================================================
-   FOOTER
-========================================================= */
 
 .creator-footer {
-  padding: 30px 0;
+  padding:30px 0;
 
-  color: #ddd6ca;
+  color:#ddd6ca;
+  background:#111;
 
-  background: #111;
+  border-top:1px solid #383838;
 
-  border-top: 1px solid #383838;
-
-  font-family: var(--mono);
-  font-size: 13px;
-  line-height: 1.8;
+  font-family:var(--mono);
+  font-size:13px;
 }
 
 .creator-footer .wrap {
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
 }
 
 .creator-footer span:last-child {
-  color: #99938a;
-  text-align: right;
+  color:#99938a;
+  text-align:right;
 }
 
 
@@ -1554,49 +1530,39 @@ p {
    MOBILE
 ========================================================= */
 
-@media (max-width: 700px) {
+@media(max-width:700px) {
 
   .wrap {
-    width: min(91vw, 600px);
+    width:min(91vw,600px);
   }
 
-  .kicker {
-    font-size: 11px;
+  .chapter-nav {
+    display:none;
   }
 
   .hero .wrap {
-    padding: 75px 0 60px;
+    padding:75px 0 60px;
   }
 
   .hero h1 {
-    margin: 25px 0 35px;
-
-    font-size: clamp(65px, 18vw, 105px);
+    font-size:clamp(65px,18vw,105px);
   }
 
   .hero-question {
-    font-size: 26px;
+    font-size:26px;
   }
 
   .hero-metrics {
-    margin-top: 70px;
-    gap: 12px;
-  }
-
-  .hero-metric {
-    padding-right: 5px;
+    margin-top:70px;
+    gap:12px;
   }
 
   .hero-metric b {
-    font-size: 29px;
+    font-size:29px;
   }
 
   .hero-metric span {
-    font-size: 10px;
-  }
-
-  .scroll {
-    margin-top: 65px;
+    font-size:9px;
   }
 
   .intro,
@@ -1607,367 +1573,258 @@ p {
   .streaks,
   .twenty,
   .hall {
-    padding: 115px 0;
+    padding:115px 0;
   }
 
   .intro-grid,
   .missing-grid,
   .reign-reveal {
-    grid-template-columns: 1fr;
-    gap: 55px;
+    grid-template-columns:1fr;
+    gap:55px;
   }
 
   .intro h2 {
-    font-size: 67px;
+    font-size:67px;
   }
 
   .intro-copy p {
-    font-size: 18px;
+    font-size:18px;
   }
 
   .intro-copy .big-line {
-    margin-top: 50px;
-    font-size: 32px;
+    font-size:32px;
   }
 
-  .section-heading {
-    margin-bottom: 60px;
-  }
-
-  .section-heading h2 {
-    font-size: 55px;
-  }
-
-  .timeline::before {
-    display: none;
+  .timeline-line,
+  .timeline-progress {
+    display:none;
   }
 
   .timeline-items {
-    grid-template-columns: 1fr;
+    grid-template-columns:1fr;
   }
 
-  .timeline-item {
-    min-height: auto;
-
-    padding: 28px 0 28px 32px;
-
-    border-left: 1px solid var(--line);
-  }
-
-  .timeline-item::before {
-    top: 31px;
-    left: -8px;
-
-    width: 14px;
-    height: 14px;
-  }
-
+  .timeline-item,
   .timeline-item:nth-child(even) {
-    justify-content: center;
+    min-height:auto;
+
+    justify-content:center;
+
+    padding:28px 0 28px 32px;
+
+    border-left:1px solid var(--line);
+  }
+
+  .timeline-dot {
+    top:31px;
+    left:-8px;
+  }
+
+  .timeline-event,
+  .timeline-extra {
+    padding-left:0;
   }
 
   .timeline-year {
-    font-size: 30px;
+    font-size:30px;
   }
 
   .timeline-event {
-    max-width: none;
-
-    padding-left: 0;
-
-    font-size: 17px;
+    font-size:17px;
   }
 
   .rise-sentence {
-    margin-top: 70px;
-
-    font-size: 34px;
-  }
-
-
-  /* -------------------------------------------------------
-     POETRY — MOBILE
-  ------------------------------------------------------- */
-
-  .poem-inner {
-    width: min(88vw, 600px);
+    margin-top:70px;
+    font-size:34px;
   }
 
   .poem-four,
   .poem-three,
   .poem-two,
   .poem-one {
-    padding: 125px 0 145px;
+    padding:125px 0 145px;
   }
 
   .poem-label {
-    margin-bottom: 45px;
+    margin-bottom:45px;
   }
 
   .poem-title {
-    margin-bottom: 55px;
-
-    font-size: 48px;
+    margin-bottom:55px;
+    font-size:48px;
   }
 
   .poem-byline {
-    margin-top: -40px;
-    margin-bottom: 48px;
-
-    font-size: 10px;
+    margin-top:-40px;
+    margin-bottom:48px;
   }
 
-  .poem-body p,
-  .poem-three .poem-body p,
-  .poem-two .poem-body p,
-  .poem-one .poem-body p {
-    font-size: 20px;
-    line-height: 1.72;
-
-    margin-bottom: 38px;
+  .poem-body p {
+    font-size:20px;
+    line-height:1.72;
+    margin-bottom:38px;
   }
 
-  .poem-body .poem-emphasis {
-    font-size: 28px;
-
-    padding-left: 20px;
-
-    margin-top: 55px;
-    margin-bottom: 55px;
+  .poem-emphasis {
+    font-size:28px!important;
+    padding-left:20px;
   }
 
-  .poem-body .poem-final {
-    margin-top: 55px;
-    padding-top: 32px;
-
-    font-size: 27px;
+  .poem-final {
+    font-size:27px!important;
   }
-
-  /*
-     Disable strong hover transformations on touch
-     devices. The scroll reveal remains.
-  */
-
-  .poem-word:hover {
-    color: inherit;
-
-    transform:
-      translate3d(0,0,0)
-      scale(1);
-
-    text-shadow: none;
-  }
-
-  .poem-body:has(.poem-word:hover) .poem-word {
-    opacity: 1;
-  }
-
 
   .majors-head {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns:1fr;
+    gap:30px;
   }
 
   .majors h2 {
-    font-size: 105px;
+    font-size:105px;
   }
 
   .majors-head p {
-    font-size: 25px;
+    font-size:25px;
   }
 
   .major-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 9px;
+    grid-template-columns:repeat(5,1fr);
+    gap:9px;
   }
 
   .major span {
-    font-size: 12px;
-  }
-
-  .major-info {
-    min-height: 115px;
-
-    font-size: 15px;
+    font-size:12px;
   }
 
   .slam-row {
-    grid-template-columns: 115px 1fr 42px;
-
-    gap: 10px;
-
-    margin: 27px 0;
+    grid-template-columns:115px 1fr 42px;
+    gap:10px;
   }
 
   .slam-name {
-    font-size: 10px;
+    font-size:9px;
   }
 
   .slam-track {
-    height: 30px;
+    height:30px;
   }
 
   .slam-value {
-    font-size: 27px;
+    font-size:27px;
   }
 
-  .missing h2 {
-    font-size: 64px;
+  .missing h2,
+  .reign h2 {
+    font-size:64px;
   }
 
   .paris {
-    margin-top: 70px;
-
-    font-size: 38px;
-  }
-
-  .check {
-    padding: 20px 15px;
-
-    font-size: 12px;
-  }
-
-  .missing-description {
-    font-size: 17px;
-  }
-
-  .reign h2 {
-    font-size: 64px;
-  }
-
-  .reign-copy {
-    font-size: 18px;
+    margin-top:70px;
+    font-size:38px;
   }
 
   .week-grid {
-    grid-template-columns: repeat(20, 1fr);
-
-    gap: 3px;
-
-    margin-top: 55px;
+    grid-template-columns:repeat(20,1fr);
+    gap:3px;
+    margin-top:55px;
   }
 
   .week-note {
-    font-size: 10px;
+    font-size:10px;
   }
 
   .reign-237 {
-    font-size: 135px;
+    font-size:135px;
   }
 
   .reign-text {
-    font-size: 32px;
+    font-size:32px;
   }
 
   .streaks h2 {
-    font-size: 58px;
+    font-size:58px;
   }
 
   .streak {
-    grid-template-columns: 1fr;
-
-    gap: 22px;
-
-    padding: 45px 0;
+    grid-template-columns:1fr;
+    gap:22px;
+    padding:45px 0;
   }
 
   .streak-number {
-    font-size: 82px;
+    font-size:82px;
   }
 
   .streak-text {
-    font-size: 31px;
+    font-size:31px;
   }
 
   .comeback {
-    padding: 130px 0;
+    padding:130px 0;
   }
 
   .comeback h2 {
-    font-size: 75px;
+    font-size:75px;
   }
 
   .comeback-copy {
-    font-size: 29px;
-  }
-
-  .comeback-sequence {
-    gap: 65px;
-    margin-top: 90px;
+    font-size:29px;
   }
 
   .comeback-big {
-    font-size: 125px;
+    font-size:125px;
   }
 
-  .comeback-small {
-    font-size: 11px;
-  }
-
-  .score {
-    font-size: 18px;
-  }
-
-  .twenty h2 {
-    font-size: 130px;
-  }
-
-  .final-dot-row {
-    gap: 10px;
-    margin: 60px 0;
+  .final-orbit {
+    width:320px;
+    height:320px;
   }
 
   .final-dot {
-    width: 34px;
-    height: 34px;
+    width:27px;
+    height:27px;
+  }
+
+  .twenty h2 {
+    font-size:130px;
   }
 
   .twenty-words {
-    font-size: 34px;
+    font-size:34px;
   }
 
   .hall h2 {
-    font-size: 72px;
+    font-size:72px;
   }
 
   .final-stats {
-    grid-template-columns: repeat(2, 1fr);
-
-    margin-top: 75px;
+    grid-template-columns:repeat(2,1fr);
+    margin-top:75px;
   }
 
   .final-stat {
-    padding: 27px 10px;
+    padding:27px 10px;
   }
 
   .final-stat b {
-    font-size: 31px;
+    font-size:31px;
   }
 
   .final-stat span {
-    font-size: 9px;
-  }
-
-  .induction-note {
-    font-size: 10px;
-  }
-
-  .sources p {
-    font-size: 13px;
+    font-size:9px;
   }
 
   .creator-footer .wrap {
-    display: block;
+    display:block;
   }
 
   .creator-footer span {
-    display: block;
+    display:block;
   }
 
   .creator-footer span:last-child {
-    margin-top: 8px;
-
-    text-align: left;
+    margin-top:8px;
+    text-align:left;
   }
 }
 
@@ -1976,48 +1833,97 @@ p {
    REDUCED MOTION
 ========================================================= */
 
-@media (prefers-reduced-motion: reduce) {
+@media(prefers-reduced-motion:reduce) {
 
   html {
-    scroll-behavior: auto;
+    scroll-behavior:auto;
   }
 
   *,
   *::before,
   *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
   }
 
   .reveal {
-    opacity: 1;
-    transform: none;
+    opacity:1;
+    transform:none;
   }
 
-  .poem-body p,
-  .poem-body .poem-emphasis,
-  .poem-body .poem-final,
-  .poem-word {
-    opacity: 1;
-    transform: none;
-    filter: none;
+  .poem-body p {
+    opacity:1;
+    transform:none;
+    filter:none;
   }
 }
 
 </style>
 </head>
 
+
 <body>
 
-<div id="progress" aria-hidden="true"></div>
+<div id="progress"></div>
+
+<div class="week-tooltip" id="weekTooltip"></div>
+
+
+<!-- =======================================================
+     CHAPTER NAV
+======================================================= -->
+
+<nav class="chapter-nav" aria-label="Story chapters">
+
+  <button class="chapter-dot active"
+          data-target="hero"
+          data-label="Beginning"></button>
+
+  <button class="chapter-dot"
+          data-target="rise"
+          data-label="The rise"></button>
+
+  <button class="chapter-dot"
+          data-target="majors"
+          data-label="20 majors"></button>
+
+  <button class="chapter-dot"
+          data-target="distribution"
+          data-label="Distribution"></button>
+
+  <button class="chapter-dot"
+          data-target="missing"
+          data-label="Career Grand Slam"></button>
+
+  <button class="chapter-dot"
+          data-target="reign"
+          data-label="310 weeks"></button>
+
+  <button class="chapter-dot"
+          data-target="streaks"
+          data-label="Streaks"></button>
+
+  <button class="chapter-dot"
+          data-target="comeback"
+          data-label="Comeback"></button>
+
+  <button class="chapter-dot"
+          data-target="twenty"
+          data-label="20"></button>
+
+  <button class="chapter-dot"
+          data-target="hall"
+          data-label="Hall of Fame"></button>
+
+</nav>
 
 
 <!-- =======================================================
      HERO
 ======================================================= -->
 
-<section class="hero reveal">
+<section class="hero reveal" id="hero">
 
   <div class="wrap">
 
@@ -2037,17 +1943,17 @@ p {
     <div class="hero-metrics">
 
       <div class="hero-metric">
-        <b>20</b>
+        <b class="counter" data-target="20">0</b>
         <span>Grand Slam singles titles</span>
       </div>
 
       <div class="hero-metric">
-        <b>103</b>
+        <b class="counter" data-target="103">0</b>
         <span>ATP Tour-level singles titles</span>
       </div>
 
       <div class="hero-metric">
-        <b>310</b>
+        <b class="counter" data-target="310">0</b>
         <span>Weeks ranked World No. 1</span>
       </div>
 
@@ -2109,7 +2015,7 @@ p {
      RISE
 ======================================================= -->
 
-<section class="rise reveal">
+<section class="rise reveal" id="rise">
 
   <div class="wrap">
 
@@ -2127,9 +2033,14 @@ p {
 
     <div class="timeline">
 
+      <div class="timeline-line"></div>
+      <div class="timeline-progress"></div>
+
       <div class="timeline-items">
 
-        <div class="timeline-item">
+        <div class="timeline-item active">
+
+          <div class="timeline-dot"></div>
 
           <div class="timeline-year">
             1998
@@ -2139,10 +2050,16 @@ p {
             Turns professional.
           </div>
 
+          <div class="timeline-extra">
+            The beginning of a career that would redefine modern men's tennis.
+          </div>
+
         </div>
 
 
         <div class="timeline-item">
+
+          <div class="timeline-dot"></div>
 
           <div class="timeline-year">
             2001
@@ -2152,10 +2069,16 @@ p {
             Wins his first ATP Tour title in Milan.
           </div>
 
+          <div class="timeline-extra">
+            His first tour-level singles title arrives at 19.
+          </div>
+
         </div>
 
 
         <div class="timeline-item">
+
+          <div class="timeline-dot"></div>
 
           <div class="timeline-year">
             2003
@@ -2165,10 +2088,16 @@ p {
             Wins Wimbledon — his first Grand Slam singles title.
           </div>
 
+          <div class="timeline-extra">
+            Federer becomes a Grand Slam champion on Centre Court.
+          </div>
+
         </div>
 
 
         <div class="timeline-item">
+
+          <div class="timeline-dot"></div>
 
           <div class="timeline-year">
             2004
@@ -2176,6 +2105,10 @@ p {
 
           <div class="timeline-event">
             Reaches World No. 1 for the first time.
+          </div>
+
+          <div class="timeline-extra">
+            The rise becomes a reign.
           </div>
 
         </div>
@@ -2196,7 +2129,7 @@ p {
 
 
 <!-- =======================================================
-     POEM — FIRST MEMORY
+     POEM 1
 ======================================================= -->
 
 <section class="poem-section poem-four reveal">
@@ -2215,8 +2148,6 @@ p {
     <div class="poem-byline">
       Words by Annapurani Vaidyanathan
     </div>
-
-    <div class="poem-reading-line"></div>
 
     <div class="poem-body">
 
@@ -2297,7 +2228,7 @@ p {
      MAJORS
 ======================================================= -->
 
-<section class="majors reveal">
+<section class="majors reveal" id="majors">
 
   <div class="wrap">
 
@@ -2318,7 +2249,7 @@ p {
       <p>
         Twenty Grand Slam singles titles.
         One circle for every championship.
-        Tap a number to follow the journey.
+        <strong>Click, hover and follow the career.</strong>
       </p>
 
     </div>
@@ -2336,6 +2267,10 @@ p {
       aria-live="polite">
     </div>
 
+    <div class="major-counter" id="majorCounter">
+      TITLE 01 / 20
+    </div>
+
   </div>
 
 </section>
@@ -2345,7 +2280,7 @@ p {
      DISTRIBUTION
 ======================================================= -->
 
-<section class="distribution reveal">
+<section class="distribution reveal" id="distribution">
 
   <div class="wrap">
 
@@ -2370,7 +2305,7 @@ p {
      CAREER GRAND SLAM
 ======================================================= -->
 
-<section class="missing reveal">
+<section class="missing reveal" id="missing">
 
   <div class="wrap">
 
@@ -2443,10 +2378,10 @@ p {
 
 
 <!-- =======================================================
-     WORLD NO. 1
+     REIGN
 ======================================================= -->
 
-<section class="reign reveal">
+<section class="reign reveal" id="reign">
 
   <div class="wrap">
 
@@ -2464,6 +2399,8 @@ p {
       ranked World No. 1.
       The first 237 form the longest consecutive No. 1 streak
       in ATP Rankings history.
+      <br><br>
+      <strong>Hover over the weeks.</strong>
     </p>
 
     <div
@@ -2499,7 +2436,7 @@ p {
      STREAKS
 ======================================================= -->
 
-<section class="streaks reveal">
+<section class="streaks reveal" id="streaks">
 
   <div class="wrap">
 
@@ -2514,8 +2451,8 @@ p {
 
     <div class="streak">
 
-      <div class="streak-number">
-        65
+      <div class="streak-number counter" data-target="65">
+        0
       </div>
 
       <div class="streak-text">
@@ -2526,8 +2463,8 @@ p {
 
     <div class="streak">
 
-      <div class="streak-number">
-        36
+      <div class="streak-number counter" data-target="36">
+        0
       </div>
 
       <div class="streak-text">
@@ -2538,8 +2475,8 @@ p {
 
     <div class="streak">
 
-      <div class="streak-number">
-        23
+      <div class="streak-number counter" data-target="23">
+        0
       </div>
 
       <div class="streak-text">
@@ -2550,8 +2487,8 @@ p {
 
     <div class="streak">
 
-      <div class="streak-number">
-        17
+      <div class="streak-number counter" data-target="17">
+        0
       </div>
 
       <div class="streak-text">
@@ -2566,7 +2503,7 @@ p {
 
 
 <!-- =======================================================
-     POEM — NUMBERS
+     POEM 2
 ======================================================= -->
 
 <section class="poem-section poem-three reveal">
@@ -2585,8 +2522,6 @@ p {
     <div class="poem-byline">
       Words by Annapurani Vaidyanathan
     </div>
-
-    <div class="poem-reading-line"></div>
 
     <div class="poem-body">
 
@@ -2617,7 +2552,7 @@ p {
       </p>
 
       <p>
-       You made the game human; you suffused your every minute
+        You made the game human; you suffused your every minute
         on the court with passion,
         heck, with you in them, even press conferences seemed fun.
       </p>
@@ -2638,7 +2573,7 @@ p {
      COMEBACK
 ======================================================= -->
 
-<section class="comeback reveal">
+<section class="comeback reveal" id="comeback">
 
   <div class="wrap">
 
@@ -2665,13 +2600,11 @@ p {
           JANUARY 2017 · AUSTRALIAN OPEN
         </div>
 
-        <div class="comeback-big">
-          35
+        <div class="comeback-big counter" data-target="35">
+          0
         </div>
 
-        <div
-          class="comeback-copy"
-          style="margin-top:20px">
+        <div class="comeback-copy" style="margin-top:20px">
           years old.
         </div>
 
@@ -2705,16 +2638,12 @@ p {
           THE RESULT
         </div>
 
-        <div class="comeback-big">
-          18
+        <div class="comeback-big counter" data-target="18">
+          0
         </div>
 
-        <div
-          class="comeback-copy"
-          style="margin-top:20px">
-
+        <div class="comeback-copy" style="margin-top:20px">
           Grand Slam singles titles.
-
         </div>
 
       </div>
@@ -2727,7 +2656,7 @@ p {
 
 
 <!-- =======================================================
-     POEM — WHY WE WATCHED
+     POEM 3
 ======================================================= -->
 
 <section class="poem-section poem-two reveal">
@@ -2746,8 +2675,6 @@ p {
     <div class="poem-byline">
       Words by Annapurani Vaidyanathan
     </div>
-
-    <div class="poem-reading-line"></div>
 
     <div class="poem-body">
 
@@ -2802,10 +2729,10 @@ p {
 
 
 <!-- =======================================================
-     FINAL TWO
+     FINAL 20
 ======================================================= -->
 
-<section class="twenty reveal">
+<section class="twenty reveal" id="twenty">
 
   <div class="wrap">
 
@@ -2817,11 +2744,7 @@ p {
       20.
     </h2>
 
-    <div
-      class="final-dot-row"
-      id="finalDots"
-      aria-label="20 Grand Slam singles titles">
-    </div>
+    <div class="final-orbit" id="finalOrbit"></div>
 
     <div class="twenty-words">
       Wimbledon, 2017.<br>
@@ -2839,7 +2762,7 @@ p {
      HALL OF FAME
 ======================================================= -->
 
-<section class="hall reveal">
+<section class="hall reveal" id="hall">
 
   <div class="wrap">
 
@@ -2859,32 +2782,32 @@ p {
     <div class="final-stats">
 
       <div class="final-stat">
-        <b>20</b>
+        <b class="counter" data-target="20">0</b>
         <span>Grand Slam singles titles</span>
       </div>
 
       <div class="final-stat">
-        <b>103</b>
+        <b class="counter" data-target="103">0</b>
         <span>ATP Tour-level singles titles</span>
       </div>
 
       <div class="final-stat">
-        <b>1,251</b>
+        <b class="counter" data-target="1251">0</b>
         <span>ATP Tour-level singles match wins</span>
       </div>
 
       <div class="final-stat">
-        <b>310</b>
+        <b class="counter" data-target="310">0</b>
         <span>Weeks ranked World No. 1</span>
       </div>
 
       <div class="final-stat">
-        <b>28</b>
+        <b class="counter" data-target="28">0</b>
         <span>ATP Masters 1000 titles</span>
       </div>
 
       <div class="final-stat">
-        <b>6</b>
+        <b class="counter" data-target="6">0</b>
         <span>ATP Finals titles</span>
       </div>
 
@@ -2920,8 +2843,6 @@ p {
     <div class="poem-byline">
       Words by Annapurani Vaidyanathan
     </div>
-
-    <div class="poem-reading-line"></div>
 
     <div class="poem-body">
 
@@ -2963,56 +2884,40 @@ p {
 
   <div class="wrap">
 
-    <div
-      class="kicker"
-      style="color:#999">
-
+    <div class="kicker" style="color:#999">
       Sources
-
     </div>
 
     <p>
 
-      <a
-        href="https://www.atptour.com/en/players/federer-roger/f324/bio"
-        target="_blank"
-        rel="noopener noreferrer">
-
+      <a href="https://www.atptour.com/en/players/federer-roger/f324/bio"
+         target="_blank"
+         rel="noopener noreferrer">
         ATP Tour
-
       </a>
 
       ·
 
-      <a
-        href="https://www.tennisfame.com/"
-        target="_blank"
-        rel="noopener noreferrer">
-
+      <a href="https://www.tennisfame.com/"
+         target="_blank"
+         rel="noopener noreferrer">
         International Tennis Hall of Fame
-
       </a>
 
       ·
 
-      <a
-        href="https://www.itftennis.com/en/news-and-media/articles/roger-federer-by-the-numbers/"
-        target="_blank"
-        rel="noopener noreferrer">
-
+      <a href="https://www.itftennis.com/en/news-and-media/articles/roger-federer-by-the-numbers/"
+         target="_blank"
+         rel="noopener noreferrer">
         International Tennis Federation
-
       </a>
 
       ·
 
-      <a
-        href="https://www.usopen.org/en_US/news/articles/2022-09-16/by_the_numbers_roger_federers_gamechanging_career.html"
-        target="_blank"
-        rel="noopener noreferrer">
-
+      <a href="https://www.usopen.org/en_US/news/articles/2022-09-16/by_the_numbers_roger_federers_gamechanging_career.html"
+         target="_blank"
+         rel="noopener noreferrer">
         US Open
-
       </a>
 
     </p>
@@ -3057,129 +2962,338 @@ p {
 <script>
 
 /* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+const reducedMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+/* =========================================================
    SCROLL REVEAL
 ========================================================= */
 
 const revealElements =
   document.querySelectorAll(".reveal");
 
-if ("IntersectionObserver" in window) {
+const revealObserver =
+  new IntersectionObserver(
+    entries => {
 
-  const revealObserver =
-    new IntersectionObserver(
-      entries => {
+      entries.forEach(entry => {
 
-        entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
 
-          if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
 
-            entry.target.classList.add("visible");
+        animateCounters(entry.target);
 
-            revealObserver.unobserve(entry.target);
+        revealObserver.unobserve(entry.target);
 
-          }
+      });
 
-        });
+    },
+    {
+      threshold:.12
+    }
+  );
 
-      },
-      {
-        threshold: .12
+revealElements.forEach(
+  element => revealObserver.observe(element)
+);
+
+
+/* =========================================================
+   ANIMATED COUNTERS
+========================================================= */
+
+const animatedCounters =
+  new WeakSet();
+
+function animateCounters(container) {
+
+  const counters =
+    container.querySelectorAll(".counter");
+
+  counters.forEach(counter => {
+
+    if (animatedCounters.has(counter)) return;
+
+    animatedCounters.add(counter);
+
+    const target =
+      Number(counter.dataset.target);
+
+    if (reducedMotion) {
+      counter.textContent =
+        target.toLocaleString();
+      return;
+    }
+
+    const duration = 1200;
+    const start = performance.now();
+
+    function tick(now) {
+
+      const progress =
+        Math.min(
+          (now - start) / duration,
+          1
+        );
+
+      const eased =
+        1 - Math.pow(1 - progress, 3);
+
+      counter.textContent =
+        Math.round(
+          target * eased
+        ).toLocaleString();
+
+      if (progress < 1) {
+        requestAnimationFrame(tick);
       }
-    );
 
-  revealElements.forEach(section => {
-    revealObserver.observe(section);
-  });
+    }
 
-} else {
+    requestAnimationFrame(tick);
 
-  revealElements.forEach(section => {
-    section.classList.add("visible");
   });
 
 }
 
 
 /* =========================================================
-   POETRY INTERACTION
+   HERO MOUSE FIELD
 ========================================================= */
 
-/*
-   This section does NOT add or change any words.
+const hero =
+  document.querySelector(".hero");
 
-   It takes the words already written in the poem and turns
-   them into individual visual objects.
+hero.addEventListener(
+  "pointermove",
+  event => {
 
-   The result:
-   - words enter sequentially;
-   - paragraphs reveal as you read;
-   - hovering a word creates a small moment of emphasis;
-   - surrounding words recede;
-   - the poem reacts to the reader's cursor;
-   - mobile uses the same scroll-based experience.
-*/
+    if (
+      reducedMotion ||
+      window.matchMedia("(pointer:coarse)").matches
+    ) return;
+
+    const rect =
+      hero.getBoundingClientRect();
+
+    const x =
+      ((event.clientX - rect.left) /
+      rect.width) * 100;
+
+    const y =
+      ((event.clientY - rect.top) /
+      rect.height) * 100;
+
+    hero.style.setProperty(
+      "--hero-x",
+      `${x}%`
+    );
+
+    hero.style.setProperty(
+      "--hero-y",
+      `${y}%`
+    );
+
+  },
+  {passive:true}
+);
 
 
-const poemSections =
-  document.querySelectorAll(".poem-section");
+/* =========================================================
+   SCROLL PROGRESS
+========================================================= */
+
+function updateProgress() {
+
+  const max =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const progress =
+    max > 0
+      ? window.scrollY / max
+      : 0;
+
+  document
+    .getElementById("progress")
+    .style.width =
+      `${progress * 100}%`;
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateProgress,
+  {passive:true}
+);
+
+updateProgress();
 
 
-/* ---------------------------------------------------------
-   TURN EXISTING TEXT INTO WORDS
---------------------------------------------------------- */
+/* =========================================================
+   CHAPTER NAVIGATION
+========================================================= */
+
+const chapterDots =
+  document.querySelectorAll(".chapter-dot");
+
+chapterDots.forEach(dot => {
+
+  dot.addEventListener(
+    "click",
+    () => {
+
+      const target =
+        document.getElementById(
+          dot.dataset.target
+        );
+
+      if (!target) return;
+
+      target.scrollIntoView({
+        behavior:
+          reducedMotion
+            ? "auto"
+            : "smooth"
+      });
+
+    }
+  );
+
+});
+
+
+const chapterSections =
+  Array.from(chapterDots)
+    .map(dot =>
+      document.getElementById(
+        dot.dataset.target
+      )
+    )
+    .filter(Boolean);
+
+
+const chapterObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(entry => {
+
+        if (!entry.isIntersecting) return;
+
+        chapterDots.forEach(dot =>
+          dot.classList.toggle(
+            "active",
+            dot.dataset.target === entry.target.id
+          )
+        );
+
+      });
+
+    },
+    {
+      threshold:.4
+    }
+  );
+
+
+chapterSections.forEach(
+  section =>
+    chapterObserver.observe(section)
+);
+
+
+/* =========================================================
+   TIMELINE
+========================================================= */
+
+const timelineItems =
+  document.querySelectorAll(
+    ".timeline-item"
+  );
+
+const timelineProgress =
+  document.querySelector(
+    ".timeline-progress"
+  );
+
+timelineItems.forEach(
+  (item,index) => {
+
+    item.addEventListener(
+      "click",
+      () => {
+
+        timelineItems.forEach(
+          other =>
+            other.classList.remove("active")
+        );
+
+        item.classList.add("active");
+
+        const percentage =
+          index /
+          (timelineItems.length - 1) *
+          100;
+
+        if (timelineProgress) {
+
+          timelineProgress.style.width =
+            `${percentage}%`;
+
+        }
+
+      }
+    );
+
+  }
+);
+
+
+/* =========================================================
+   POEM WORD INTERACTION
+========================================================= */
 
 function wrapWords(element) {
-
-  /*
-     Walk through text nodes rather than using innerHTML,
-     so the actual poem text remains unchanged.
-  */
 
   const walker =
     document.createTreeWalker(
       element,
-      NodeFilter.SHOW_TEXT,
-      {
-        acceptNode(node) {
-
-          if (
-            !node.nodeValue.trim() ||
-            node.parentElement.closest(".poem-word")
-          ) {
-            return NodeFilter.FILTER_REJECT;
-          }
-
-          return NodeFilter.FILTER_ACCEPT;
-        }
-      }
+      NodeFilter.SHOW_TEXT
     );
 
-  const textNodes = [];
+  const nodes = [];
 
   while (walker.nextNode()) {
-    textNodes.push(walker.currentNode);
+
+    const node =
+      walker.currentNode;
+
+    if (
+      node.nodeValue.trim() &&
+      !node.parentElement.closest(".poem-word")
+    ) {
+      nodes.push(node);
+    }
+
   }
 
-
-  textNodes.forEach(textNode => {
-
-    const text =
-      textNode.nodeValue;
-
-    /*
-       Preserve whitespace exactly enough for natural
-       browser line wrapping.
-    */
+  nodes.forEach(node => {
 
     const parts =
-      text.split(/(\s+)/);
+      node.nodeValue.split(/(\s+)/);
 
     const fragment =
       document.createDocumentFragment();
 
-    let wordIndex = 0;
-
     parts.forEach(part => {
+
+      if (!part) return;
 
       if (/^\s+$/.test(part)) {
 
@@ -3191,10 +3305,6 @@ function wrapWords(element) {
 
       }
 
-      if (!part) {
-        return;
-      }
-
       const span =
         document.createElement("span");
 
@@ -3204,21 +3314,13 @@ function wrapWords(element) {
       span.textContent =
         part;
 
-      span.style
-        .setProperty(
-          "--word-index",
-          wordIndex
-        );
-
-      wordIndex++;
-
       fragment.appendChild(span);
 
     });
 
-    textNode.parentNode.replaceChild(
+    node.parentNode.replaceChild(
       fragment,
-      textNode
+      node
     );
 
   });
@@ -3226,21 +3328,12 @@ function wrapWords(element) {
 }
 
 
-/*
-   Only the actual poem body is transformed.
-   Labels, titles and bylines are untouched.
-*/
-
 document
   .querySelectorAll(".poem-body")
-  .forEach(poemBody => {
-    wrapWords(poemBody);
-  });
+  .forEach(
+    body => wrapWords(body)
+  );
 
-
-/* ---------------------------------------------------------
-   PARAGRAPH REVEAL
---------------------------------------------------------- */
 
 const poemParagraphs =
   document.querySelectorAll(
@@ -3248,309 +3341,127 @@ const poemParagraphs =
   );
 
 
-const paragraphObserver =
+const poemParagraphObserver =
   new IntersectionObserver(
     entries => {
 
       entries.forEach(entry => {
 
-        if (!entry.isIntersecting) {
-          return;
-        }
+        if (!entry.isIntersecting) return;
 
-        const paragraph =
-          entry.target;
-
-        paragraph.classList.add(
+        entry.target.classList.add(
           "poem-visible"
         );
 
-        paragraphObserver.unobserve(
-          paragraph
+        poemParagraphObserver.unobserve(
+          entry.target
         );
 
       });
 
     },
     {
-      threshold: .20,
-      rootMargin: "0px 0px -8% 0px"
+      threshold:.18,
+      rootMargin:"0px 0px -8% 0px"
     }
   );
 
 
-poemParagraphs.forEach(paragraph => {
-
-  paragraphObserver.observe(
-    paragraph
-  );
-
-});
+poemParagraphs.forEach(
+  paragraph =>
+    poemParagraphObserver.observe(paragraph)
+);
 
 
-/* ---------------------------------------------------------
-   POEM SECTION ACTIVE STATE
---------------------------------------------------------- */
+/* Word hover state */
 
-const poemSectionObserver =
-  new IntersectionObserver(
-    entries => {
+document
+  .querySelectorAll(".poem-body")
+  .forEach(body => {
 
-      entries.forEach(entry => {
+    const words =
+      body.querySelectorAll(
+        ".poem-word"
+      );
 
-        if (entry.isIntersecting) {
+    words.forEach(word => {
 
-          entry.target.classList.add(
-            "poem-active"
-          );
+      word.addEventListener(
+        "pointerenter",
+        () => {
 
-        } else {
+          if (
+            window.matchMedia(
+              "(pointer:coarse)"
+            ).matches
+          ) return;
 
-          entry.target.classList.remove(
-            "poem-active"
+          body.classList.add(
+            "word-hovering"
           );
 
         }
-
-      });
-
-    },
-    {
-      threshold: .35
-    }
-  );
-
-
-poemSections.forEach(section => {
-
-  poemSectionObserver.observe(
-    section
-  );
-
-});
-
-
-/* ---------------------------------------------------------
-   CURSOR / LIGHT FIELD
---------------------------------------------------------- */
-
-poemSections.forEach(section => {
-
-  section.addEventListener(
-    "pointermove",
-    event => {
-
-      /*
-         Ignore coarse pointer devices such as most phones.
-      */
-
-      if (
-        window.matchMedia(
-          "(pointer: coarse)"
-        ).matches
-      ) {
-        return;
-      }
-
-      const rect =
-        section.getBoundingClientRect();
-
-      const x =
-        ((event.clientX - rect.left) /
-        rect.width) * 100;
-
-      const y =
-        ((event.clientY - rect.top) /
-        rect.height) * 100;
-
-      section.style.setProperty(
-        "--mouse-x",
-        `${x}%`
       );
 
-      section.style.setProperty(
-        "--mouse-y",
-        `${y}%`
+      word.addEventListener(
+        "pointerleave",
+        () => {
+
+          body.classList.remove(
+            "word-hovering"
+          );
+
+        }
       );
 
-    },
-    {
-      passive: true
-    }
-  );
-
-});
-
-
-/* ---------------------------------------------------------
-   READING LINE
---------------------------------------------------------- */
-
-function updatePoemReadingLine() {
-
-  poemSections.forEach(section => {
-
-    const line =
-      section.querySelector(
-        ".poem-reading-line"
-      );
-
-    if (!line) {
-      return;
-    }
-
-    const rect =
-      section.getBoundingClientRect();
-
-    const viewportHeight =
-      window.innerHeight;
-
-    /*
-       Position the line around the middle third of
-       the viewport relative to the poem.
-    */
-
-    const target =
-      viewportHeight * .48;
-
-    const local =
-      target - rect.top;
-
-    if (
-      local >= 0 &&
-      local <= rect.height
-    ) {
-
-      line.style.top =
-        `${local}px`;
-
-    }
+    });
 
   });
 
-}
 
+/* Poem cursor atmosphere */
 
-window.addEventListener(
-  "scroll",
-  updatePoemReadingLine,
-  {
-    passive: true
-  }
-);
+document
+  .querySelectorAll(".poem-section")
+  .forEach(section => {
 
-window.addEventListener(
-  "resize",
-  updatePoemReadingLine
-);
+    section.addEventListener(
+      "pointermove",
+      event => {
 
-updatePoemReadingLine();
+        if (
+          reducedMotion ||
+          window.matchMedia(
+            "(pointer:coarse)"
+          ).matches
+        ) return;
 
+        const rect =
+          section.getBoundingClientRect();
 
-/* ---------------------------------------------------------
-   WORD PROXIMITY EFFECT
---------------------------------------------------------- */
+        const x =
+          ((event.clientX - rect.left) /
+          rect.width) * 100;
 
-/*
-   When the reader moves over a word, nearby words get a
-   very subtle vertical movement.
+        const y =
+          ((event.clientY - rect.top) /
+          rect.height) * 100;
 
-   This creates the sensation that the poem is "breathing"
-   around the word being read.
-*/
-
-const interactiveWords =
-  document.querySelectorAll(
-    ".poem-word"
-  );
-
-
-interactiveWords.forEach(word => {
-
-  word.addEventListener(
-    "pointerenter",
-    () => {
-
-      if (
-        window.matchMedia(
-          "(pointer: coarse)"
-        ).matches
-      ) {
-        return;
-      }
-
-      const paragraph =
-        word.closest(".poem-body");
-
-      if (!paragraph) {
-        return;
-      }
-
-      const words =
-        Array.from(
-          paragraph.querySelectorAll(
-            ".poem-word"
-          )
+        section.style.setProperty(
+          "--mouse-x",
+          `${x}%`
         );
 
-      const index =
-        words.indexOf(word);
+        section.style.setProperty(
+          "--mouse-y",
+          `${y}%`
+        );
 
-      words.forEach(
-        (otherWord, otherIndex) => {
+      },
+      {passive:true}
+    );
 
-          const distance =
-            Math.abs(
-              otherIndex - index
-            );
-
-          if (distance === 0) {
-            return;
-          }
-
-          if (distance <= 2) {
-
-            const direction =
-              otherIndex < index
-                ? -1
-                : 1;
-
-            otherWord.style.transform =
-              `translate3d(${direction * 2}px, ${-4 + distance * 2}px, 0)`;
-
-          }
-
-        }
-      );
-
-    }
-  );
-
-
-  word.addEventListener(
-    "pointerleave",
-    () => {
-
-      const paragraph =
-        word.closest(".poem-body");
-
-      if (!paragraph) {
-        return;
-      }
-
-      paragraph
-        .querySelectorAll(".poem-word")
-        .forEach(otherWord => {
-
-          otherWord.style.transform =
-            "";
-
-        });
-
-    }
-  );
-
-});
+  });
 
 
 /* =========================================================
@@ -3559,59 +3470,64 @@ interactiveWords.forEach(word => {
 
 const majors = [
 
-  ["Wimbledon", 2003, "Mark Philippoussis", "Title No. 1"],
+  ["Wimbledon",2003,"Mark Philippoussis","Title No. 1"],
 
-  ["Australian Open", 2004, "Marat Safin", "Title No. 2"],
+  ["Australian Open",2004,"Marat Safin","Title No. 2"],
 
-  ["Wimbledon", 2004, "Andy Roddick", "Title No. 3"],
+  ["Wimbledon",2004,"Andy Roddick","Title No. 3"],
 
-  ["US Open", 2004, "Lleyton Hewitt", "Title No. 4"],
+  ["US Open",2004,"Lleyton Hewitt","Title No. 4"],
 
-  ["Wimbledon", 2005, "Andy Roddick", "Title No. 5"],
+  ["Wimbledon",2005,"Andy Roddick","Title No. 5"],
 
-  ["US Open", 2005, "Andre Agassi", "Title No. 6"],
+  ["US Open",2005,"Andre Agassi","Title No. 6"],
 
-  ["Australian Open", 2006, "Marcos Baghdatis", "Title No. 7"],
+  ["Australian Open",2006,"Marcos Baghdatis","Title No. 7"],
 
-  ["Wimbledon", 2006, "Rafael Nadal", "Title No. 8"],
+  ["Wimbledon",2006,"Rafael Nadal","Title No. 8"],
 
-  ["US Open", 2006, "Andy Roddick", "Title No. 9"],
+  ["US Open",2006,"Andy Roddick","Title No. 9"],
 
-  ["Australian Open", 2007, "Fernando González", "Title No. 10"],
+  ["Australian Open",2007,"Fernando González","Title No. 10"],
 
-  ["Wimbledon", 2007, "Rafael Nadal", "Title No. 11"],
+  ["Wimbledon",2007,"Rafael Nadal","Title No. 11"],
 
-  ["US Open", 2007, "Novak Djokovic", "Title No. 12"],
+  ["US Open",2007,"Novak Djokovic","Title No. 12"],
 
-  ["US Open", 2008, "Andy Murray", "Title No. 13"],
+  ["US Open",2008,"Andy Murray","Title No. 13"],
 
-  [
-    "Roland-Garros",
-    2009,
-    "Robin Söderling",
-    "Title No. 14 · Career Grand Slam"
-  ],
+  ["Roland-Garros",2009,"Robin Söderling",
+   "Title No. 14 · Career Grand Slam"],
 
-  ["Wimbledon", 2009, "Andy Roddick", "Title No. 15"],
+  ["Wimbledon",2009,"Andy Roddick","Title No. 15"],
 
-  ["Australian Open", 2010, "Andy Murray", "Title No. 16"],
+  ["Australian Open",2010,"Andy Murray","Title No. 16"],
 
-  ["Wimbledon", 2012, "Andy Murray", "Title No. 17"],
+  ["Wimbledon",2012,"Andy Murray","Title No. 17"],
 
-  ["Australian Open", 2017, "Rafael Nadal", "Title No. 18"],
+  ["Australian Open",2017,"Rafael Nadal","Title No. 18"],
 
-  ["Wimbledon", 2017, "Marin Čilić", "Title No. 19"],
+  ["Wimbledon",2017,"Marin Čilić","Title No. 19"],
 
-  ["Australian Open", 2018, "Marin Čilić", "Title No. 20"]
+  ["Australian Open",2018,"Marin Čilić","Title No. 20"]
 
 ];
 
 
 const majorGrid =
-  document.getElementById("majorGrid");
+  document.getElementById(
+    "majorGrid"
+  );
 
 const majorInfo =
-  document.getElementById("majorInfo");
+  document.getElementById(
+    "majorInfo"
+  );
+
+const majorCounter =
+  document.getElementById(
+    "majorCounter"
+  );
 
 
 function updateMajorInfo(index) {
@@ -3623,95 +3539,120 @@ function updateMajorInfo(index) {
     title
   ] = majors[index];
 
-  majorInfo.innerHTML = `
-    <strong>${title}</strong>
-    ${slam} · ${year} · Final: defeated ${opponent}
-  `;
+  majorInfo.style.opacity = "0";
+  majorInfo.style.transform =
+    "translateY(8px)";
+
+  setTimeout(() => {
+
+    majorInfo.innerHTML = `
+      <strong>${title}</strong>
+      ${slam} · ${year} · Final: defeated ${opponent}
+    `;
+
+    majorInfo.style.opacity = "1";
+    majorInfo.style.transform =
+      "translateY(0)";
+
+  },100);
+
+  majorCounter.textContent =
+    `TITLE ${String(index + 1).padStart(2,"0")} / 20`;
 
 }
 
 
-majors.forEach((item, index) => {
+majors.forEach(
+  (item,index) => {
 
-  const [
-    slam,
-    year,
-    opponent,
-    title
-  ] = item;
+    const [
+      slam,
+      year,
+      opponent,
+      title
+    ] = item;
 
-  const button =
-    document.createElement("button");
+    const button =
+      document.createElement("button");
 
-  button.className = "major";
+    button.className =
+      "major";
 
-  if (index === 0) {
-    button.classList.add("active");
-  }
+    button.dataset.slam =
+      slam;
 
-  button.dataset.slam = slam;
+    button.setAttribute(
+      "aria-label",
+      `${slam}, ${year}, defeated ${opponent}, ${title}`
+    );
 
-  button.setAttribute(
-    "aria-label",
-    `${slam}, ${year}, defeated ${opponent}, ${title}`
-  );
+    button.innerHTML =
+      `<span>${index + 1}</span>`;
 
-  button.innerHTML =
-    `<span>${index + 1}</span>`;
-
-  button.addEventListener(
-    "click",
-    () => {
-
-      document
-        .querySelectorAll(".major")
-        .forEach(btn =>
-          btn.classList.remove("active")
-        );
-
+    if (index === 0) {
       button.classList.add("active");
-
-      updateMajorInfo(index);
-
     }
-  );
 
-  majorGrid.appendChild(button);
+    button.addEventListener(
+      "click",
+      () => {
 
-});
+        document
+          .querySelectorAll(".major")
+          .forEach(
+            btn =>
+              btn.classList.remove("active")
+          );
+
+        button.classList.add("active");
+
+        updateMajorInfo(index);
+
+      }
+    );
+
+    majorGrid.appendChild(button);
+
+  }
+);
 
 
 updateMajorInfo(0);
 
 
 /* =========================================================
-   GRAND SLAM DISTRIBUTION
+   SLAM DISTRIBUTION
 ========================================================= */
 
 const slamData = [
 
-  ["Australian Open", 6, "#e0b84e"],
+  ["Australian Open",6,"#e0b84e"],
 
-  ["Roland-Garros", 1, "#b65435"],
+  ["Roland-Garros",1,"#b65435"],
 
-  ["Wimbledon", 8, "#355b49"],
+  ["Wimbledon",8,"#355b49"],
 
-  ["US Open", 5, "#28577d"]
+  ["US Open",5,"#28577d"]
 
 ];
 
-
 const bars =
-  document.getElementById("slamBars");
+  document.getElementById(
+    "slamBars"
+  );
 
 
 slamData.forEach(
-  ([name, value, color]) => {
+  ([name,value,color]) => {
+
+    const percentage =
+      Math.round(value / 20 * 100);
 
     const row =
       document.createElement("div");
 
-    row.className = "slam-row";
+    row.className =
+      "slam-row";
 
     row.innerHTML = `
 
@@ -3741,45 +3682,62 @@ slamData.forEach(
 );
 
 
+const distribution =
+  document.querySelector(
+    ".distribution"
+  );
+
+
 const barObserver =
   new IntersectionObserver(
     entries => {
 
       entries.forEach(entry => {
 
-        if (entry.isIntersecting) {
+        if (!entry.isIntersecting) return;
 
-          document
-            .querySelectorAll(".slam-fill")
-            .forEach(element => {
+        distribution.classList.add(
+          "active"
+        );
 
-              element.style.width =
-                element.dataset.width;
+        document
+          .querySelectorAll(".slam-fill")
+          .forEach(fill => {
 
-            });
+            fill.style.width =
+              fill.dataset.width;
 
-          barObserver.unobserve(entry.target);
+          });
 
-        }
+        barObserver.unobserve(
+          entry.target
+        );
 
       });
 
     },
     {
-      threshold: .35
+      threshold:.3
     }
   );
 
 
-barObserver.observe(bars);
+barObserver.observe(distribution);
 
 
 /* =========================================================
-   310 WORLD NO. 1 WEEKS
+   310 WEEKS
 ========================================================= */
 
 const weekGrid =
-  document.getElementById("weekGrid");
+  document.getElementById(
+    "weekGrid"
+  );
+
+const weekTooltip =
+  document.getElementById(
+    "weekTooltip"
+  );
 
 
 for (let i = 0; i < 310; i++) {
@@ -3787,23 +3745,72 @@ for (let i = 0; i < 310; i++) {
   const week =
     document.createElement("div");
 
+  const consecutive =
+    i < 237;
+
   week.className =
-    i < 237
+    consecutive
       ? "week consecutive"
       : "week";
 
-  week.setAttribute(
-    "title",
-    i < 237
-      ? `Consecutive No. 1 week ${i + 1}`
-      : `Additional No. 1 week ${i - 236}`
-  );
+  week.dataset.week =
+    i + 1;
+
+  week.dataset.type =
+    consecutive
+      ? "Consecutive"
+      : "Additional";
 
   week.setAttribute(
     "aria-label",
-    i < 237
+    consecutive
       ? `Consecutive World No. 1 week ${i + 1}`
       : `Additional World No. 1 week ${i - 236}`
+  );
+
+  week.addEventListener(
+    "pointerenter",
+    event => {
+
+      if (
+        window.matchMedia(
+          "(pointer:coarse)"
+        ).matches
+      ) return;
+
+      const rect =
+        event.target.getBoundingClientRect();
+
+      weekTooltip.textContent =
+        consecutive
+          ? `Week ${i + 1} · consecutive`
+          : `Week ${i - 236} · additional`;
+
+      weekTooltip.style.left =
+        `${rect.left + rect.width / 2}px`;
+
+      weekTooltip.style.top =
+        `${rect.top - 12}px`;
+
+      weekTooltip.style.transform =
+        "translate(-50%,-100%)";
+
+      weekTooltip.classList.add(
+        "show"
+      );
+
+    }
+  );
+
+  week.addEventListener(
+    "pointerleave",
+    () => {
+
+      weekTooltip.classList.remove(
+        "show"
+      );
+
+    }
   );
 
   weekGrid.appendChild(week);
@@ -3812,108 +3819,202 @@ for (let i = 0; i < 310; i++) {
 
 
 /* =========================================================
-   FINAL 20 DOTS
+   FINAL 20 ORBIT
 ========================================================= */
 
-const finalDots =
-  document.getElementById("finalDots");
-
+const finalOrbit =
+  document.getElementById(
+    "finalOrbit"
+  );
 
 for (let i = 0; i < 20; i++) {
 
   const dot =
     document.createElement("div");
 
-  dot.className = "final-dot";
+  dot.className =
+    "final-dot";
+
+  const angle =
+    (i / 20) * Math.PI * 2 -
+    Math.PI / 2;
+
+  const radius =
+    window.innerWidth < 700
+      ? 130
+      : 215;
+
+  const x =
+    Math.cos(angle) * radius;
+
+  const y =
+    Math.sin(angle) * radius;
+
+  dot.style.left =
+    `calc(50% + ${x}px - 21px)`;
+
+  dot.style.top =
+    `calc(50% + ${y}px - 21px)`;
+
+  dot.title =
+    `Grand Slam title ${i + 1}`;
 
   dot.setAttribute(
     "aria-label",
     `Grand Slam singles title ${i + 1}`
   );
 
-  finalDots.appendChild(dot);
+  finalOrbit.appendChild(dot);
 
 }
 
 
-const dotsObserver =
+/* Recalculate orbit on resize */
+
+function positionFinalDots() {
+
+  const dots =
+    finalOrbit.querySelectorAll(
+      ".final-dot"
+    );
+
+  const radius =
+    window.innerWidth < 700
+      ? 130
+      : 215;
+
+  dots.forEach(
+    (dot,index) => {
+
+      const angle =
+        (index / 20) *
+        Math.PI * 2 -
+        Math.PI / 2;
+
+      const x =
+        Math.cos(angle) * radius;
+
+      const y =
+        Math.sin(angle) * radius;
+
+      const size =
+        window.innerWidth < 700
+          ? 27
+          : 42;
+
+      dot.style.left =
+        `calc(50% + ${x}px - ${size / 2}px)`;
+
+      dot.style.top =
+        `calc(50% + ${y}px - ${size / 2}px)`;
+
+    }
+  );
+
+}
+
+window.addEventListener(
+  "resize",
+  positionFinalDots
+);
+
+
+/* Animate final orbit */
+
+const twentySection =
+  document.querySelector(
+    ".twenty"
+  );
+
+
+const orbitObserver =
   new IntersectionObserver(
     entries => {
 
       entries.forEach(entry => {
 
-        if (entry.isIntersecting) {
+        if (!entry.isIntersecting) return;
 
-          document
-            .querySelectorAll(".final-dot")
-            .forEach((dot, index) => {
+        twentySection.classList.add(
+          "active"
+        );
 
-              setTimeout(
-                () => {
+        const dots =
+          finalOrbit.querySelectorAll(
+            ".final-dot"
+          );
 
-                  dot.style.transition =
-                    "transform .35s ease, opacity .35s ease";
+        dots.forEach(
+          (dot,index) => {
 
-                  dot.style.opacity = "1";
+            dot.style.transitionDelay =
+              `${index * 55}ms`;
 
-                  dot.style.transform =
-                    "scale(1)";
+          }
+        );
 
-                },
-                index * 75
-              );
-
-            });
-
-          dotsObserver.unobserve(entry.target);
-
-        }
+        orbitObserver.unobserve(
+          entry.target
+        );
 
       });
 
     },
     {
-      threshold: .35
+      threshold:.35
     }
   );
 
 
-dotsObserver.observe(finalDots);
-
-
-/* =========================================================
-   READING PROGRESS
-========================================================= */
-
-function updateProgress() {
-
-  const height =
-    document.documentElement.scrollHeight -
-    window.innerHeight;
-
-  const progress =
-    height > 0
-      ? window.scrollY / height
-      : 0;
-
-  document
-    .getElementById("progress")
-    .style.width =
-      `${progress * 100}%`;
-
-}
-
-
-window.addEventListener(
-  "scroll",
-  updateProgress,
-  {
-    passive: true
-  }
+orbitObserver.observe(
+  twentySection
 );
 
 
-updateProgress();
+/* =========================================================
+   SCROLL VELOCITY
+========================================================= */
+
+let lastScroll =
+  window.scrollY;
+
+let velocity = 0;
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    const current =
+      window.scrollY;
+
+    velocity =
+      current - lastScroll;
+
+    lastScroll =
+      current;
+
+    if (
+      reducedMotion ||
+      Math.abs(velocity) < 1
+    ) return;
+
+    const shift =
+      Math.max(
+        -8,
+        Math.min(
+          8,
+          velocity * .12
+        )
+      );
+
+    hero.style.setProperty(
+      "--hero-shift",
+      `${shift}px`
+    );
+
+  },
+  {passive:true}
+);
 
 
 /* =========================================================
@@ -3943,6 +4044,27 @@ document
     );
 
   });
+
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+if (!reducedMotion) {
+
+  setTimeout(() => {
+
+    document
+      .querySelector(".hero")
+      ?.classList.add("visible");
+
+    animateCounters(
+      document.querySelector(".hero")
+    );
+
+  },300);
+
+}
 
 </script>
 
