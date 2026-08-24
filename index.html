@@ -1,0 +1,5371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="description"
+  content="Roger Federer: The Shape of Greatness — a visual tribute through data and poetry by Annapurani Vaidyanathan."
+>
+
+<title>Roger Federer — The Shape of Greatness</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+  href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap"
+  rel="stylesheet"
+>
+
+<style>
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+  --ink:#11110f;
+  --ink-soft:#1b1b19;
+
+  --paper:#f4f0e7;
+  --paper-deep:#ebe5d9;
+  --white:#fff;
+
+  --muted:#77736b;
+  --muted-light:#aaa49a;
+
+  --line:#d8d1c4;
+  --line-dark:#3b3a36;
+
+  --green:#355b49;
+  --green-light:#557566;
+
+  --clay:#b65435;
+  --blue:#28577d;
+  --gold:#b58a39;
+
+  --poem-paper:#eee8dc;
+
+  --serif:"Playfair Display",Georgia,serif;
+  --sans:Inter,Arial,sans-serif;
+  --mono:"DM Mono",monospace;
+
+  --content:1100px;
+  --reading:760px;
+
+  --ease:cubic-bezier(.2,.8,.2,1);
+
+  --scroll-progress:0;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  margin:0;
+  color:var(--ink);
+  background:var(--paper);
+  font-family:var(--sans);
+  overflow-x:hidden;
+}
+
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  pointer-events:none;
+  opacity:.035;
+
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='1'/%3E%3C/svg%3E");
+}
+
+button {
+  font:inherit;
+}
+
+a {
+  color:inherit;
+}
+
+section {
+  width:100%;
+}
+
+.wrap {
+  width:min(var(--content),90vw);
+  margin-inline:auto;
+}
+
+::selection {
+  color:var(--paper);
+  background:var(--ink);
+}
+
+
+/* =========================================================
+   TYPOGRAPHY
+========================================================= */
+
+.kicker {
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.12em;
+  line-height:1.6;
+  text-transform:uppercase;
+}
+
+.display {
+  font-family:var(--serif);
+  font-weight:500;
+  letter-spacing:-.055em;
+  line-height:.91;
+}
+
+p {
+  font-size:19px;
+  line-height:1.85;
+}
+
+
+/* =========================================================
+   GLOBAL PROGRESS
+========================================================= */
+
+#progress {
+  position:fixed;
+  z-index:10000;
+  top:0;
+  left:0;
+
+  width:0;
+  height:4px;
+
+  background:var(--gold);
+  transform-origin:left;
+}
+
+
+/* =========================================================
+   CHAPTER NAV
+========================================================= */
+
+.chapter-nav {
+  position:fixed;
+  z-index:9000;
+
+  top:50%;
+  right:22px;
+
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+
+  transform:translateY(-50%);
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:opacity .5s ease;
+}
+
+.chapter-nav.visible {
+  opacity:1;
+  pointer-events:auto;
+}
+
+.chapter-dot {
+  position:relative;
+
+  width:9px;
+  height:9px;
+
+  padding:0;
+
+  border:1px solid currentColor;
+  border-radius:50%;
+
+  color:#777;
+  background:transparent;
+
+  cursor:pointer;
+
+  transition:
+    transform .3s var(--ease),
+    background .3s ease,
+    color .3s ease;
+}
+
+.chapter-dot::before {
+  content:"";
+
+  position:absolute;
+
+  right:18px;
+  top:50%;
+
+  width:0;
+
+  overflow:hidden;
+
+  transform:translateY(-50%);
+
+  color:inherit;
+
+  font-family:var(--mono);
+  font-size:9px;
+  letter-spacing:.08em;
+  white-space:nowrap;
+  text-transform:uppercase;
+
+  transition:width .3s ease;
+}
+
+.chapter-dot:hover::before,
+.chapter-dot.active::before {
+  width:90px;
+}
+
+.chapter-dot.active {
+  transform:scale(1.7);
+  color:var(--gold);
+  background:var(--gold);
+}
+
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal {
+  opacity:0;
+  transform:translateY(35px);
+
+  transition:
+    opacity:1s var(--ease),
+    transform:1s var(--ease);
+}
+
+.reveal.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+  position:relative;
+
+  min-height:100svh;
+
+  display:flex;
+  align-items:center;
+
+  overflow:hidden;
+
+  color:var(--paper);
+
+  background:
+    radial-gradient(
+      circle at 78% 30%,
+      rgba(181,138,57,.11),
+      transparent 28%
+    ),
+    var(--ink);
+}
+
+.hero::before {
+  content:"";
+
+  position:absolute;
+  inset:-20%;
+
+  background:
+    radial-gradient(
+      circle at 30% 70%,
+      rgba(255,255,255,.025),
+      transparent 25%
+    );
+
+  transform:
+    translate(
+      calc(var(--hero-x,0) * 1px),
+      calc(var(--hero-y,0) * 1px)
+    );
+
+  transition:transform .2s linear;
+}
+
+.hero .wrap {
+  position:relative;
+  z-index:2;
+  padding:100px 0 80px;
+}
+
+.hero h1 {
+  margin:32px 0 45px;
+
+  font-size:clamp(76px,14vw,185px);
+
+  transform:
+    translateY(calc(var(--hero-scroll,0) * -18px));
+}
+
+.hero h1 span {
+  color:#bdb5a8;
+}
+
+.hero-question {
+  max-width:780px;
+
+  color:#cfc8bc;
+
+  font-family:var(--serif);
+  font-size:clamp(28px,3.4vw,45px);
+  line-height:1.3;
+
+  transform:
+    translateY(calc(var(--hero-scroll,0) * -10px));
+}
+
+.hero-metrics {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  max-width:800px;
+
+  margin-top:100px;
+
+  border-top:1px solid #393939;
+}
+
+.hero-metric {
+  position:relative;
+
+  padding:27px 20px 0 0;
+
+  transition:transform .5s var(--ease);
+}
+
+.hero-metric:hover {
+  transform:translateY(-8px);
+}
+
+.hero-metric b {
+  display:block;
+
+  font-family:var(--mono);
+  font-size:clamp(38px,5vw,64px);
+  font-weight:400;
+  letter-spacing:-.04em;
+}
+
+.hero-metric span {
+  display:block;
+
+  max-width:190px;
+
+  margin-top:12px;
+
+  color:#aaa;
+
+  font-family:var(--mono);
+  font-size:13px;
+  line-height:1.6;
+  text-transform:uppercase;
+}
+
+.scroll {
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+
+  margin-top:90px;
+
+  color:#8f8a82;
+
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.16em;
+
+  animation:pulse 2.2s infinite;
+}
+
+.scroll::after {
+  content:"";
+
+  width:38px;
+  height:1px;
+
+  background:currentColor;
+}
+
+@keyframes pulse {
+  0%,100% {opacity:.4;}
+  50% {opacity:1;}
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.intro {
+  padding:170px 0;
+}
+
+.intro-grid {
+  display:grid;
+  grid-template-columns:.9fr 1.25fr;
+  gap:100px;
+}
+
+.intro h2 {
+  margin:20px 0 0;
+
+  font-size:clamp(62px,8.5vw,125px);
+}
+
+.intro-copy {
+  padding-top:25px;
+}
+
+.intro-copy p {
+  max-width:650px;
+
+  color:#494743;
+
+  font-size:20px;
+  line-height:1.9;
+}
+
+.intro-copy .big-line {
+  margin-top:65px;
+  padding-top:32px;
+
+  border-top:1px solid var(--line);
+
+  font-family:var(--serif);
+  font-size:clamp(30px,3.8vw,48px);
+  line-height:1.25;
+}
+
+.intro-word {
+  display:inline-block;
+
+  transition:
+    transform .5s var(--ease),
+    color .3s ease;
+}
+
+.intro-word:hover {
+  color:var(--clay);
+  transform:translateY(-5px);
+}
+
+
+/* =========================================================
+   RISE / TIMELINE
+========================================================= */
+
+.rise {
+  position:relative;
+
+  padding:150px 0 170px;
+
+  background:var(--white);
+}
+
+.section-heading {
+  margin-bottom:90px;
+}
+
+.section-heading h2 {
+  margin:18px 0 0;
+
+  font-size:clamp(58px,7.5vw,105px);
+}
+
+.timeline {
+  position:relative;
+}
+
+.timeline-track {
+  position:absolute;
+
+  top:50%;
+  left:0;
+  right:0;
+
+  height:2px;
+
+  background:var(--line);
+}
+
+.timeline-progress {
+  width:0;
+  height:100%;
+
+  background:var(--ink);
+
+  transition:width 1.3s var(--ease);
+}
+
+.timeline-items {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+
+  position:relative;
+}
+
+.timeline-item {
+  position:relative;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  min-height:300px;
+
+  padding-right:35px;
+
+  cursor:default;
+}
+
+.timeline-dot {
+  position:absolute;
+
+  top:calc(50% - 8px);
+  left:0;
+
+  width:16px;
+  height:16px;
+
+  border-radius:50%;
+
+  background:var(--ink);
+
+  z-index:3;
+
+  transition:
+    transform .4s var(--ease),
+    box-shadow .4s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+  transform:scale(1.7);
+  box-shadow:0 0 0 10px rgba(17,17,15,.08);
+}
+
+.timeline-item:nth-child(even) {
+  justify-content:flex-end;
+}
+
+.timeline-year {
+  margin-bottom:13px;
+
+  font-family:var(--mono);
+  font-size:38px;
+  letter-spacing:-.03em;
+
+  transition:transform .4s var(--ease);
+}
+
+.timeline-item:hover .timeline-year {
+  transform:translateY(-5px);
+}
+
+.timeline-event {
+  max-width:220px;
+
+  padding-left:27px;
+
+  font-size:18px;
+  line-height:1.65;
+}
+
+.timeline-card {
+  position:absolute;
+
+  left:27px;
+  bottom:calc(50% + 28px);
+
+  width:230px;
+
+  padding:18px;
+
+  color:var(--paper);
+  background:var(--ink);
+
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:1.6;
+
+  opacity:0;
+  transform:translateY(8px);
+
+  pointer-events:none;
+
+  transition:
+    opacity .3s ease,
+    transform .3s var(--ease);
+}
+
+.timeline-item:hover .timeline-card {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.timeline-item:nth-child(even) .timeline-card {
+  top:calc(50% + 28px);
+  bottom:auto;
+}
+
+.rise-sentence {
+  max-width:750px;
+
+  margin:100px 0 0 auto;
+
+  font-family:var(--serif);
+  font-size:clamp(32px,3.9vw,55px);
+  line-height:1.22;
+}
+
+
+/* =========================================================
+   POETRY SYSTEM
+========================================================= */
+
+.poem-section {
+  position:relative;
+  overflow:hidden;
+
+  --mouse-x:50%;
+  --mouse-y:45%;
+}
+
+.poem-section::before {
+  content:"";
+
+  position:absolute;
+  inset:-25%;
+
+  pointer-events:none;
+
+  background:
+    radial-gradient(
+      circle at var(--mouse-x) var(--mouse-y),
+      rgba(255,255,255,.09),
+      transparent 24%
+    );
+
+  opacity:.5;
+
+  transition:opacity .7s ease;
+}
+
+.poem-section::after {
+  content:"";
+
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:1px;
+
+  background:currentColor;
+  opacity:.12;
+}
+
+.poem-inner {
+  position:relative;
+  z-index:2;
+
+  width:min(880px,88vw);
+  margin-inline:auto;
+}
+
+.poem-label {
+  display:flex;
+  align-items:center;
+  gap:17px;
+
+  margin-bottom:62px;
+
+  color:var(--gold);
+
+  font-family:var(--mono);
+  font-size:12px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.poem-label::after {
+  width:65px;
+  height:1px;
+
+  background:currentColor;
+
+  content:"";
+
+  transition:width .8s var(--ease);
+}
+
+.poem-section.visible .poem-label::after {
+  width:110px;
+}
+
+.poem-byline {
+  margin-top:-55px;
+  margin-bottom:65px;
+
+  opacity:.6;
+
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.poem-title {
+  margin:0 0 70px;
+
+  font-family:var(--serif);
+  font-size:clamp(48px,7vw,100px);
+  font-weight:500;
+  letter-spacing:-.05em;
+  line-height:.94;
+
+  transition:
+    transform 1s var(--ease),
+    letter-spacing 1s var(--ease);
+}
+
+.poem-section.visible .poem-title {
+  letter-spacing:-.065em;
+}
+
+.poem-body {
+  max-width:var(--reading);
+  margin-inline:auto;
+}
+
+.poem-body p {
+  position:relative;
+
+  margin:0 0 48px;
+
+  font-family:var(--serif);
+  font-size:clamp(22px,2.25vw,30px);
+  line-height:1.72;
+
+  opacity:.12;
+
+  transform:
+    translateY(35px)
+    scale(.985);
+
+  filter:blur(2px);
+
+  transition:
+    opacity:1s var(--ease),
+    transform:1s var(--ease),
+    filter:1s var(--ease);
+}
+
+.poem-body p.poem-visible {
+  opacity:1;
+
+  transform:
+    translateY(0)
+    scale(1);
+
+  filter:blur(0);
+}
+
+.poem-word {
+  display:inline-block;
+
+  opacity:.25;
+
+  transition:
+    opacity .5s var(--ease),
+    transform .5s var(--ease),
+    color .3s ease;
+
+  transition-delay:
+    calc(var(--word-index) * 10ms);
+}
+
+.poem-visible .poem-word {
+  opacity:1;
+}
+
+.poem-word:hover {
+  color:var(--gold);
+
+  transform:
+    translateY(-5px)
+    scale(1.035);
+
+  z-index:4;
+}
+
+.poem-body:has(.poem-word:hover) .poem-word {
+  opacity:.42;
+}
+
+.poem-body:has(.poem-word:hover) .poem-word:hover {
+  opacity:1;
+}
+
+.poem-body .poem-emphasis {
+  font-size:clamp(30px,3.5vw,48px);
+  line-height:1.35;
+
+  margin-top:75px;
+  margin-bottom:75px;
+
+  padding-left:35px;
+
+  border-left:1px solid currentColor;
+
+  opacity:.15;
+
+  transform:
+    translateX(-25px)
+    translateY(25px);
+
+  transition:
+    opacity:1s var(--ease),
+    transform:1s var(--ease);
+}
+
+.poem-body .poem-emphasis.poem-visible {
+  opacity:1;
+
+  transform:
+    translateX(0)
+    translateY(0);
+}
+
+.poem-body .poem-final {
+  margin-top:75px;
+  padding-top:45px;
+
+  border-top:1px solid currentColor;
+
+  font-size:clamp(28px,3.5vw,46px);
+  line-height:1.42;
+
+  opacity:.12;
+
+  transform:
+    translateY(50px)
+    scale(.97);
+
+  transition:
+    opacity:1.3s var(--ease),
+    transform:1.3s var(--ease);
+}
+
+.poem-body .poem-final.poem-visible {
+  opacity:1;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+.poem-reading-line {
+  position:fixed;
+
+  left:0;
+  right:0;
+
+  height:1px;
+
+  background:currentColor;
+
+  opacity:0;
+
+  pointer-events:none;
+
+  z-index:5;
+}
+
+.poem-section.poem-active .poem-reading-line {
+  opacity:.08;
+}
+
+
+/* =========================================================
+   POEM FOUR
+========================================================= */
+
+.poem-four {
+  padding:190px 0 215px;
+
+  color:#f4eee3;
+
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(181,138,57,.13),
+      transparent 30%
+    ),
+    #171717;
+}
+
+.poem-four .poem-label {
+  color:#d1b273;
+}
+
+.poem-four .poem-body {
+  max-width:800px;
+}
+
+
+/* =========================================================
+   MAJORS
+========================================================= */
+
+.majors {
+  position:relative;
+
+  padding:170px 0 180px;
+
+  color:var(--paper);
+  background:var(--ink);
+}
+
+.majors-head {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+  align-items:end;
+
+  margin-bottom:85px;
+}
+
+.majors h2 {
+  margin:20px 0 0;
+
+  font-size:clamp(100px,16vw,215px);
+}
+
+.majors-head p {
+  max-width:470px;
+
+  margin:0;
+
+  color:#c9c1b4;
+
+  font-family:var(--serif);
+  font-size:31px;
+  line-height:1.38;
+}
+
+.major-progress {
+  display:flex;
+  align-items:center;
+  gap:15px;
+
+  margin-bottom:30px;
+
+  color:#888;
+
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.major-progress-line {
+  flex:1;
+
+  height:1px;
+
+  background:#3b3b38;
+}
+
+.major-progress-fill {
+  width:0;
+  height:100%;
+
+  background:#d1b273;
+
+  transition:width .7s var(--ease);
+}
+
+.major-grid {
+  display:grid;
+  grid-template-columns:repeat(10,1fr);
+  gap:14px;
+}
+
+.major {
+  position:relative;
+
+  aspect-ratio:1;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid #625d55;
+  border-radius:50%;
+
+  color:inherit;
+  background:transparent;
+
+  cursor:pointer;
+
+  transition:
+    transform .4s var(--ease),
+    background .4s ease,
+    border-color .4s ease,
+    color .4s ease;
+}
+
+.major:hover,
+.major:focus-visible,
+.major.active {
+  color:var(--ink);
+
+  background:var(--paper);
+  border-color:var(--paper);
+
+  transform:scale(1.13);
+
+  z-index:4;
+}
+
+.major:focus-visible {
+  outline:2px solid #e0b84e;
+  outline-offset:4px;
+}
+
+.major span {
+  font-family:var(--mono);
+  font-size:15px;
+}
+
+.major.active[data-slam="Australian Open"] {
+  background:#e0b84e;
+  border-color:#e0b84e;
+}
+
+.major.active[data-slam="Roland-Garros"] {
+  color:white;
+  background:var(--clay);
+  border-color:var(--clay);
+}
+
+.major.active[data-slam="Wimbledon"] {
+  color:white;
+  background:#80a68d;
+  border-color:#80a68d;
+}
+
+.major.active[data-slam="US Open"] {
+  background:#7ca9d2;
+  border-color:#7ca9d2;
+}
+
+.major-info {
+  min-height:115px;
+
+  margin-top:45px;
+  padding-top:23px;
+
+  border-top:1px solid #383838;
+
+  color:#aaa297;
+
+  font-size:17px;
+  line-height:1.7;
+}
+
+.major-info strong {
+  display:block;
+
+  margin-bottom:6px;
+
+  color:var(--paper);
+
+  font-family:var(--mono);
+  font-size:14px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+.major-detail {
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+
+  align-items:center;
+  gap:25px;
+}
+
+.major-detail-number {
+  color:#d1b273;
+
+  font-family:var(--mono);
+  font-size:48px;
+}
+
+.major-detail-year {
+  color:#aaa;
+
+  font-family:var(--mono);
+  font-size:12px;
+}
+
+.major-detail-opponent {
+  color:var(--paper);
+
+  font-family:var(--serif);
+  font-size:24px;
+}
+
+
+/* =========================================================
+   DISTRIBUTION
+========================================================= */
+
+.distribution {
+  padding:175px 0;
+}
+
+.distribution h2 {
+  margin:25px 0 105px;
+
+  font-size:clamp(60px,8.5vw,125px);
+}
+
+.distribution-intro {
+  max-width:600px;
+
+  margin-bottom:65px;
+
+  color:#66615a;
+
+  font-family:var(--serif);
+  font-size:25px;
+  line-height:1.5;
+}
+
+.slam-row {
+  display:grid;
+  grid-template-columns:180px 1fr 75px;
+  gap:30px;
+  align-items:center;
+
+  margin:42px 0;
+
+  cursor:pointer;
+}
+
+.slam-name {
+  font-family:var(--mono);
+  font-size:14px;
+  line-height:1.5;
+  text-transform:uppercase;
+}
+
+.slam-track {
+  position:relative;
+
+  height:45px;
+
+  overflow:hidden;
+
+  background:#e5dfd4;
+
+  border-radius:1px;
+}
+
+.slam-fill {
+  width:0;
+  height:100%;
+
+  transform-origin:left;
+
+  transition:
+    width:1.5s var(--ease),
+    filter .3s ease;
+}
+
+.slam-row:hover .slam-fill {
+  filter:brightness(1.08);
+}
+
+.slam-value {
+  font-family:var(--mono);
+  font-size:40px;
+
+  transition:transform .3s var(--ease);
+}
+
+.slam-row:hover .slam-value {
+  transform:translateX(5px);
+}
+
+.slam-share {
+  position:absolute;
+
+  top:50%;
+  left:15px;
+
+  color:rgba(0,0,0,.55);
+
+  font-family:var(--mono);
+  font-size:10px;
+
+  transform:translateY(-50%);
+}
+
+
+/* =========================================================
+   CAREER GRAND SLAM
+========================================================= */
+
+.missing {
+  position:relative;
+
+  padding:175px 0;
+
+  color:var(--paper);
+  background:var(--green);
+}
+
+.missing-grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:100px;
+}
+
+.missing h2 {
+  margin:22px 0;
+
+  font-size:clamp(65px,9.5vw,145px);
+}
+
+.paris {
+  margin-top:110px;
+
+  font-family:var(--serif);
+  font-size:clamp(34px,4.8vw,68px);
+  line-height:1.15;
+}
+
+.missing-description {
+  margin-top:42px;
+
+  color:#d4d7cb;
+
+  font-size:19px;
+  line-height:1.9;
+}
+
+.checks {
+  display:grid;
+  gap:1px;
+
+  background:#537464;
+}
+
+.check {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:25px;
+
+  background:var(--green);
+
+  font-family:var(--mono);
+  font-size:15px;
+  line-height:1.6;
+
+  transition:
+    background .4s ease,
+    transform .4s var(--ease);
+}
+
+.check:hover {
+  background:#416956;
+  transform:translateX(8px);
+}
+
+.tick {
+  opacity:.25;
+
+  color:#d4d7cb;
+
+  transform:scale(.5);
+
+  transition:
+    opacity .5s ease,
+    transform .5s var(--ease);
+}
+
+.check.completed .tick {
+  opacity:1;
+  transform:scale(1);
+}
+
+.paris-reveal {
+  position:relative;
+}
+
+.paris-missing {
+  transition:
+    opacity .6s ease,
+    transform .6s var(--ease);
+}
+
+.paris-complete {
+  position:absolute;
+  left:0;
+  top:0;
+
+  opacity:0;
+
+  transform:translateY(30px);
+
+  transition:
+    opacity .8s var(--ease),
+    transform .8s var(--ease);
+}
+
+.missing.completed .paris-missing {
+  opacity:0;
+  transform:translateY(-30px);
+}
+
+.missing.completed .paris-complete {
+  opacity:1;
+  transform:translateY(0);
+}
+
+
+/* =========================================================
+   REIGN / 310 WEEKS
+========================================================= */
+
+.reign {
+  padding:175px 0;
+
+  background:var(--white);
+}
+
+.reign h2 {
+  margin:18px 0 55px;
+
+  font-size:clamp(70px,10.5vw,155px);
+}
+
+.reign-copy {
+  max-width:680px;
+
+  color:#55514c;
+
+  font-size:21px;
+  line-height:1.8;
+}
+
+.week-counter {
+  display:flex;
+  align-items:baseline;
+  gap:12px;
+
+  margin-top:70px;
+
+  font-family:var(--mono);
+}
+
+.week-counter-number {
+  min-width:120px;
+
+  font-size:65px;
+  letter-spacing:-.06em;
+}
+
+.week-counter-label {
+  color:#777;
+
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+
+.week-grid {
+  display:grid;
+  grid-template-columns:repeat(31,1fr);
+  gap:5px;
+
+  margin-top:30px;
+}
+
+.week {
+  position:relative;
+
+  aspect-ratio:1;
+
+  background:#ded8ce;
+
+  border-radius:1px;
+
+  opacity:.18;
+
+  transform:scale(.65);
+
+  transition:
+    opacity .35s ease,
+    transform .35s var(--ease),
+    background .3s ease;
+}
+
+.week.active-week {
+  opacity:1;
+  transform:scale(1);
+}
+
+.week.consecutive {
+  background:var(--ink);
+}
+
+.week.additional {
+  background:#a99d88;
+}
+
+.week:hover {
+  transform:scale(1.8);
+  z-index:5;
+  box-shadow:0 5px 20px rgba(0,0,0,.15);
+}
+
+.week-tooltip {
+  position:fixed;
+  z-index:9998;
+
+  padding:9px 12px;
+
+  color:var(--paper);
+  background:var(--ink);
+
+  font-family:var(--mono);
+  font-size:10px;
+
+  pointer-events:none;
+
+  opacity:0;
+
+  transform:translateY(5px);
+
+  transition:
+    opacity .15s ease,
+    transform .15s ease;
+}
+
+.week-tooltip.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
+.week-note {
+  display:flex;
+  justify-content:space-between;
+
+  margin-top:20px;
+
+  font-family:var(--mono);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.week-note span:last-child {
+  color:var(--muted);
+  text-align:right;
+}
+
+.reign-reveal {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:75px;
+  align-items:end;
+
+  margin-top:125px;
+}
+
+.reign-237 {
+  font-family:var(--mono);
+  font-size:clamp(125px,19vw,285px);
+  line-height:.78;
+  letter-spacing:-.08em;
+}
+
+.reign-text {
+  font-family:var(--serif);
+  font-size:clamp(32px,3.8vw,58px);
+  line-height:1.18;
+}
+
+
+/* =========================================================
+   STREAKS
+========================================================= */
+
+.streaks {
+  padding:175px 0;
+
+  color:var(--paper);
+  background:var(--ink);
+}
+
+.streaks h2 {
+  margin:22px 0 90px;
+
+  font-size:clamp(55px,7.5vw,115px);
+}
+
+.streak {
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:55px;
+
+  padding:58px 0;
+
+  border-top:1px solid #343434;
+
+  cursor:default;
+}
+
+.streak:last-child {
+  border-bottom:1px solid #343434;
+}
+
+.streak-number {
+  color:#d2b26e;
+
+  font-family:var(--mono);
+  font-size:clamp(70px,8vw,125px);
+  line-height:.8;
+  letter-spacing:-.07em;
+
+  transition:
+    transform .5s var(--ease),
+    color .3s ease;
+}
+
+.streak:hover .streak-number {
+  color:#f1d58c;
+  transform:translateX(10px);
+}
+
+.streak-text {
+  max-width:750px;
+
+  font-family:var(--serif);
+  font-size:clamp(30px,3.8vw,52px);
+  line-height:1.18;
+}
+
+.streak-visual {
+  margin-top:25px;
+
+  width:min(650px,100%);
+
+  height:3px;
+
+  background:#363633;
+}
+
+.streak-visual-fill {
+  width:0;
+  height:100%;
+
+  background:#d2b26e;
+
+  transition:width:1.5s var(--ease);
+}
+
+
+/* =========================================================
+   POEM THREE
+========================================================= */
+
+.poem-three {
+  padding:195px 0;
+
+  color:var(--ink);
+  background:var(--poem-paper);
+}
+
+.poem-three .poem-label {
+  color:var(--clay);
+}
+
+
+/* =========================================================
+   COMEBACK
+========================================================= */
+
+.comeback {
+  position:relative;
+
+  padding:190px 0;
+
+  color:#fff8ef;
+  background:var(--clay);
+}
+
+.comeback .year {
+  opacity:.8;
+
+  font-family:var(--mono);
+  font-size:14px;
+  letter-spacing:.08em;
+}
+
+.comeback h2 {
+  margin:30px 0;
+
+  font-size:clamp(80px,13vw,180px);
+}
+
+.comeback-copy {
+  max-width:850px;
+
+  font-family:var(--serif);
+  font-size:clamp(29px,3.8vw,55px);
+  line-height:1.25;
+}
+
+.comeback-sequence {
+  display:grid;
+  gap:80px;
+
+  margin-top:125px;
+}
+
+.comeback-card {
+  padding-top:27px;
+
+  border-top:1px solid rgba(255,255,255,.35);
+
+  opacity:.25;
+
+  transform:translateX(-30px);
+
+  transition:
+    opacity .8s var(--ease),
+    transform .8s var(--ease);
+}
+
+.comeback-card.active {
+  opacity:1;
+  transform:translateX(0);
+}
+
+.comeback-small {
+  font-family:var(--mono);
+  font-size:14px;
+  letter-spacing:.08em;
+  line-height:1.7;
+}
+
+.comeback-big {
+  margin-top:22px;
+
+  font-family:var(--mono);
+  font-size:clamp(100px,17vw,250px);
+  line-height:.8;
+  letter-spacing:-.08em;
+}
+
+.score {
+  margin-top:28px;
+
+  font-family:var(--mono);
+  font-size:clamp(20px,2.7vw,34px);
+  line-height:1.8;
+}
+
+.score-set {
+  display:inline-block;
+
+  opacity:.3;
+
+  transition:
+    opacity .3s ease,
+    transform .3s var(--ease);
+}
+
+.score-set.active {
+  opacity:1;
+  transform:translateY(-4px);
+}
+
+
+/* =========================================================
+   POEM TWO
+========================================================= */
+
+.poem-two {
+  padding:195px 0;
+
+  color:#f7f0e5;
+  background:var(--green);
+}
+
+.poem-two .poem-label {
+  color:#d4b56f;
+}
+
+
+/* =========================================================
+   FINAL 20
+========================================================= */
+
+.twenty {
+  position:relative;
+
+  padding:175px 0;
+}
+
+.twenty h2 {
+  margin:20px 0;
+
+  font-size:clamp(105px,17vw,245px);
+}
+
+.final-dot-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:13px;
+
+  max-width:700px;
+
+  margin:75px 0;
+}
+
+.final-dot {
+  position:relative;
+
+  width:43px;
+  height:43px;
+
+  border:0;
+  border-radius:50%;
+
+  background:var(--ink);
+
+  opacity:0;
+  transform:scale(.3);
+
+  cursor:pointer;
+
+  transition:
+    transform .4s var(--ease),
+    background .3s ease;
+}
+
+.final-dot.visible {
+  opacity:1;
+  transform:scale(1);
+}
+
+.final-dot:hover {
+  background:var(--gold);
+  transform:scale(1.35);
+  z-index:3;
+}
+
+.final-dot::after {
+  content:attr(data-label);
+
+  position:absolute;
+
+  bottom:calc(100% + 10px);
+  left:50%;
+
+  padding:7px 9px;
+
+  color:var(--paper);
+  background:var(--ink);
+
+  font-family:var(--mono);
+  font-size:9px;
+  white-space:nowrap;
+
+  opacity:0;
+
+  transform:
+    translateX(-50%)
+    translateY(5px);
+
+  pointer-events:none;
+
+  transition:
+    opacity .2s ease,
+    transform .2s ease;
+}
+
+.final-dot:hover::after {
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.twenty-words {
+  max-width:900px;
+
+  font-family:var(--serif);
+  font-size:clamp(36px,4.8vw,70px);
+  line-height:1.2;
+}
+
+.twenty-words .reveal-word {
+  display:inline-block;
+
+  transition:
+    transform .5s var(--ease),
+    color .3s ease;
+}
+
+.twenty-words .reveal-word:hover {
+  color:var(--clay);
+  transform:translateY(-5px);
+}
+
+
+/* =========================================================
+   HALL OF FAME
+========================================================= */
+
+.hall {
+  padding:175px 0;
+
+  color:var(--paper);
+  background:var(--ink);
+
+  text-align:center;
+}
+
+.hall .kicker {
+  color:#aaa297;
+}
+
+.hall h2 {
+  margin:35px 0;
+
+  font-size:clamp(70px,11.5vw,175px);
+}
+
+.hall-year {
+  color:#d1b273;
+
+  font-family:var(--mono);
+  font-size:clamp(40px,4.8vw,72px);
+}
+
+.final-stats {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+
+  margin-top:120px;
+
+  border-top:1px solid #383838;
+}
+
+.final-stat {
+  padding:38px 20px;
+
+  border-bottom:1px solid #383838;
+
+  transition:
+    background .3s ease,
+    transform .3s var(--ease);
+}
+
+.final-stat:hover {
+  background:#191917;
+  transform:translateY(-4px);
+}
+
+.final-stat b {
+  display:block;
+
+  color:#d1b273;
+
+  font-family:var(--mono);
+  font-size:45px;
+  font-weight:400;
+  letter-spacing:-.04em;
+}
+
+.final-stat span {
+  display:block;
+
+  margin-top:12px;
+
+  color:#aaa297;
+
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.7;
+  text-transform:uppercase;
+}
+
+.induction-note {
+  margin-top:85px;
+
+  color:#aaa297;
+
+  font-family:var(--mono);
+  font-size:14px;
+  line-height:1.9;
+}
+
+
+/* =========================================================
+   FINAL POEM
+========================================================= */
+
+.poem-one {
+  padding:215px 0 230px;
+
+  color:#eee8dc;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(181,138,57,.09),
+      transparent 38%
+    ),
+    #0d0d0d;
+}
+
+.poem-one .poem-inner {
+  width:min(920px,88vw);
+}
+
+.poem-one .poem-body {
+  max-width:800px;
+}
+
+.poem-one .poem-final {
+  border-color:#5b554c;
+}
+
+
+/* =========================================================
+   SOURCES
+========================================================= */
+
+.sources {
+  padding:75px 0;
+
+  color:#aaa;
+
+  background:#1a1a1a;
+}
+
+.sources p {
+  max-width:980px;
+
+  font-size:15px;
+  line-height:1.9;
+}
+
+.sources a {
+  color:#d1b273;
+
+  text-decoration:none;
+}
+
+.sources a:hover,
+.sources a:focus-visible {
+  color:white;
+  text-decoration:underline;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.creator-footer {
+  padding:30px 0;
+
+  color:#ddd6ca;
+
+  background:#111;
+
+  border-top:1px solid #383838;
+
+  font-family:var(--mono);
+  font-size:13px;
+  line-height:1.8;
+}
+
+.creator-footer .wrap {
+  display:flex;
+  justify-content:space-between;
+  gap:30px;
+}
+
+.creator-footer span:last-child {
+  color:#99938a;
+  text-align:right;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width:700px) {
+
+  .wrap {
+    width:min(91vw,600px);
+  }
+
+  .chapter-nav {
+    display:none;
+  }
+
+  .kicker {
+    font-size:11px;
+  }
+
+  .hero .wrap {
+    padding:75px 0 60px;
+  }
+
+  .hero h1 {
+    margin:25px 0 35px;
+
+    font-size:clamp(65px,18vw,105px);
+  }
+
+  .hero-question {
+    font-size:26px;
+  }
+
+  .hero-metrics {
+    margin-top:70px;
+    gap:12px;
+  }
+
+  .hero-metric {
+    padding-right:5px;
+  }
+
+  .hero-metric b {
+    font-size:29px;
+  }
+
+  .hero-metric span {
+    font-size:10px;
+  }
+
+  .scroll {
+    margin-top:65px;
+  }
+
+  .intro,
+  .rise,
+  .distribution,
+  .missing,
+  .reign,
+  .streaks,
+  .twenty,
+  .hall {
+    padding:115px 0;
+  }
+
+  .intro-grid,
+  .missing-grid,
+  .reign-reveal {
+    grid-template-columns:1fr;
+    gap:55px;
+  }
+
+  .intro h2 {
+    font-size:67px;
+  }
+
+  .intro-copy p {
+    font-size:18px;
+  }
+
+  .intro-copy .big-line {
+    margin-top:50px;
+    font-size:32px;
+  }
+
+  .section-heading {
+    margin-bottom:60px;
+  }
+
+  .section-heading h2 {
+    font-size:55px;
+  }
+
+  .timeline-track {
+    display:none;
+  }
+
+  .timeline-items {
+    grid-template-columns:1fr;
+  }
+
+  .timeline-item {
+    min-height:auto;
+
+    padding:28px 0 28px 32px;
+
+    border-left:1px solid var(--line);
+  }
+
+  .timeline-dot {
+    top:31px;
+    left:-8px;
+  }
+
+  .timeline-item:nth-child(even) {
+    justify-content:center;
+  }
+
+  .timeline-year {
+    font-size:30px;
+  }
+
+  .timeline-event {
+    max-width:none;
+    padding-left:0;
+    font-size:17px;
+  }
+
+  .timeline-card {
+    display:none;
+  }
+
+  .rise-sentence {
+    margin-top:70px;
+    font-size:34px;
+  }
+
+  .poem-inner {
+    width:min(88vw,600px);
+  }
+
+  .poem-four,
+  .poem-three,
+  .poem-two,
+  .poem-one {
+    padding:125px 0 145px;
+  }
+
+  .poem-label {
+    margin-bottom:45px;
+  }
+
+  .poem-title {
+    margin-bottom:55px;
+    font-size:48px;
+  }
+
+  .poem-byline {
+    margin-top:-40px;
+    margin-bottom:48px;
+    font-size:10px;
+  }
+
+  .poem-body p {
+    font-size:20px;
+    line-height:1.72;
+    margin-bottom:38px;
+  }
+
+  .poem-body .poem-emphasis {
+    font-size:28px;
+    padding-left:20px;
+    margin-top:55px;
+    margin-bottom:55px;
+  }
+
+  .poem-body .poem-final {
+    margin-top:55px;
+    padding-top:32px;
+    font-size:27px;
+  }
+
+  .poem-word:hover {
+    color:inherit;
+    transform:none;
+  }
+
+  .poem-body:has(.poem-word:hover) .poem-word {
+    opacity:1;
+  }
+
+  .majors-head {
+    grid-template-columns:1fr;
+    gap:30px;
+  }
+
+  .majors h2 {
+    font-size:105px;
+  }
+
+  .majors-head p {
+    font-size:25px;
+  }
+
+  .major-grid {
+    grid-template-columns:repeat(5,1fr);
+    gap:9px;
+  }
+
+  .major span {
+    font-size:12px;
+  }
+
+  .major-info {
+    min-height:135px;
+    font-size:14px;
+  }
+
+  .major-detail {
+    grid-template-columns:auto 1fr;
+  }
+
+  .major-detail-opponent {
+    grid-column:1 / -1;
+  }
+
+  .slam-row {
+    grid-template-columns:105px 1fr 40px;
+    gap:10px;
+    margin:27px 0;
+  }
+
+  .slam-name {
+    font-size:9px;
+  }
+
+  .slam-track {
+    height:30px;
+  }
+
+  .slam-value {
+    font-size:27px;
+  }
+
+  .missing h2 {
+    font-size:64px;
+  }
+
+  .paris {
+    margin-top:70px;
+    font-size:38px;
+  }
+
+  .check {
+    padding:20px 15px;
+    font-size:12px;
+  }
+
+  .missing-description {
+    font-size:17px;
+  }
+
+  .reign h2 {
+    font-size:64px;
+  }
+
+  .reign-copy {
+    font-size:18px;
+  }
+
+  .week-counter {
+    margin-top:50px;
+  }
+
+  .week-counter-number {
+    font-size:50px;
+  }
+
+  .week-grid {
+    grid-template-columns:repeat(20,1fr);
+    gap:3px;
+    margin-top:25px;
+  }
+
+  .week:hover {
+    transform:scale(1.5);
+  }
+
+  .week-note {
+    font-size:10px;
+  }
+
+  .reign-237 {
+    font-size:135px;
+  }
+
+  .reign-text {
+    font-size:32px;
+  }
+
+  .streaks h2 {
+    font-size:58px;
+  }
+
+  .streak {
+    grid-template-columns:1fr;
+    gap:22px;
+    padding:45px 0;
+  }
+
+  .streak-number {
+    font-size:82px;
+  }
+
+  .streak-text {
+    font-size:31px;
+  }
+
+  .comeback {
+    padding:130px 0;
+  }
+
+  .comeback h2 {
+    font-size:75px;
+  }
+
+  .comeback-copy {
+    font-size:29px;
+  }
+
+  .comeback-sequence {
+    gap:65px;
+    margin-top:90px;
+  }
+
+  .comeback-big {
+    font-size:125px;
+  }
+
+  .comeback-small {
+    font-size:11px;
+  }
+
+  .score {
+    font-size:18px;
+  }
+
+  .twenty h2 {
+    font-size:130px;
+  }
+
+  .final-dot-row {
+    gap:10px;
+    margin:60px 0;
+  }
+
+  .final-dot {
+    width:34px;
+    height:34px;
+  }
+
+  .final-dot::after {
+    display:none;
+  }
+
+  .twenty-words {
+    font-size:34px;
+  }
+
+  .hall h2 {
+    font-size:72px;
+  }
+
+  .final-stats {
+    grid-template-columns:repeat(2,1fr);
+    margin-top:75px;
+  }
+
+  .final-stat {
+    padding:27px 10px;
+  }
+
+  .final-stat b {
+    font-size:31px;
+  }
+
+  .final-stat span {
+    font-size:9px;
+  }
+
+  .induction-note {
+    font-size:10px;
+  }
+
+  .sources p {
+    font-size:13px;
+  }
+
+  .creator-footer .wrap {
+    display:block;
+  }
+
+  .creator-footer span {
+    display:block;
+  }
+
+  .creator-footer span:last-child {
+    margin-top:8px;
+    text-align:left;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion:reduce) {
+
+  html {
+    scroll-behavior:auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration:.01ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.01ms !important;
+  }
+
+  .reveal {
+    opacity:1;
+    transform:none;
+  }
+
+  .poem-body p,
+  .poem-body .poem-emphasis,
+  .poem-body .poem-final,
+  .poem-word {
+    opacity:1;
+    transform:none;
+    filter:none;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- =======================================================
+     GLOBAL UI
+======================================================= -->
+
+<div id="progress" aria-hidden="true"></div>
+
+<nav class="chapter-nav" aria-label="Story chapters">
+
+  <button class="chapter-dot" data-target="rise" aria-label="The rise"></button>
+  <button class="chapter-dot" data-target="majors" aria-label="The majors"></button>
+  <button class="chapter-dot" data-target="missing" aria-label="The missing piece"></button>
+  <button class="chapter-dot" data-target="reign" aria-label="The reign"></button>
+  <button class="chapter-dot" data-target="streaks" aria-label="Staying power"></button>
+  <button class="chapter-dot" data-target="comeback" aria-label="The comeback"></button>
+  <button class="chapter-dot" data-target="twenty" aria-label="The final two"></button>
+  <button class="chapter-dot" data-target="hall" aria-label="Hall of Fame"></button>
+
+</nav>
+
+<div class="week-tooltip" id="weekTooltip"></div>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<section class="hero reveal" id="hero">
+
+  <div class="wrap">
+
+    <div class="kicker">
+      International Tennis Hall of Fame · Class of 2026
+    </div>
+
+    <h1 class="display">
+      ROGER<br>
+      <span>FEDERER</span>
+    </h1>
+
+    <div class="hero-question">
+      What does greatness look like when you measure it?
+    </div>
+
+    <div class="hero-metrics">
+
+      <div class="hero-metric">
+        <b data-count="20">0</b>
+        <span>Grand Slam singles titles</span>
+      </div>
+
+      <div class="hero-metric">
+        <b data-count="103">0</b>
+        <span>ATP Tour-level singles titles</span>
+      </div>
+
+      <div class="hero-metric">
+        <b data-count="310">0</b>
+        <span>Weeks ranked World No. 1</span>
+      </div>
+
+    </div>
+
+    <div class="scroll">
+      SCROLL
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     INTRO
+======================================================= -->
+
+<section class="intro reveal">
+
+  <div class="wrap intro-grid">
+
+    <div>
+
+      <div class="kicker">
+        A career in numbers
+      </div>
+
+      <h2 class="display">
+        THE<br>
+        SHAPE OF<br>
+        GREATNESS.
+      </h2>
+
+    </div>
+
+    <div class="intro-copy">
+
+      <p>
+        The numbers are extraordinary.
+        But read in the right order, they tell a better story
+        than any list of records can.
+      </p>
+
+      <p class="big-line">
+        First, he rose.<br>
+        Then, he ruled.<br>
+        Then, he came back.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     RISE
+======================================================= -->
+
+<section class="rise reveal" id="rise">
+
+  <div class="wrap">
+
+    <div class="section-heading">
+
+      <div class="kicker">
+        01 · The rise
+      </div>
+
+      <h2 class="display">
+        IT HAPPENED FAST.
+      </h2>
+
+    </div>
+
+    <div class="timeline">
+
+      <div class="timeline-track">
+        <div class="timeline-progress"></div>
+      </div>
+
+      <div class="timeline-items">
+
+        <div class="timeline-item">
+
+          <div class="timeline-dot"></div>
+
+          <div class="timeline-year">
+            1998
+          </div>
+
+          <div class="timeline-event">
+            Turns professional.
+          </div>
+
+          <div class="timeline-card">
+            THE BEGINNING<br>
+            Federer turns professional.
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-dot"></div>
+
+          <div class="timeline-year">
+            2001
+          </div>
+
+          <div class="timeline-event">
+            Wins his first ATP Tour title in Milan.
+          </div>
+
+          <div class="timeline-card">
+            FIRST ATP TITLE<br>
+            Milan · 2001
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-dot"></div>
+
+          <div class="timeline-year">
+            2003
+          </div>
+
+          <div class="timeline-event">
+            Wins Wimbledon — his first Grand Slam singles title.
+          </div>
+
+          <div class="timeline-card">
+            GRAND SLAM No. 1<br>
+            Wimbledon · 2003
+          </div>
+
+        </div>
+
+
+        <div class="timeline-item">
+
+          <div class="timeline-dot"></div>
+
+          <div class="timeline-year">
+            2004
+          </div>
+
+          <div class="timeline-event">
+            Reaches World No. 1 for the first time.
+          </div>
+
+          <div class="timeline-card">
+            WORLD No. 1<br>
+            The reign begins.
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="rise-sentence">
+      Six years after turning professional,
+      Roger Federer had gone from rising talent
+      to the world's No. 1-ranked player.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     POEM — FIRST MEMORY
+======================================================= -->
+
+<section class="poem-section poem-four reveal">
+
+  <div class="poem-inner">
+
+    <div class="poem-label">
+      A personal memory
+    </div>
+
+    <h2 class="poem-title">
+      THE FIRST TIME<br>
+      I SAW YOU PLAY.
+    </h2>
+
+    <div class="poem-byline">
+      Words by Annapurani Vaidyanathan
+    </div>
+
+    <div class="poem-reading-line"></div>
+
+    <div class="poem-body">
+
+      <p>
+        2006. My first-ever memory of watching you play.
+        It was a Wimbledon final against Nadal.
+        I was staring at a 24-year-old star who already had
+        7 grand slams in his kitty.
+        A ball boy who had worked hard to earn et al.
+      </p>
+
+      <p>
+        The numbers kept growing. 7 became 17.
+        But you didn’t lose sheen.
+      </p>
+
+      <p>
+        You became the idol, you became the GOAT.
+        You became a legend that didn’t shy away when he wanted to emote.
+      </p>
+
+      <p>
+        You are mocked for your tears, but they push us to relate
+        to you more.
+        They show how much each match mattered to you and why you’ll
+        probably be the only legend I’ll gush about and adore.
+        They make you vulnerable and human, and one of us –
+        not just a celeb who stands on a pedestal.
+      </p>
+
+      <p>
+        Seven summers later, in 2013, you were down with injury.
+        Critics began to write you off; they said 32 was a good age
+        to hang up your boots. They said it was time for you to call it a day.
+        Slams, they said, wouldn’t anymore be your forte.
+      </p>
+
+      <p class="poem-emphasis">
+        They began to bid you goodbye, but you didn’t care.
+        You simply chose to hang in there.
+        You stumbled, you fell.
+        Yet you rose with grace every single time,
+        and had the world again under your spell.
+      </p>
+
+      <p>
+        You bounced back in 2017, and how!
+        At 35, you scourged every raised eyebrow.
+        You returned from six months away from the tour
+        and won the Australian Open.
+        You showed the world why tennis will always be your jam,
+        why you won’t let yourself be easily outrun.
+      </p>
+
+      <p>
+        You made the world run short of superlatives,
+        you made words fail critics.
+        When people put you on the back burner,
+        you came back stronger.
+        You proved to them that age is just another number.
+      </p>
+
+      <p class="poem-final">
+        You defied full stops.
+        You taught us to look beyond pitfalls and barriers.
+        You gave us reason to believe, to stay undaunted,
+        to keep going, to forge new forevers.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     MAJORS
+======================================================= -->
+
+<section class="majors reveal" id="majors">
+
+  <div class="wrap">
+
+    <div class="majors-head">
+
+      <div>
+
+        <div class="kicker">
+          02 · The majors
+        </div>
+
+        <h2 class="display">
+          20.
+        </h2>
+
+      </div>
+
+      <p>
+        Twenty Grand Slam singles titles.
+        One circle for every championship.
+        Tap a number to follow the journey.
+      </p>
+
+    </div>
+
+    <div class="major-progress">
+
+      <span id="majorProgressLabel">
+        TITLE 01 / 20
+      </span>
+
+      <div class="major-progress-line">
+        <div class="major-progress-fill" id="majorProgressFill"></div>
+      </div>
+
+    </div>
+
+    <div
+      class="major-grid"
+      id="majorGrid"
+      role="group"
+      aria-label="Roger Federer's 20 Grand Slam singles titles">
+    </div>
+
+    <div
+      class="major-info"
+      id="majorInfo"
+      aria-live="polite">
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     DISTRIBUTION
+======================================================= -->
+
+<section class="distribution reveal">
+
+  <div class="wrap">
+
+    <div class="kicker">
+      The distribution
+    </div>
+
+    <h2 class="display">
+      NOT ALL<br>
+      WON THE<br>
+      SAME WAY.
+    </h2>
+
+    <div class="distribution-intro">
+      Eight at Wimbledon. Six in Melbourne.
+      Five in New York. One in Paris.
+      Hover over each surface and watch the proportions reveal themselves.
+    </div>
+
+    <div id="slamBars"></div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     CAREER GRAND SLAM
+======================================================= -->
+
+<section class="missing reveal" id="missing">
+
+  <div class="wrap">
+
+    <div class="missing-grid">
+
+      <div>
+
+        <div class="kicker">
+          03 · The missing piece
+        </div>
+
+        <h2 class="display">
+          ONE WAS LEFT.
+        </h2>
+
+        <div class="paris-reveal">
+
+          <div class="paris paris-missing">
+            BEFORE 2009:<br><br>
+            Australia. ✓<br>
+            England. ✓<br>
+            US. ✓<br>
+            France. —
+          </div>
+
+          <div class="paris paris-complete">
+            CAREER<br>
+            GRAND<br>
+            SLAM.
+          </div>
+
+        </div>
+
+      </div>
+
+      <div>
+
+        <div class="checks">
+
+          <div class="check completed">
+            <span>AUSTRALIAN OPEN</span>
+            <span class="tick">✓</span>
+          </div>
+
+          <div class="check" data-complete="true">
+            <span>ROLAND-GARROS</span>
+            <span class="tick">✓</span>
+          </div>
+
+          <div class="check completed">
+            <span>WIMBLEDON</span>
+            <span class="tick">✓</span>
+          </div>
+
+          <div class="check completed">
+            <span>US OPEN</span>
+            <span class="tick">✓</span>
+          </div>
+
+        </div>
+
+        <div class="paris">
+          PARIS.<br>
+          2009.<br>
+          <span style="color:#e7c579">✓</span>
+        </div>
+
+        <p class="missing-description">
+          Federer defeated Robin Söderling in the final
+          to complete the Career Grand Slam.
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     WORLD NO. 1
+======================================================= -->
+
+<section class="reign reveal" id="reign">
+
+  <div class="wrap">
+
+    <div class="kicker">
+      04 · The reign
+    </div>
+
+    <h2 class="display">
+      310 WEEKS<br>
+      AS WORLD No. 1.
+    </h2>
+
+    <p class="reign-copy">
+      Every square below represents one week Federer spent
+      ranked World No. 1.
+      Watch the reign build from one week to 310.
+    </p>
+
+    <div class="week-counter">
+
+      <div
+        class="week-counter-number"
+        id="weekCounter">
+        0
+      </div>
+
+      <div class="week-counter-label">
+        weeks ranked World No. 1
+      </div>
+
+    </div>
+
+    <div
+      class="week-grid"
+      id="weekGrid"
+      aria-label="310 weeks ranked World No. 1">
+    </div>
+
+    <div class="week-note">
+      <span>237 consecutive weeks</span>
+      <span>73 additional weeks</span>
+    </div>
+
+    <div class="reign-reveal">
+
+      <div class="reign-237">
+        237
+      </div>
+
+      <div class="reign-text">
+        consecutive weeks at No. 1.<br><br>
+        More than four years without giving up the top spot.
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     STREAKS
+======================================================= -->
+
+<section class="streaks reveal" id="streaks">
+
+  <div class="wrap">
+
+    <div class="kicker">
+      05 · Staying power
+    </div>
+
+    <h2 class="display">
+      HE DIDN'T<br>
+      JUST WIN.
+    </h2>
+
+    <div class="streak" data-value="65">
+
+      <div class="streak-number">
+        65
+      </div>
+
+      <div>
+
+        <div class="streak-text">
+          consecutive wins on grass.
+        </div>
+
+        <div class="streak-visual">
+          <div class="streak-visual-fill"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="streak" data-value="36">
+
+      <div class="streak-number">
+        36
+      </div>
+
+      <div>
+
+        <div class="streak-text">
+          consecutive Grand Slam quarter-finals.
+        </div>
+
+        <div class="streak-visual">
+          <div class="streak-visual-fill"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="streak" data-value="23">
+
+      <div class="streak-number">
+        23
+      </div>
+
+      <div>
+
+        <div class="streak-text">
+          consecutive Grand Slam semi-finals.
+        </div>
+
+        <div class="streak-visual">
+          <div class="streak-visual-fill"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="streak" data-value="17">
+
+      <div class="streak-number">
+        17
+      </div>
+
+      <div>
+
+        <div class="streak-text">
+          consecutive tournament finals reached.
+        </div>
+
+        <div class="streak-visual">
+          <div class="streak-visual-fill"></div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     POEM — NUMBERS
+======================================================= -->
+
+<section class="poem-section poem-three reveal">
+
+  <div class="poem-inner">
+
+    <div class="poem-label">
+      When the numbers become a story
+    </div>
+
+    <h2 class="poem-title">
+      OH, BUT THE<br>
+      NUMBERS DO MATTER.
+    </h2>
+
+    <div class="poem-byline">
+      Words by Annapurani Vaidyanathan
+    </div>
+
+    <div class="poem-reading-line"></div>
+
+    <div class="poem-body">
+
+      <p>
+        From your first ATP Title in 2001, at Milan,
+        to reaching the semifinals at the 2020 Australian Open,
+        from capturing your Career Grand Slam in 2009,
+        to fending off bulletins that scream ‘retire now thou can’,
+        from stepping into the field as a ball boy to figuring out
+        your own paradigms,
+        from outshining peers in your era to growing to become
+        the greatest of all time,
+        you made tennis a celebration, a ride that comes doused
+        with mellifluous chimes.
+      </p>
+
+      <p>
+        You always worked your fingers to the bone for every micron
+        of your sheen,
+        be it clinching your first slam in 2003
+        or winning 20 in 2018,
+        be it breaking into the top 100 when you were just 18,
+        or finding your breakthrough – beating Sampras on Centre Court at 19,
+        be it the aces, the drop shots, the flawless slice you bring
+        into play,
+        or the backhand that looks like a perfectly choreographed ballet,
+        the world knows now that your perfection couldn't have been forged in a day.
+      </p>
+
+      <p>
+        You made the game human; you suffused your every minute
+        on the court with passion,
+        heck, with you in them, even press conferences seemed fun.
+      </p>
+
+      <p class="poem-final">
+        Tennis – to me – will always be synonymous with your name,
+        for the sport always shimmers better through the prism of your game.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     COMEBACK
+======================================================= -->
+
+<section class="comeback reveal" id="comeback">
+
+  <div class="wrap">
+
+    <div class="year">
+      06 · 2016 → 2017
+    </div>
+
+    <h2 class="display">
+      SIX MONTHS<br>
+      AWAY.
+    </h2>
+
+    <div class="comeback-copy">
+      A left-knee injury had forced Federer away from the tour.
+      Six months later, at 35, he returned to the Australian Open
+      as the No. 17 seed.
+    </div>
+
+    <div class="comeback-sequence">
+
+      <div class="comeback-card">
+
+        <div class="comeback-small">
+          JANUARY 2017 · AUSTRALIAN OPEN
+        </div>
+
+        <div class="comeback-big">
+          35
+        </div>
+
+        <div class="comeback-copy" style="margin-top:20px">
+          years old.
+        </div>
+
+      </div>
+
+
+      <div class="comeback-card">
+
+        <div class="comeback-small">
+          THE FINAL
+        </div>
+
+        <div class="comeback-copy" style="margin-top:20px">
+          FEDERER<br>
+          vs<br>
+          NADAL
+        </div>
+
+        <div class="score">
+
+          <span class="score-set">6–4</span>
+          ·
+          <span class="score-set">3–6</span>
+          ·
+          <span class="score-set">6–1</span>
+          ·
+          <span class="score-set">3–6</span>
+          ·
+          <span class="score-set">6–3</span>
+
+        </div>
+
+      </div>
+
+
+      <div class="comeback-card">
+
+        <div class="comeback-small">
+          THE RESULT
+        </div>
+
+        <div class="comeback-big">
+          18
+        </div>
+
+        <div class="comeback-copy" style="margin-top:20px">
+          Grand Slam singles titles.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     POEM — WHY WE WATCHED
+======================================================= -->
+
+<section class="poem-section poem-two reveal">
+
+  <div class="poem-inner">
+
+    <div class="poem-label">
+      Beyond the numbers
+    </div>
+
+    <h2 class="poem-title">
+      WHY WE<br>
+      KEPT WATCHING.
+    </h2>
+
+    <div class="poem-byline">
+      Words by Annapurani Vaidyanathan
+    </div>
+
+    <div class="poem-reading-line"></div>
+
+    <div class="poem-body">
+
+      <p>
+        50 years from today, the world will be a different place.
+        But there still will be players in scores and fans in millions
+        who will look up to your calibre, your demeanour,
+        your inexplicable grace.
+        Your name will continue to reverberate the loudest in stadiums,
+        your matches will continue to leave the audience in a daze,
+        Because 50 years from today…. you will still be ahead of the race.
+      </p>
+
+      <p class="poem-emphasis">
+        For it wasn’t just the slams that made you the GOAT.
+        It wasn’t just the ranking that kept you afloat.
+      </p>
+
+      <p>
+        You stood out because, in an era where we are always engulfed
+        with reasons to stop, you showed us how to keep going,
+        come storm, sunshine or rainfall.
+        You showed us how human you are and how flawed,
+        you showed us that you might break down and fall,
+        but you will get back up again as many times as you need to,
+        to stand tall.
+      </p>
+
+      <p>
+        You showed us what it takes to follow your heart,
+        to do what you love and to do it for as long as you last.
+        You showed us how to prove the world wrong when it writes
+        you off, when it thinks you are a thing of the past.
+      </p>
+
+      <p>
+        Maybe that is why every time you won,
+        it became a victory so profoundly monumental.
+        Maybe that is why watching you lose felt like a punch in the gut,
+        a loss so unapologetically personal.
+        Maybe that is why watching you play will always be a vision
+        to behold, a memory to cherish, a treasure to relish when clouds turn grey.
+        Maybe that is why I wake up each day, dreaming of seeing
+        your magic again on the hard court, on grass and on clay!
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL TWO
+======================================================= -->
+
+<section class="twenty reveal" id="twenty">
+
+  <div class="wrap">
+
+    <div class="kicker">
+      07 · The final two
+    </div>
+
+    <h2 class="display">
+      20.
+    </h2>
+
+    <div
+      class="final-dot-row"
+      id="finalDots"
+      aria-label="20 Grand Slam singles titles">
+    </div>
+
+    <div class="twenty-words">
+      Wimbledon, 2017.<br>
+      Australian Open, 2018.<br><br>
+
+      And suddenly, 20 wasn't just a number anymore.
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     HALL OF FAME
+======================================================= -->
+
+<section class="hall reveal" id="hall">
+
+  <div class="wrap">
+
+    <div class="kicker">
+      International Tennis Hall of Fame
+    </div>
+
+    <h2 class="display">
+      HALL OF<br>
+      FAME.
+    </h2>
+
+    <div class="hall-year">
+      CLASS OF 2026
+    </div>
+
+    <div class="final-stats">
+
+      <div class="final-stat">
+        <b data-count="20">0</b>
+        <span>Grand Slam singles titles</span>
+      </div>
+
+      <div class="final-stat">
+        <b data-count="103">0</b>
+        <span>ATP Tour-level singles titles</span>
+      </div>
+
+      <div class="final-stat">
+        <b data-count="1251">0</b>
+        <span>ATP Tour-level singles match wins</span>
+      </div>
+
+      <div class="final-stat">
+        <b data-count="310">0</b>
+        <span>Weeks ranked World No. 1</span>
+      </div>
+
+      <div class="final-stat">
+        <b data-count="28">0</b>
+        <span>ATP Masters 1000 titles</span>
+      </div>
+
+      <div class="final-stat">
+        <b data-count="6">0</b>
+        <span>ATP Finals titles</span>
+      </div>
+
+    </div>
+
+    <p class="induction-note">
+      INDUCTION CEREMONY · AUGUST 29, 2026 · 6:30 PM EST<br>
+      NEWPORT, RHODE ISLAND
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FINAL POEM
+======================================================= -->
+
+<section class="poem-section poem-one reveal">
+
+  <div class="poem-inner">
+
+    <div class="poem-label">
+      A final word
+    </div>
+
+    <h2 class="poem-title">
+      YOU AREN'T<br>
+      HISTORY.
+    </h2>
+
+    <div class="poem-byline">
+      Words by Annapurani Vaidyanathan
+    </div>
+
+    <div class="poem-reading-line"></div>
+
+    <div class="poem-body">
+
+      <p>
+        You aren’t history – you’re the present,
+        you’re the legacy that keeps the future growing.
+        You define what good looks like,
+        you show people how to keep the ball rolling.
+        You will never be referred to in tenses past – in did, had, or was.
+        Because, be it on court or outside,
+        you always keep reaching for the stars.
+      </p>
+
+      <p>
+        It’s been 3 years, 11 months, 5 days since you bid goodbye,
+        yet - to date - every time you set foot in them, stadiums continue to erupt.
+        Because in you, we all trust, and from you, we learn what it takes to trust our gut.
+      </p>
+
+      <p>
+        You’re the benchmark that players measure themselves against,
+        it is your validation they strive for.
+        Every time we see you, you leave us in a daze,
+        for in our eyes, you will always be the GOAT, the star!
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     SOURCES
+======================================================= -->
+
+<section class="sources reveal">
+
+  <div class="wrap">
+
+    <div class="kicker" style="color:#999">
+      Sources
+    </div>
+
+    <p>
+
+      <a
+        href="https://www.atptour.com/en/players/federer-roger/f324/bio"
+        target="_blank"
+        rel="noopener noreferrer">
+        ATP Tour
+      </a>
+
+      ·
+
+      <a
+        href="https://www.tennisfame.com/"
+        target="_blank"
+        rel="noopener noreferrer">
+        International Tennis Hall of Fame
+      </a>
+
+      ·
+
+      <a
+        href="https://www.itftennis.com/en/news-and-media/articles/roger-federer-by-the-numbers/"
+        target="_blank"
+        rel="noopener noreferrer">
+        International Tennis Federation
+      </a>
+
+      ·
+
+      <a
+        href="https://www.usopen.org/en_US/news/articles/2022-09-16/by_the_numbers_roger_federers_gamechanging_career.html"
+        target="_blank"
+        rel="noopener noreferrer">
+        US Open
+      </a>
+
+    </p>
+
+    <p>
+      Career statistics reflect ATP Tour records:
+      20 Grand Slam singles titles,
+      103 tour-level singles titles,
+      1,251 tour-level singles match wins,
+      310 weeks ranked World No. 1,
+      including 237 consecutive weeks,
+      28 ATP Masters 1000 titles
+      and 6 ATP Finals titles.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer class="creator-footer">
+
+  <div class="wrap">
+
+    <span>
+      © 2026 Annapurani Vaidyanathan™
+    </span>
+
+    <span>
+      Roger Federer · The Shape of Greatness
+    </span>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+const reduceMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+/* =========================================================
+   GLOBAL SCROLL PROGRESS
+========================================================= */
+
+const progress =
+  document.getElementById("progress");
+
+function updateGlobalProgress() {
+
+  const height =
+    document.documentElement.scrollHeight -
+    window.innerHeight;
+
+  const value =
+    height > 0
+      ? window.scrollY / height
+      : 0;
+
+  progress.style.width =
+    `${value * 100}%`;
+
+  document.documentElement.style.setProperty(
+    "--scroll-progress",
+    value
+  );
+}
+
+
+/* =========================================================
+   HERO PARALLAX
+========================================================= */
+
+const hero =
+  document.getElementById("hero");
+
+function updateHero() {
+
+  const rect =
+    hero.getBoundingClientRect();
+
+  const viewport =
+    window.innerHeight;
+
+  const progress =
+    Math.max(
+      0,
+      Math.min(
+        1,
+        -rect.top / viewport
+      )
+    );
+
+  hero.style.setProperty(
+    "--hero-scroll",
+    progress
+  );
+}
+
+window.addEventListener(
+  "scroll",
+  () => {
+
+    updateGlobalProgress();
+    updateHero();
+
+  },
+  {
+    passive:true
+  }
+);
+
+updateGlobalProgress();
+updateHero();
+
+
+/* =========================================================
+   POINTER PARALLAX
+========================================================= */
+
+if (!reduceMotion) {
+
+  hero.addEventListener(
+    "pointermove",
+    event => {
+
+      if (
+        window.matchMedia(
+          "(pointer: coarse)"
+        ).matches
+      ) {
+        return;
+      }
+
+      const rect =
+        hero.getBoundingClientRect();
+
+      const x =
+        (event.clientX - rect.left) /
+        rect.width;
+
+      const y =
+        (event.clientY - rect.top) /
+        rect.height;
+
+      hero.style.setProperty(
+        "--hero-x",
+        (x - .5) * 18
+      );
+
+      hero.style.setProperty(
+        "--hero-y",
+        (y - .5) * 18
+      );
+
+    },
+    {
+      passive:true
+    }
+  );
+
+}
+
+
+/* =========================================================
+   GENERIC REVEAL
+========================================================= */
+
+const revealObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (entry.isIntersecting) {
+
+            entry.target.classList.add(
+              "visible"
+            );
+
+            revealObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.1
+    }
+  );
+
+document
+  .querySelectorAll(".reveal")
+  .forEach(
+    element =>
+      revealObserver.observe(element)
+  );
+
+
+/* =========================================================
+   NUMBER COUNTER
+========================================================= */
+
+function animateCounter(element) {
+
+  if (element.dataset.counted) {
+    return;
+  }
+
+  element.dataset.counted = "true";
+
+  const target =
+    Number(element.dataset.count);
+
+  if (
+    reduceMotion
+  ) {
+    element.textContent =
+      target.toLocaleString();
+
+    return;
+  }
+
+  const duration = 1300;
+
+  const start =
+    performance.now();
+
+  function tick(now) {
+
+    const progress =
+      Math.min(
+        1,
+        (now - start) /
+        duration
+      );
+
+    const eased =
+      1 - Math.pow(
+        1 - progress,
+        3
+      );
+
+    element.textContent =
+      Math.round(
+        target * eased
+      ).toLocaleString();
+
+    if (progress < 1) {
+      requestAnimationFrame(tick);
+    }
+
+  }
+
+  requestAnimationFrame(tick);
+}
+
+
+const counterObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            animateCounter(
+              entry.target
+            );
+
+            counterObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.5
+    }
+  );
+
+document
+  .querySelectorAll("[data-count]")
+  .forEach(
+    element =>
+      counterObserver.observe(element)
+  );
+
+
+/* =========================================================
+   CHAPTER NAVIGATION
+========================================================= */
+
+const chapterNav =
+  document.querySelector(".chapter-nav");
+
+const chapterDots =
+  Array.from(
+    document.querySelectorAll(
+      ".chapter-dot"
+    )
+  );
+
+const chapterSections =
+  chapterDots
+    .map(dot =>
+      document.getElementById(
+        dot.dataset.target
+      )
+    )
+    .filter(Boolean);
+
+
+function updateChapterNav() {
+
+  if (
+    window.scrollY >
+    window.innerHeight * .7
+  ) {
+
+    chapterNav.classList.add(
+      "visible"
+    );
+
+  } else {
+
+    chapterNav.classList.remove(
+      "visible"
+    );
+
+  }
+
+  let activeIndex = 0;
+
+  chapterSections.forEach(
+    (section,index) => {
+
+      const rect =
+        section.getBoundingClientRect();
+
+      if (
+        rect.top <=
+        window.innerHeight * .45
+      ) {
+        activeIndex = index;
+      }
+
+    }
+  );
+
+  chapterDots.forEach(
+    (dot,index) => {
+
+      dot.classList.toggle(
+        "active",
+        index === activeIndex
+      );
+
+    }
+  );
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateChapterNav,
+  {
+    passive:true
+  }
+);
+
+chapterDots.forEach(
+  dot => {
+
+    dot.addEventListener(
+      "click",
+      () => {
+
+        const target =
+          document.getElementById(
+            dot.dataset.target
+          );
+
+        if (target) {
+
+          target.scrollIntoView({
+            behavior:
+              reduceMotion
+                ? "auto"
+                : "smooth"
+          });
+
+        }
+
+      }
+    );
+
+  }
+);
+
+updateChapterNav();
+
+
+/* =========================================================
+   RISE TIMELINE
+========================================================= */
+
+const rise =
+  document.getElementById("rise");
+
+const timelineProgress =
+  document.querySelector(
+    ".timeline-progress"
+  );
+
+
+function updateTimeline() {
+
+  if (!timelineProgress) {
+    return;
+  }
+
+  const rect =
+    rise.getBoundingClientRect();
+
+  const start =
+    window.innerHeight * .8;
+
+  const end =
+    -rect.height * .2;
+
+  const value =
+    Math.max(
+      0,
+      Math.min(
+        1,
+        (start - rect.top) /
+        (start - end)
+      )
+    );
+
+  timelineProgress.style.width =
+    `${value * 100}%`;
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateTimeline,
+  {
+    passive:true
+  }
+);
+
+updateTimeline();
+
+
+/* =========================================================
+   GRAND SLAM DATA
+========================================================= */
+
+const majors = [
+
+  ["Wimbledon",2003,"Mark Philippoussis","Title No. 1"],
+
+  ["Australian Open",2004,"Marat Safin","Title No. 2"],
+
+  ["Wimbledon",2004,"Andy Roddick","Title No. 3"],
+
+  ["US Open",2004,"Lleyton Hewitt","Title No. 4"],
+
+  ["Wimbledon",2005,"Andy Roddick","Title No. 5"],
+
+  ["US Open",2005,"Andre Agassi","Title No. 6"],
+
+  ["Australian Open",2006,"Marcos Baghdatis","Title No. 7"],
+
+  ["Wimbledon",2006,"Rafael Nadal","Title No. 8"],
+
+  ["US Open",2006,"Andy Roddick","Title No. 9"],
+
+  ["Australian Open",2007,"Fernando González","Title No. 10"],
+
+  ["Wimbledon",2007,"Rafael Nadal","Title No. 11"],
+
+  ["US Open",2007,"Novak Djokovic","Title No. 12"],
+
+  ["US Open",2008,"Andy Murray","Title No. 13"],
+
+  [
+    "Roland-Garros",
+    2009,
+    "Robin Söderling",
+    "Title No. 14 · Career Grand Slam"
+  ],
+
+  ["Wimbledon",2009,"Andy Roddick","Title No. 15"],
+
+  ["Australian Open",2010,"Andy Murray","Title No. 16"],
+
+  ["Wimbledon",2012,"Andy Murray","Title No. 17"],
+
+  ["Australian Open",2017,"Rafael Nadal","Title No. 18"],
+
+  ["Wimbledon",2017,"Marin Čilić","Title No. 19"],
+
+  ["Australian Open",2018,"Marin Čilić","Title No. 20"]
+
+];
+
+
+const majorGrid =
+  document.getElementById(
+    "majorGrid"
+  );
+
+const majorInfo =
+  document.getElementById(
+    "majorInfo"
+  );
+
+const majorProgressFill =
+  document.getElementById(
+    "majorProgressFill"
+  );
+
+const majorProgressLabel =
+  document.getElementById(
+    "majorProgressLabel"
+  );
+
+
+function updateMajorInfo(index) {
+
+  const [
+    slam,
+    year,
+    opponent,
+    title
+  ] =
+    majors[index];
+
+  majorInfo.innerHTML = `
+
+    <div class="major-detail">
+
+      <div class="major-detail-number">
+        ${index + 1}
+      </div>
+
+      <div>
+
+        <strong>
+          ${title}
+        </strong>
+
+        <div class="major-detail-year">
+          ${slam} · ${year}
+        </div>
+
+      </div>
+
+      <div class="major-detail-opponent">
+        Defeated ${opponent}
+      </div>
+
+    </div>
+
+  `;
+
+  majorProgressLabel.textContent =
+    `TITLE ${String(index + 1).padStart(2,"0")} / 20`;
+
+  majorProgressFill.style.width =
+    `${((index + 1) / 20) * 100}%`;
+
+}
+
+
+majors.forEach(
+  (item,index) => {
+
+    const [
+      slam,
+      year,
+      opponent,
+      title
+    ] = item;
+
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.className =
+      "major";
+
+    button.dataset.slam =
+      slam;
+
+    button.setAttribute(
+      "aria-label",
+      `${slam}, ${year}, defeated ${opponent}, ${title}`
+    );
+
+    button.innerHTML =
+      `<span>${index + 1}</span>`;
+
+    if (index === 0) {
+      button.classList.add(
+        "active"
+      );
+    }
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(
+            ".major"
+          )
+          .forEach(
+            item =>
+              item.classList.remove(
+                "active"
+              )
+          );
+
+        button.classList.add(
+          "active"
+        );
+
+        updateMajorInfo(
+          index
+        );
+
+      }
+    );
+
+    button.addEventListener(
+      "mouseenter",
+      () => {
+
+        updateMajorInfo(
+          index
+        );
+
+      }
+    );
+
+    majorGrid.appendChild(
+      button
+    );
+
+  }
+);
+
+updateMajorInfo(0);
+
+
+/* =========================================================
+   GRAND SLAM DISTRIBUTION
+========================================================= */
+
+const slamData = [
+
+  ["Australian Open",6,"#e0b84e"],
+
+  ["Roland-Garros",1,"#b65435"],
+
+  ["Wimbledon",8,"#355b49"],
+
+  ["US Open",5,"#28577d"]
+
+];
+
+const bars =
+  document.getElementById(
+    "slamBars"
+  );
+
+
+slamData.forEach(
+  ([name,value,color]) => {
+
+    const row =
+      document.createElement(
+        "div"
+      );
+
+    row.className =
+      "slam-row";
+
+    const percentage =
+      Math.round(
+        value / 20 * 100
+      );
+
+    row.innerHTML = `
+
+      <div class="slam-name">
+        ${name}
+      </div>
+
+      <div class="slam-track">
+
+        <div
+          class="slam-fill"
+          data-width="${value / 8 * 100}%"
+          style="background:${color}">
+        </div>
+
+        <div class="slam-share">
+          ${percentage}% of all 20
+        </div>
+
+      </div>
+
+      <div class="slam-value">
+        ${value}
+      </div>
+
+    `;
+
+    bars.appendChild(
+      row
+    );
+
+  }
+);
+
+
+const barObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            bars
+              .querySelectorAll(
+                ".slam-fill"
+              )
+              .forEach(
+                element => {
+
+                  element.style.width =
+                    element.dataset.width;
+
+                }
+              );
+
+            barObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.35
+    }
+  );
+
+barObserver.observe(
+  bars
+);
+
+
+/* =========================================================
+   CAREER GRAND SLAM REVEAL
+========================================================= */
+
+const missing =
+  document.getElementById(
+    "missing"
+  );
+
+const missingObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            setTimeout(
+              () => {
+
+                const missingCheck =
+                  missing.querySelector(
+                    '[data-complete="true"]'
+                  );
+
+                if (
+                  missingCheck
+                ) {
+                  missingCheck.classList.add(
+                    "completed"
+                  );
+                }
+
+                setTimeout(
+                  () => {
+                    missing.classList.add(
+                      "completed"
+                    );
+                  },
+                  800
+                );
+
+              },
+              700
+            );
+
+            missingObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.45
+    }
+  );
+
+missingObserver.observe(
+  missing
+);
+
+
+/* =========================================================
+   310 WEEK VISUALIZATION
+========================================================= */
+
+const weekGrid =
+  document.getElementById(
+    "weekGrid"
+  );
+
+const weekCounter =
+  document.getElementById(
+    "weekCounter"
+  );
+
+const weekTooltip =
+  document.getElementById(
+    "weekTooltip"
+  );
+
+const weeks = [];
+
+for (
+  let i = 0;
+  i < 310;
+  i++
+) {
+
+  const week =
+    document.createElement(
+      "div"
+    );
+
+  week.className =
+    "week " +
+    (
+      i < 237
+        ? "consecutive"
+        : "additional"
+    );
+
+  week.dataset.index =
+    i + 1;
+
+  week.setAttribute(
+    "aria-label",
+    i < 237
+      ? `Consecutive World No. 1 week ${i + 1}`
+      : `Additional World No. 1 week ${i - 236}`
+  );
+
+  week.addEventListener(
+    "pointerenter",
+    event => {
+
+      if (
+        window.matchMedia(
+          "(pointer: coarse)"
+        ).matches
+      ) {
+        return;
+      }
+
+      weekTooltip.textContent =
+        i < 237
+          ? `Week ${i + 1} · consecutive`
+          : `Week ${i + 1} · additional`;
+
+      weekTooltip.classList.add(
+        "visible"
+      );
+
+      weekTooltip.style.left =
+        `${event.clientX + 12}px`;
+
+      weekTooltip.style.top =
+        `${event.clientY + 12}px`;
+
+    }
+  );
+
+  week.addEventListener(
+    "pointermove",
+    event => {
+
+      weekTooltip.style.left =
+        `${event.clientX + 12}px`;
+
+      weekTooltip.style.top =
+        `${event.clientY + 12}px`;
+
+    }
+  );
+
+  week.addEventListener(
+    "pointerleave",
+    () => {
+
+      weekTooltip.classList.remove(
+        "visible"
+      );
+
+    }
+  );
+
+  weekGrid.appendChild(
+    week
+  );
+
+  weeks.push(
+    week
+  );
+
+}
+
+
+function updateWeekVisualization() {
+
+  const rect =
+    weekGrid.getBoundingClientRect();
+
+  const viewport =
+    window.innerHeight;
+
+  const start =
+    viewport * .85;
+
+  const end =
+    viewport * .15;
+
+  const value =
+    Math.max(
+      0,
+      Math.min(
+        1,
+        (start - rect.top) /
+        (rect.height + start - end)
+      )
+    );
+
+  const count =
+    Math.floor(
+      value * 310
+    );
+
+  weeks.forEach(
+    (week,index) => {
+
+      week.classList.toggle(
+        "active-week",
+        index < count
+      );
+
+    }
+  );
+
+  weekCounter.textContent =
+    count.toLocaleString();
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateWeekVisualization,
+  {
+    passive:true
+  }
+);
+
+updateWeekVisualization();
+
+
+/* =========================================================
+   STREAK VISUALS
+========================================================= */
+
+const streaks =
+  document.querySelectorAll(
+    ".streak"
+  );
+
+const maxStreak =
+  65;
+
+const streakObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            const streak =
+              entry.target;
+
+            const value =
+              Number(
+                streak.dataset.value
+              );
+
+            const fill =
+              streak.querySelector(
+                ".streak-visual-fill"
+              );
+
+            fill.style.width =
+              `${value / maxStreak * 100}%`;
+
+            streakObserver.unobserve(
+              streak
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.35
+    }
+  );
+
+streaks.forEach(
+  streak =>
+    streakObserver.observe(
+      streak
+    )
+);
+
+
+/* =========================================================
+   COMEBACK SCROLL SEQUENCE
+========================================================= */
+
+const comebackCards =
+  document.querySelectorAll(
+    ".comeback-card"
+  );
+
+const comebackObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            const index =
+              Array.from(
+                comebackCards
+              ).indexOf(
+                entry.target
+              );
+
+            comebackCards.forEach(
+              (card,i) => {
+
+                card.classList.toggle(
+                  "active",
+                  i <= index
+                );
+
+              }
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.5
+    }
+  );
+
+comebackCards.forEach(
+  card =>
+    comebackObserver.observe(
+      card
+    );
+
+
+/* =========================================================
+   SCORE ANIMATION
+========================================================= */
+
+const scoreSets =
+  document.querySelectorAll(
+    ".score-set"
+  );
+
+let scoreInterval;
+
+const scoreObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            let index = 0;
+
+            clearInterval(
+              scoreInterval
+            );
+
+            scoreInterval =
+              setInterval(
+                () => {
+
+                  scoreSets.forEach(
+                    (set,i) => {
+
+                      set.classList.toggle(
+                        "active",
+                        i === index
+                      );
+
+                    }
+                  );
+
+                  index++;
+
+                  if (
+                    index >=
+                    scoreSets.length
+                  ) {
+
+                    clearInterval(
+                      scoreInterval
+                    );
+
+                    scoreSets.forEach(
+                      set =>
+                        set.classList.add(
+                          "active"
+                        )
+                    );
+
+                  }
+
+                },
+                reduceMotion
+                  ? 1
+                  : 550
+              );
+
+            scoreObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.6
+    }
+  );
+
+document
+  .querySelectorAll(
+    ".score"
+  )
+  .forEach(
+    score =>
+      scoreObserver.observe(
+        score
+      )
+  );
+
+
+/* =========================================================
+   FINAL 20 DOTS
+========================================================= */
+
+const finalDots =
+  document.getElementById(
+    "finalDots"
+  );
+
+for (
+  let i = 0;
+  i < 20;
+  i++
+) {
+
+  const dot =
+    document.createElement(
+      "button"
+    );
+
+  dot.className =
+    "final-dot";
+
+  dot.dataset.label =
+    `Grand Slam title ${i + 1}`;
+
+  dot.setAttribute(
+    "aria-label",
+    `Grand Slam singles title ${i + 1}`
+  );
+
+  finalDots.appendChild(
+    dot
+  );
+
+}
+
+
+const finalDotObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            finalDots
+              .querySelectorAll(
+                ".final-dot"
+              )
+              .forEach(
+                (dot,index) => {
+
+                  setTimeout(
+                    () => {
+
+                      dot.classList.add(
+                        "visible"
+                      );
+
+                    },
+                    reduceMotion
+                      ? 0
+                      : index * 90
+                  );
+
+                }
+              );
+
+            finalDotObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.35
+    }
+  );
+
+finalDotObserver.observe(
+  finalDots
+);
+
+
+/* =========================================================
+   POETRY — WORD WRAPPING
+========================================================= */
+
+const poemSections =
+  document.querySelectorAll(
+    ".poem-section"
+  );
+
+
+function wrapWords(element) {
+
+  const walker =
+    document.createTreeWalker(
+      element,
+      NodeFilter.SHOW_TEXT,
+      {
+        acceptNode(node) {
+
+          if (
+            !node.nodeValue.trim() ||
+            node.parentElement.closest(
+              ".poem-word"
+            )
+          ) {
+            return NodeFilter.FILTER_REJECT;
+          }
+
+          return NodeFilter.FILTER_ACCEPT;
+
+        }
+      }
+    );
+
+  const nodes = [];
+
+  while (
+    walker.nextNode()
+  ) {
+    nodes.push(
+      walker.currentNode
+    );
+  }
+
+  nodes.forEach(
+    node => {
+
+      const parts =
+        node.nodeValue.split(
+          /(\s+)/
+        );
+
+      const fragment =
+        document.createDocumentFragment();
+
+      let index = 0;
+
+      parts.forEach(
+        part => {
+
+          if (
+            /^\s+$/.test(
+              part
+            )
+          ) {
+
+            fragment.appendChild(
+              document.createTextNode(
+                part
+              )
+            );
+
+            return;
+
+          }
+
+          if (!part) {
+            return;
+          }
+
+          const span =
+            document.createElement(
+              "span"
+            );
+
+          span.className =
+            "poem-word";
+
+          span.textContent =
+            part;
+
+          span.style.setProperty(
+            "--word-index",
+            index++
+          );
+
+          fragment.appendChild(
+            span
+          );
+
+        }
+      );
+
+      node.parentNode.replaceChild(
+        fragment,
+        node
+      );
+
+    }
+  );
+
+}
+
+document
+  .querySelectorAll(
+    ".poem-body"
+  )
+  .forEach(
+    body =>
+      wrapWords(body)
+  );
+
+
+/* =========================================================
+   POEM PARAGRAPH REVEAL
+========================================================= */
+
+const poemParagraphs =
+  document.querySelectorAll(
+    ".poem-body p"
+  );
+
+const paragraphObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          if (
+            entry.isIntersecting
+          ) {
+
+            entry.target.classList.add(
+              "poem-visible"
+            );
+
+            paragraphObserver.unobserve(
+              entry.target
+            );
+
+          }
+
+        }
+      );
+
+    },
+    {
+      threshold:.15,
+      rootMargin:"0px 0px -10% 0px"
+    }
+  );
+
+poemParagraphs.forEach(
+  paragraph =>
+    paragraphObserver.observe(
+      paragraph
+    )
+);
+
+
+/* =========================================================
+   POEM ACTIVE STATE
+========================================================= */
+
+const poemSectionObserver =
+  new IntersectionObserver(
+    entries => {
+
+      entries.forEach(
+        entry => {
+
+          entry.target.classList.toggle(
+            "poem-active",
+            entry.isIntersecting
+          );
+
+        }
+      );
+
+    },
+    {
+      threshold:.35
+    }
+  );
+
+poemSections.forEach(
+  section =>
+    poemSectionObserver.observe(
+      section
+    );
+
+
+/* =========================================================
+   POEM LIGHT FIELD
+========================================================= */
+
+if (!reduceMotion) {
+
+  poemSections.forEach(
+    section => {
+
+      section.addEventListener(
+        "pointermove",
+        event => {
+
+          if (
+            window.matchMedia(
+              "(pointer: coarse)"
+            ).matches
+          ) {
+            return;
+          }
+
+          const rect =
+            section.getBoundingClientRect();
+
+          const x =
+            (
+              (event.clientX - rect.left) /
+              rect.width
+            ) * 100;
+
+          const y =
+            (
+              (event.clientY - rect.top) /
+              rect.height
+            ) * 100;
+
+          section.style.setProperty(
+            "--mouse-x",
+            `${x}%`
+          );
+
+          section.style.setProperty(
+            "--mouse-y",
+            `${y}%`
+          );
+
+        },
+        {
+          passive:true
+        }
+      );
+
+    }
+  );
+
+}
+
+
+/* =========================================================
+   POEM READING LINE
+========================================================= */
+
+function updatePoemReadingLine() {
+
+  poemSections.forEach(
+    section => {
+
+      const line =
+        section.querySelector(
+          ".poem-reading-line"
+        );
+
+      if (!line) {
+        return;
+      }
+
+      const rect =
+        section.getBoundingClientRect();
+
+      if (
+        rect.top <
+        window.innerHeight &&
+        rect.bottom > 0
+      ) {
+
+        line.style.top =
+          "48vh";
+
+      }
+
+    }
+  );
+
+}
+
+window.addEventListener(
+  "scroll",
+  updatePoemReadingLine,
+  {
+    passive:true
+  }
+);
+
+updatePoemReadingLine();
+
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+========================================================= */
+
+document
+  .querySelectorAll(
+    ".major"
+  )
+  .forEach(
+    button => {
+
+      button.addEventListener(
+        "keydown",
+        event => {
+
+          if (
+            event.key === "ArrowRight" ||
+            event.key === "ArrowDown"
+          ) {
+
+            event.preventDefault();
+
+            const all =
+              Array.from(
+                document.querySelectorAll(
+                  ".major"
+                )
+              );
+
+            const index =
+              all.indexOf(
+                button
+              );
+
+            const next =
+              all[
+                (index + 1) %
+                all.length
+              ];
+
+            next.focus();
+            next.click();
+
+          }
+
+          if (
+            event.key === "ArrowLeft" ||
+            event.key === "ArrowUp"
+          ) {
+
+            event.preventDefault();
+
+            const all =
+              Array.from(
+                document.querySelectorAll(
+                  ".major"
+                )
+              );
+
+            const index =
+              all.indexOf(
+                button
+              );
+
+            const previous =
+              all[
+                (index - 1 + all.length) %
+                all.length
+              ];
+
+            previous.focus();
+            previous.click();
+
+          }
+
+        }
+      );
+
+    }
+  );
+
+
+/* =========================================================
+   FINAL SCROLL UPDATE
+========================================================= */
+
+window.addEventListener(
+  "resize",
+  () => {
+
+    updateGlobalProgress();
+    updateHero();
+    updateTimeline();
+    updateWeekVisualization();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
