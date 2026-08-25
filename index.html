@@ -1298,7 +1298,7 @@ p {
 }
 
 .comeback-card:hover {
-  transform:translateX(15px);
+  transform:translateX:15px);
 }
 
 .comeback-small {
@@ -1323,38 +1323,27 @@ p {
 
 
 /* =========================================================
-   FINAL TWO — THE LAST TWO
+   FINAL 20 · CONSTELLATION
 ========================================================= */
 
 .twenty {
   position:relative;
   overflow:hidden;
-
-  padding:180px 0 210px;
-
+  padding:175px 0 190px;
   color:var(--paper);
-  background:#11110f;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(181,138,57,.10), transparent 34%),
+    #11110f;
 }
 
 .twenty::before {
   content:"";
-
   position:absolute;
-  width:850px;
-  height:850px;
-
-  right:-300px;
-  top:50%;
-
-  transform:translateY(-50%);
-
-  background:radial-gradient(
-    circle,
-    rgba(181,138,57,.14),
-    transparent 65%
-  );
-
+  inset:0;
   pointer-events:none;
+  background-image:radial-gradient(circle, rgba(255,255,255,.18) 1px, transparent 1px);
+  background-size:90px 90px;
+  opacity:.12;
 }
 
 .twenty .wrap {
@@ -1362,362 +1351,293 @@ p {
   z-index:2;
 }
 
-.twenty .kicker {
-  color:#aaa297;
+.twenty .kicker { color:#d1b273; }
+
+.twenty-head {
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  gap:70px;
+  align-items:end;
 }
 
 .twenty h2 {
-  margin:25px 0 5px;
-
-  color:#eee8dc;
-
-  font-size:clamp(110px,18vw,260px);
+  margin:20px 0 0;
+  color:#f4eee3;
+  font-size:clamp(105px,17vw,245px);
 }
 
-.final-two-intro {
-  max-width:760px;
-
-  margin:0 0 105px;
-
-  color:#aaa297;
-
+.twenty-intro {
+  max-width:500px;
+  margin:0 0 15px;
+  color:#c9c1b4;
   font-family:var(--serif);
-  font-size:clamp(25px,3.1vw,40px);
-  line-height:1.35;
+  font-size:clamp(27px,3.1vw,42px);
+  line-height:1.28;
 }
 
-.final-two-intro strong {
-  color:#eee8dc;
-}
+.twenty-intro em { color:#d1b273; }
 
+.constellation-guide { position:absolute; left:50%; top:-34px; transform:translateX(-50%); z-index:10; display:flex; align-items:center; gap:12px; color:#f4eee3; font-family:var(--mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; white-space:nowrap; pointer-events:none; }
+.constellation-guide .guide-dot { width:8px; height:8px; border-radius:50%; background:#d1b273; box-shadow:0 0 0 6px rgba(209,178,115,.10),0 0 18px rgba(209,178,115,.45); animation:guidePulse 1.5s ease-in-out infinite; }
+.constellation-guide::after { content:"↓"; position:absolute; left:50%; top:18px; transform:translateX(-50%); color:#d1b273; font-size:18px; animation:guideArrow 1.2s ease-in-out infinite; }
+.constellation-guide.used { opacity:0; transform:translate(-50%,-6px); transition:opacity .35s ease,transform .35s ease; }
+@keyframes guidePulse { 0%,100%{transform:scale(.8);opacity:.65} 50%{transform:scale(1.2);opacity:1} }
+@keyframes guideArrow { 0%,100%{transform:translate(-50%,0);opacity:.45} 50%{transform:translate(-50%,5px);opacity:1} }
 
-/* --- timeline spine --- */
-
-.final-two-stage {
+.constellation {
   position:relative;
-
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:70px;
-
-  margin-top:30px;
+  width:min(760px,88vw);
+  aspect-ratio:1;
+  margin:85px auto 55px;
 }
 
-.final-two-stage::before {
-  content:"";
-
+.constellation-ring {
   position:absolute;
-
-  left:50%;
-  top:40px;
-  bottom:40px;
-
-  width:1px;
-
-  background:#383838;
-
-  transform:translateX(-50%);
-}
-
-
-/* --- championship cards --- */
-
-.final-chapter {
-  position:relative;
-  z-index:2;
-
-  min-height:620px;
-
-  padding:45px;
-
-  border:1px solid #393939;
-
-  background:#151514;
-
-  cursor:pointer;
-
-  transition:
-    transform .6s var(--ease),
-    border-color .4s ease,
-    background .4s ease,
-    box-shadow .4s ease;
-}
-
-.final-chapter:first-child {
-  margin-top:70px;
-}
-
-.final-chapter:last-child {
-  margin-top:0;
-}
-
-.final-chapter:hover {
-  transform:translateY(-10px);
-  border-color:#777064;
-}
-
-.final-chapter.active {
-  border-color:var(--gold);
-
-  background:
-    radial-gradient(
-      circle at 75% 20%,
-      rgba(181,138,57,.12),
-      transparent 40%
-    ),
-    #181816;
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.25);
-}
-
-
-/* --- title number --- */
-
-.final-chapter-number {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-
-  padding-bottom:30px;
-
-  border-bottom:1px solid #383838;
-
-  font-family:var(--mono);
-  font-size:12px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-.final-chapter-number span:last-child {
-  color:#77736b;
-}
-
-
-/* --- giant year --- */
-
-.final-year {
-  margin:55px 0 15px;
-
-  font-family:var(--mono);
-  font-size:clamp(80px,11vw,145px);
-  line-height:.8;
-  letter-spacing:-.08em;
-
-  color:#d2b26e;
-}
-
-.final-chapter:first-child .final-year {
-  color:#80a68d;
-}
-
-
-/* --- slam name --- */
-
-.final-slam-name {
-  font-family:var(--serif);
-  font-size:clamp(38px,4.5vw,62px);
-  line-height:1;
-}
-
-.final-chapter-meta {
-  margin-top:35px;
-
-  color:#9b968d;
-
-  font-family:var(--mono);
-  font-size:12px;
-  line-height:1.8;
-  text-transform:uppercase;
-}
-
-
-/* --- opponent --- */
-
-.final-opponent {
-  margin-top:60px;
-
-  color:#eee8dc;
-
-  font-family:var(--serif);
-  font-size:clamp(25px,3vw,40px);
-  line-height:1.25;
-}
-
-.final-opponent span {
-  display:block;
-
-  margin-bottom:12px;
-
-  color:#77736b;
-
-  font-family:var(--mono);
-  font-size:10px;
-  letter-spacing:.12em;
-  text-transform:uppercase;
-}
-
-
-/* --- score --- */
-
-.final-score {
-  margin-top:35px;
-
-  color:#aaa297;
-
-  font-family:var(--mono);
-  font-size:14px;
-  letter-spacing:.04em;
-}
-
-
-/* --- active indicator --- */
-
-.final-chapter-indicator {
-  position:absolute;
-
-  left:-9px;
-  top:48px;
-
-  width:17px;
-  height:17px;
-
+  inset:8%;
+  border:1px solid rgba(244,238,227,.18);
   border-radius:50%;
-
-  background:#444;
-
-  border:3px solid #11110f;
-
-  transition:
-    background .3s ease,
-    transform .3s ease;
 }
 
-.final-chapter.active .final-chapter-indicator {
-  background:var(--gold);
-  transform:scale(1.35);
-}
-
-
-/* --- central connector --- */
-
-.final-two-connector {
+.constellation-ring::before,
+.constellation-ring::after {
+  content:"";
   position:absolute;
-  z-index:4;
+  inset:13%;
+  border:1px dashed rgba(244,238,227,.08);
+  border-radius:50%;
+}
 
+.constellation-ring::after { inset:27%; }
+
+.constellation-svg {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  overflow:visible;
+  pointer-events:none;
+}
+
+.constellation-svg line {
+  stroke:rgba(209,178,115,.18);
+  stroke-width:1;
+  transition:stroke .4s ease, stroke-width .4s ease;
+}
+
+.constellation-svg line.active {
+  stroke:rgba(209,178,115,.72);
+  stroke-width:2;
+}
+
+.constellation-center {
+  position:absolute;
   left:50%;
   top:50%;
-
-  width:110px;
-  height:110px;
-
+  width:220px;
+  height:220px;
+  transform:translate(-50%,-50%);
   display:flex;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-
-  transform:translate(-50%,-50%);
-
-  border:1px solid #514b41;
-  border-radius:50%;
-
-  color:#11110f;
-  background:var(--gold);
-
-  font-family:var(--mono);
-  font-size:14px;
   text-align:center;
-
-  box-shadow:
-    0 0 0 12px #11110f;
+  border:1px solid rgba(244,238,227,.25);
+  border-radius:50%;
+  background:rgba(17,17,15,.9);
+  box-shadow:0 0 80px rgba(181,138,57,.08);
+  transition:transform .45s var(--ease), border-color .3s ease;
 }
 
-.final-two-connector small {
-  display:block;
+.constellation-center.pop { animation:centerPop .55s var(--ease); }
 
-  font-size:8px;
-  line-height:1.5;
+@keyframes centerPop {
+  0% { transform:translate(-50%,-50%) scale(.92); }
+  55% { transform:translate(-50%,-50%) scale(1.04); }
+  100% { transform:translate(-50%,-50%) scale(1); }
+}
+
+.constellation-number {
+  color:#d1b273;
+  font-family:var(--mono);
+  font-size:18px;
   letter-spacing:.12em;
 }
 
-
-/* --- final reveal --- */
-
-.final-two-reveal {
-  max-width:850px;
-
-  margin:120px auto 0;
-
-  padding-top:55px;
-
-  border-top:1px solid #383838;
-
-  text-align:center;
+.constellation-slam {
+  margin-top:10px;
+  color:#f4eee3;
+  font-family:var(--serif);
+  font-size:29px;
 }
 
-.final-two-reveal-label {
-  color:#77736b;
-
+.constellation-meta {
+  margin-top:6px;
+  color:#99938a;
   font-family:var(--mono);
   font-size:10px;
-  letter-spacing:.14em;
+  letter-spacing:.08em;
   text-transform:uppercase;
 }
 
-.final-two-reveal-title {
-  margin:22px 0 20px;
-
-  color:#eee8dc;
-
-  font-family:var(--serif);
-  font-size:clamp(34px,5vw,66px);
-  line-height:1.1;
-
-  transition:
-    opacity .25s ease,
-    transform .25s ease;
-}
-
-.final-two-reveal-copy {
-  max-width:650px;
-
-  margin:auto;
-
-  color:#aaa297;
-
-  font-size:17px;
-  line-height:1.8;
-
-  transition:
-    opacity .25s ease,
-    transform .25s ease;
-}
-
-.final-two-reveal.fade-out .final-two-reveal-title,
-.final-two-reveal.fade-out .final-two-reveal-copy {
+.final-star {
+  position:absolute;
+  z-index:5;
+  width:48px;
+  height:48px;
+  min-width:48px;
+  min-height:48px;
+  padding:0;
+  border:1px solid rgba(244,238,227,.42);
+  border-radius:50%;
+  color:#11110f;
+  background:#aaa;
+  font-family:var(--mono);
+  font-size:11px;
+  cursor:pointer;
   opacity:0;
-  transform:translateY(8px);
+  transform:translate(-50%,-50%) scale(.15);
+  transition:opacity .5s ease, transform .45s var(--ease), box-shadow .3s ease, border-color .3s ease;
 }
 
+.twenty.active .final-star { opacity:1; transform:translate(-50%,-50%) scale(1); animation:starEntrance .55s var(--ease) both; }
+.twenty.active .final-star:first-of-type { animation:starEntrance .55s var(--ease) both, firstStarPulse 1.7s ease-in-out .8s 3; }
+.final-star::before { content:""; position:absolute; inset:-9px; border:1px solid rgba(244,238,227,.16); border-radius:50%; opacity:.7; transition:inset .25s ease,border-color .25s ease,opacity .25s ease; }
+.final-star::after { content:"CLICK"; position:absolute; left:50%; top:calc(100% + 12px); transform:translateX(-50%); padding:4px 6px; border:1px solid rgba(209,178,115,.45); background:rgba(17,17,15,.92); color:#d1b273; font-family:var(--mono); font-size:8px; letter-spacing:.14em; opacity:0; pointer-events:none; transition:opacity .2s ease,transform .2s ease; }
+.final-star:hover::before,.final-star:focus-visible::before,.final-star.selected::before { inset:-13px; border-color:rgba(209,178,115,.55); opacity:1; }
+.final-star:hover::after,.final-star:focus-visible::after { opacity:1; transform:translate(-50%,3px); }
+@keyframes starEntrance { 0%{opacity:0;transform:translate(-50%,-50%) scale(.15)} 70%{opacity:1;transform:translate(-50%,-50%) scale(1.12)} 100%{opacity:1;transform:translate(-50%,-50%) scale(1)} }
+@keyframes firstStarPulse { 0%,100%{box-shadow:0 0 0 0 rgba(209,178,115,0),0 0 18px rgba(209,178,115,.18)} 50%{box-shadow:0 0 0 12px rgba(209,178,115,.16),0 0 34px rgba(209,178,115,.42)} }
 
-/* --- final statement --- */
+.final-star:hover,
+.final-star:focus-visible,
+.final-star.selected {
+  z-index:8;
+  transform:translate(-50%,-50%) scale(1.35);
+  border-color:#fff;
+  box-shadow:0 0 0 7px rgba(209,178,115,.13), 0 0 28px rgba(209,178,115,.28);
+  outline:none;
+}
+
+.final-star[data-slam="Wimbledon"] { background:#80a68d; }
+.final-star[data-slam="Australian Open"] { background:#e0b84e; }
+.final-star[data-slam="US Open"] { background:#7ca9d2; }
+.final-star[data-slam="Roland-Garros"] { background:#b65435; color:#fff; }
+
+.star-label {
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 9px);
+  transform:translateX(-50%) translateY(5px);
+  padding:6px 8px;
+  color:#f4eee3;
+  background:#1d1d1a;
+  border:1px solid #3c3a35;
+  font-family:var(--mono);
+  font-size:9px;
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .2s ease, transform .2s ease;
+}
+
+.final-star:hover .star-label,
+.final-star:focus-visible .star-label,
+.final-star.selected .star-label {
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+.twenty-detail {
+  display:grid;
+  grid-template-columns:140px 1fr auto;
+  gap:28px;
+  align-items:center;
+  max-width:900px;
+  margin:0 auto;
+  padding:28px 0;
+  border-top:1px solid #383838;
+  border-bottom:1px solid #383838;
+}
+
+.detail-index {
+  color:#d1b273;
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.08em;
+}
+
+.detail-main strong {
+  display:block;
+  color:#f4eee3;
+  font-family:var(--serif);
+  font-size:30px;
+  font-weight:500;
+}
+
+.detail-main span {
+  display:block;
+  margin-top:7px;
+  color:#aaa297;
+  font-family:var(--mono);
+  font-size:11px;
+  line-height:1.7;
+  text-transform:uppercase;
+}
+
+.detail-opponent {
+  color:#c9c1b4;
+  font-family:var(--serif);
+  font-size:18px;
+  text-align:right;
+}
+
+.detail-opponent small {
+  display:block;
+  margin-bottom:5px;
+  color:#777;
+  font-family:var(--mono);
+  font-size:9px;
+  text-transform:uppercase;
+}
+
+.twenty-controls {
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin-top:32px;
+}
+
+.twenty-control {
+  padding:10px 15px;
+  border:1px solid #4a4740;
+  color:#c9c1b4;
+  background:transparent;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:background .2s ease, color .2s ease, border-color .2s ease;
+}
+
+.twenty-control:hover,
+.twenty-control:focus-visible {
+  color:#11110f;
+  background:#f4eee3;
+  border-color:#f4eee3;
+  outline:none;
+}
 
 .twenty-words {
-  max-width:850px;
-
-  margin:130px 0 0;
-
-  color:#eee8dc;
-
+  max-width:900px;
+  margin:70px auto 0;
+  color:#c9c1b4;
   font-family:var(--serif);
-  font-size:clamp(36px,4.8vw,70px);
+  font-size:clamp(30px,4.2vw,62px);
   line-height:1.2;
 }
 
-.twenty-words em {
-  color:#d2b26e;
-  font-style:normal;
-}
-
+.twenty-words em { color:#d1b273; }
 
 /* =========================================================
    HALL OF FAME
@@ -2091,91 +2011,60 @@ p {
     font-size:125px;
   }
 
+  .twenty-head {
+    grid-template-columns:1fr;
+    gap:25px;
+  }
 
-  /* FINAL TWO MOBILE */
+  .constellation {
+    width:94vw;
+    margin-top:55px;
+  }
 
-  .twenty {
-    padding:125px 0 150px;
+  .constellation-center {
+    width:145px;
+    height:145px;
+  }
+
+  .constellation-slam {
+    font-size:20px;
+  }
+
+  .constellation-meta {
+    font-size:8px;
+  }
+
+  .constellation-guide { top:-27px; font-size:9px; }
+
+  .final-star {
+    width:40px;
+    height:40px;
+    min-width:40px;
+    min-height:40px;
+    font-size:8px;
+  }
+
+  .star-label {
+    display:none;
+  }
+
+  .twenty-detail {
+    grid-template-columns:70px 1fr;
+    gap:15px;
+  }
+
+  .detail-opponent {
+    grid-column:2;
+    text-align:left;
   }
 
   .twenty h2 {
     font-size:130px;
   }
 
-  .final-two-intro {
-    margin-bottom:65px;
-    font-size:26px;
-  }
-
-  .final-two-stage {
-    display:block;
-    margin-top:0;
-  }
-
-  .final-two-stage::before {
-    display:none;
-  }
-
-  .final-chapter {
-    min-height:auto;
-
-    margin:0 0 25px!important;
-
-    padding:30px;
-  }
-
-  .final-chapter-indicator {
-    display:none;
-  }
-
-  .final-year {
-    margin-top:40px;
-    font-size:90px;
-  }
-
-  .final-slam-name {
-    font-size:38px;
-  }
-
-  .final-opponent {
-    margin-top:45px;
-    font-size:27px;
-  }
-
-  .final-two-connector {
-    position:relative;
-
-    left:50%;
-    top:auto;
-
-    width:75px;
-    height:75px;
-
-    margin:5px 0 30px;
-
-    transform:translateX(-50%);
-
-    box-shadow:
-      0 0 0 8px #11110f;
-  }
-
-  .final-two-reveal {
-    margin-top:75px;
-  }
-
-  .final-two-reveal-title {
-    font-size:36px;
-  }
-
-  .final-two-reveal-copy {
-    font-size:16px;
-  }
-
   .twenty-words {
-    margin-top:85px;
     font-size:34px;
   }
-
 
   .hall h2 {
     font-size:72px;
@@ -2210,23 +2099,6 @@ p {
     margin-top:8px;
     text-align:left;
   }
-}
-
-
-@media(max-width:600px) {
-
-  .final-two-intro {
-    font-size:24px;
-  }
-
-  .final-chapter {
-    padding:25px;
-  }
-
-  .final-year {
-    font-size:78px;
-  }
-
 }
 
 
@@ -2311,7 +2183,7 @@ p {
 
   <button class="chapter-dot"
           data-target="twenty"
-          data-label="The final two"></button>
+          data-label="20"></button>
 
   <button class="chapter-dot"
           data-target="hall"
@@ -3130,157 +3002,57 @@ p {
 
 
 <!-- =======================================================
-     FINAL TWO — THE LAST TWO
+     FINAL 20 · CONSTELLATION
 ======================================================= -->
 
 <section class="twenty reveal" id="twenty">
 
   <div class="wrap">
 
-    <div class="kicker">
-      07 · The final two
-    </div>
-
-    <h2 class="display">
-      19 → 20.
-    </h2>
-
-    <div class="final-two-intro">
-      The story doesn't end with twenty.
-      It ends with <strong>the two titles that came after the comeback.</strong>
-      Two championships. Two finals. One last ascent.
-    </div>
-
-
-    <div class="final-two-stage">
-
-      <!-- WIMBLEDON 2017 -->
-
-      <button
-        class="final-chapter active"
-        data-final="19"
-        aria-label="Wimbledon 2017, title 19">
-
-        <div class="final-chapter-indicator"></div>
-
-        <div class="final-chapter-number">
-          <span>TITLE 19</span>
-          <span>OF 20</span>
-        </div>
-
-        <div class="final-year">
-          2017
-        </div>
-
-        <div class="final-slam-name">
-          Wimbledon
-        </div>
-
-        <div class="final-chapter-meta">
-          Grand Slam No. 19<br>
-          Age 35<br>
-          London · Grass
-        </div>
-
-        <div class="final-opponent">
-          <span>Final</span>
-          defeated Marin Čilić
-        </div>
-
-        <div class="final-score">
-          6–3 · 6–1 · 6–4
-        </div>
-
-      </button>
-
-
-      <!-- CONNECTOR -->
-
-      <div class="final-two-connector">
-        <div>
-          <small>ONE<br>MORE</small>
-          →<br>
-          <small>20</small>
-        </div>
+    <div class="twenty-head">
+      <div>
+        <div class="kicker">07 · The final two</div>
+        <h2 class="display">20.</h2>
       </div>
 
-
-      <!-- AUSTRALIAN OPEN 2018 -->
-
-      <button
-        class="final-chapter"
-        data-final="20"
-        aria-label="Australian Open 2018, title 20">
-
-        <div class="final-chapter-indicator"></div>
-
-        <div class="final-chapter-number">
-          <span>TITLE 20</span>
-          <span>THE LAST</span>
-        </div>
-
-        <div class="final-year">
-          2018
-        </div>
-
-        <div class="final-slam-name">
-          Australian Open
-        </div>
-
-        <div class="final-chapter-meta">
-          Grand Slam No. 20<br>
-          Age 36<br>
-          Melbourne · Hard
-        </div>
-
-        <div class="final-opponent">
-          <span>Final</span>
-          defeated Marin Čilić
-        </div>
-
-        <div class="final-score">
-          6–2 · 6–7 · 6–3 · 3–6 · 6–1
-        </div>
-
-      </button>
-
+      <p class="twenty-intro">
+        Twenty titles. <em>Twenty moments.</em><br>
+        Click a star and watch the career unfold.
+      </p>
     </div>
 
+    <div class="constellation" id="constellation" aria-label="Interactive constellation of Roger Federer's 20 Grand Slam titles">
+      <div class="constellation-guide" aria-hidden="true"><span class="guide-dot"></span><span>Click a star to explore a title</span></div>
+      <div class="constellation-ring"></div>
+      <svg class="constellation-svg" id="constellationSvg" aria-hidden="true"></svg>
 
-    <!-- DYNAMIC STORY -->
-
-    <div
-      class="final-two-reveal"
-      id="finalTwoReveal"
-      aria-live="polite">
-
-      <div class="final-two-reveal-label">
-        The final chapter
+      <div class="constellation-center" id="constellationCenter">
+        <div class="constellation-number" id="constellationNumber">TITLE 01 / 20</div>
+        <div class="constellation-slam" id="constellationSlam">Wimbledon</div>
+        <div class="constellation-meta" id="constellationMeta">2003 · Philippoussis</div>
       </div>
-
-      <div
-        class="final-two-reveal-title"
-        id="finalTwoRevealTitle">
-        And then came 20.
-      </div>
-
-      <div
-        class="final-two-reveal-copy"
-        id="finalTwoRevealCopy">
-        Wimbledon 2017 was the first time Federer reached 19.
-        Six months later, he returned to Melbourne and won
-        the Australian Open for his 20th Grand Slam singles title.
-        The number that had once seemed impossible became real.
-      </div>
-
     </div>
 
+    <div class="twenty-detail" id="twentyDetail" aria-live="polite">
+      <div class="detail-index" id="detailIndex">01 / 20</div>
+      <div class="detail-main">
+        <strong id="detailTitle">Wimbledon · 2003</strong>
+        <span id="detailDescription">Federer defeated Mark Philippoussis · Title No. 1</span>
+      </div>
+      <div class="detail-opponent">
+        <small>Final opponent</small>
+        <span id="detailOpponent">Mark Philippoussis</span>
+      </div>
+    </div>
+
+    <div class="twenty-controls">
+      <button class="twenty-control" id="replayTwenty" type="button">▶ Trace all 20</button>
+      <button class="twenty-control" id="resetTwenty" type="button">↺ Start again</button>
+    </div>
 
     <div class="twenty-words">
-      Wimbledon, 2017.<br>
-      Australian Open, 2018.<br><br>
-
-      And suddenly, <em>20</em> wasn't just a number anymore.
+      The last two weren't just numbers.<br>
+      They were the final brushstrokes on a career that had already become <em>myth.</em>
     </div>
 
   </div>
@@ -4175,6 +3947,9 @@ const bars =
 slamData.forEach(
   ([name,value,color]) => {
 
+    const percentage =
+      Math.round(value / 20 * 100);
+
     const row =
       document.createElement("div");
 
@@ -4346,126 +4121,153 @@ for (let i = 0; i < 310; i++) {
 
 
 /* =========================================================
-   FINAL TWO — INTERACTION
+   FINAL 20 · CONSTELLATION
 ========================================================= */
 
-const finalChapters =
-  document.querySelectorAll(
-    ".final-chapter"
-  );
+const constellation = document.getElementById("constellation");
+const constellationSvg = document.getElementById("constellationSvg");
+const constellationCenter = document.getElementById("constellationCenter");
+const constellationNumber = document.getElementById("constellationNumber");
+const constellationSlam = document.getElementById("constellationSlam");
+const constellationMeta = document.getElementById("constellationMeta");
+const detailIndex = document.getElementById("detailIndex");
+const detailTitle = document.getElementById("detailTitle");
+const detailDescription = document.getElementById("detailDescription");
+const detailOpponent = document.getElementById("detailOpponent");
+const replayTwenty = document.getElementById("replayTwenty");
+const resetTwenty = document.getElementById("resetTwenty");
+const finalStars = [];
 
-const finalTwoReveal =
-  document.getElementById(
-    "finalTwoReveal"
-  );
-
-const finalTwoRevealTitle =
-  document.getElementById(
-    "finalTwoRevealTitle"
-  );
-
-const finalTwoRevealCopy =
-  document.getElementById(
-    "finalTwoRevealCopy"
-  );
-
-
-const finalTwoStories = {
-
-  "19": {
-    title:"19 wasn't the ending.",
-    copy:
-      "At 35, Federer returned from six months away and won the Australian Open. Later that same year, he walked onto Centre Court and won Wimbledon without dropping a set. The comeback had become another chapter of dominance."
-  },
-
-  "20": {
-    title:"And then came 20.",
-    copy:
-      "Six months after Wimbledon, Federer returned to Melbourne and fought through a five-set final against Marin Čilić. At 36, he became a 20-time Grand Slam singles champion. The number that had once seemed impossible became real."
-  }
-
-};
-
-
-function activateFinalChapter(chapter) {
-
-  const key =
-    chapter.dataset.final;
-
-  finalChapters.forEach(
-    item =>
-      item.classList.remove("active")
-  );
-
-  chapter.classList.add("active");
-
-  const story =
-    finalTwoStories[key];
-
-  if (!story) return;
-
-  if (reducedMotion) {
-
-    finalTwoRevealTitle.textContent =
-      story.title;
-
-    finalTwoRevealCopy.textContent =
-      story.copy;
-
-    return;
-
-  }
-
-  finalTwoReveal.classList.add(
-    "fade-out"
-  );
-
-  setTimeout(() => {
-
-    finalTwoRevealTitle.textContent =
-      story.title;
-
-    finalTwoRevealCopy.textContent =
-      story.copy;
-
-    finalTwoReveal.classList.remove(
-      "fade-out"
-    );
-
-  },250);
-
+function constellationPosition(index) {
+  const angle = (index / 20) * Math.PI * 2 - Math.PI / 2;
+  const radius = index % 2 === 0 ? 42 : 34;
+  return {
+    x: 50 + Math.cos(angle) * radius,
+    y: 50 + Math.sin(angle) * radius
+  };
 }
 
+function updateConstellationLines(selectedIndex) {
+  constellationSvg.querySelectorAll("line").forEach((line,index) => {
+    line.classList.toggle("active", index === selectedIndex || index === selectedIndex - 1);
+  });
+}
 
-finalChapters.forEach(
-  chapter => {
+function selectFinalTitle(index, animate = true) {
+  const [slam, year, opponent, title] = majors[index];
+  const guide = document.querySelector(".constellation-guide");
+  if (guide && animate) guide.classList.add("used");
 
-    chapter.addEventListener(
-      "click",
-      () => activateFinalChapter(chapter)
-    );
+  finalStars.forEach(star => star.classList.remove("selected"));
+  if (finalStars[index]) finalStars[index].classList.add("selected");
 
-    chapter.addEventListener(
-      "keydown",
-      event => {
+  constellationNumber.textContent = `TITLE ${String(index + 1).padStart(2,"0")} / 20`;
+  constellationSlam.textContent = slam;
+  constellationMeta.textContent = `${year} · ${opponent.replace(/^(Mark|Marat|Andy|Lleyton|Andre|Marcos|Rafael|Fernando|Novak|Robin|Marin)\s*/i,"")}`;
 
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
+  detailIndex.textContent = `${String(index + 1).padStart(2,"0")} / 20`;
+  detailTitle.textContent = `${slam} · ${year}`;
+  detailDescription.textContent = `${opponent} · ${title}`;
+  detailOpponent.textContent = opponent;
 
-          event.preventDefault();
+  updateConstellationLines(index);
 
-          activateFinalChapter(chapter);
-
-        }
-
-      }
-    );
-
+  if (animate) {
+    constellationCenter.classList.remove("pop");
+    void constellationCenter.offsetWidth;
+    constellationCenter.classList.add("pop");
   }
-);
+}
 
+majors.forEach((item,index) => {
+  const [slam] = item;
+  const pos = constellationPosition(index);
+  const star = document.createElement("button");
+
+  star.type = "button";
+  star.className = "final-star";
+  star.dataset.slam = slam;
+  star.style.left = `${pos.x}%`;
+  star.style.top = `${pos.y}%`;
+  star.style.transitionDelay = `${index * 45}ms`;
+  star.setAttribute("aria-label", `${slam}, ${item[1]}, defeated ${item[2]}, ${item[3]}`);
+  star.innerHTML = `<span>${index + 1}</span><span class="star-label">${slam} · ${item[1]}</span>`;
+
+  star.addEventListener("click", () => selectFinalTitle(index));
+  constellation.appendChild(star);
+  finalStars.push(star);
+});
+
+/* Connect the stars into a visible career path. */
+for (let i = 0; i < 19; i++) {
+  const a = constellationPosition(i);
+  const b = constellationPosition(i + 1);
+  const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+  line.setAttribute("x1", `${a.x}%`);
+  line.setAttribute("y1", `${a.y}%`);
+  line.setAttribute("x2", `${b.x}%`);
+  line.setAttribute("y2", `${b.y}%`);
+  constellationSvg.appendChild(line);
+}
+
+const twentySection = document.querySelector(".twenty");
+const orbitObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    twentySection.classList.add("active");
+    selectFinalTitle(0, false);
+    orbitObserver.unobserve(entry.target);
+  });
+}, {threshold:.25});
+
+orbitObserver.observe(twentySection);
+
+let replayTimer = null;
+let replayIndex = 0;
+
+function stopReplay() {
+  if (replayTimer) clearInterval(replayTimer);
+  replayTimer = null;
+  replayTwenty.textContent = "▶ Trace all 20";
+}
+
+replayTwenty.addEventListener("click", () => {
+  if (replayTimer) {
+    stopReplay();
+    return;
+  }
+
+  replayIndex = 0;
+  selectFinalTitle(replayIndex);
+  replayTwenty.textContent = "Ⅱ Pause trace";
+
+  replayTimer = setInterval(() => {
+    replayIndex++;
+    if (replayIndex >= majors.length) {
+      stopReplay();
+      replayIndex = majors.length - 1;
+      selectFinalTitle(replayIndex);
+      return;
+    }
+    selectFinalTitle(replayIndex);
+  }, 900);
+});
+
+resetTwenty.addEventListener("click", () => {
+  stopReplay();
+  selectFinalTitle(0);
+});
+
+window.addEventListener("resize", () => {
+  constellationSvg.querySelectorAll("line").forEach((line,index) => {
+    const a = constellationPosition(index);
+    const b = constellationPosition(index + 1);
+    line.setAttribute("x1", `${a.x}%`);
+    line.setAttribute("y1", `${a.y}%`);
+    line.setAttribute("x2", `${b.x}%`);
+    line.setAttribute("y2", `${b.y}%`);
+  });
+});
 
 /* =========================================================
    SCROLL VELOCITY
@@ -4511,6 +4313,35 @@ window.addEventListener(
   },
   {passive:true}
 );
+
+
+/* =========================================================
+   KEYBOARD ACCESSIBILITY
+========================================================= */
+
+document
+  .querySelectorAll(".major")
+  .forEach(button => {
+
+    button.addEventListener(
+      "keydown",
+      event => {
+
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
+
+          event.preventDefault();
+
+          button.click();
+
+        }
+
+      }
+    );
+
+  });
 
 
 /* =========================================================
