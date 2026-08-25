@@ -1298,7 +1298,7 @@ p {
 }
 
 .comeback-card:hover {
-  transform:translateX:15px);
+  transform:translateX(15px);
 }
 
 .comeback-small {
@@ -1323,168 +1323,399 @@ p {
 
 
 /* =========================================================
-   FINAL 20 · INTERACTIVE GRAND SLAM RECAP
+   FINAL TWO — THE LAST TWO
 ========================================================= */
 
 .twenty {
-  padding:175px 0;
+  position:relative;
+  overflow:hidden;
+
+  padding:180px 0 210px;
+
+  color:var(--paper);
+  background:#11110f;
+}
+
+.twenty::before {
+  content:"";
+
+  position:absolute;
+  width:850px;
+  height:850px;
+
+  right:-300px;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  background:radial-gradient(
+    circle,
+    rgba(181,138,57,.14),
+    transparent 65%
+  );
+
+  pointer-events:none;
+}
+
+.twenty .wrap {
+  position:relative;
+  z-index:2;
+}
+
+.twenty .kicker {
+  color:#aaa297;
 }
 
 .twenty h2 {
-  margin:20px 0 10px;
-  font-size:clamp(105px,17vw,245px);
+  margin:25px 0 5px;
+
+  color:#eee8dc;
+
+  font-size:clamp(110px,18vw,260px);
 }
 
-.final-intro {
-  max-width:720px;
-  margin:0 0 70px;
-  color:#c9c1b4;
+.final-two-intro {
+  max-width:760px;
+
+  margin:0 0 105px;
+
+  color:#aaa297;
+
   font-family:var(--serif);
-  font-size:clamp(24px,3vw,38px);
+  font-size:clamp(25px,3.1vw,40px);
   line-height:1.35;
 }
 
-.final-intro strong {
-  color:var(--ink);
-  font-family:var(--mono);
-  font-size:.38em;
-  font-weight:400;
-  letter-spacing:.14em;
-  text-transform:uppercase;
+.final-two-intro strong {
+  color:#eee8dc;
 }
 
-.final-major-grid {
+
+/* --- timeline spine --- */
+
+.final-two-stage {
+  position:relative;
+
   display:grid;
-  grid-template-columns:repeat(10,1fr);
-  gap:16px;
-  max-width:1000px;
-  margin:0 auto;
+  grid-template-columns:1fr 1fr;
+  gap:70px;
+
+  margin-top:30px;
 }
 
-.final-major {
-  appearance:none;
-  width:100%;
-  aspect-ratio:1;
+.final-two-stage::before {
+  content:"";
+
+  position:absolute;
+
+  left:50%;
+  top:40px;
+  bottom:40px;
+
+  width:1px;
+
+  background:#383838;
+
+  transform:translateX(-50%);
+}
+
+
+/* --- championship cards --- */
+
+.final-chapter {
+  position:relative;
+  z-index:2;
+
+  min-height:620px;
+
+  padding:45px;
+
+  border:1px solid #393939;
+
+  background:#151514;
+
+  cursor:pointer;
+
+  transition:
+    transform .6s var(--ease),
+    border-color .4s ease,
+    background .4s ease,
+    box-shadow .4s ease;
+}
+
+.final-chapter:first-child {
+  margin-top:70px;
+}
+
+.final-chapter:last-child {
+  margin-top:0;
+}
+
+.final-chapter:hover {
+  transform:translateY(-10px);
+  border-color:#777064;
+}
+
+.final-chapter.active {
+  border-color:var(--gold);
+
+  background:
+    radial-gradient(
+      circle at 75% 20%,
+      rgba(181,138,57,.12),
+      transparent 40%
+    ),
+    #181816;
+
+  box-shadow:
+    0 30px 80px rgba(0,0,0,.25);
+}
+
+
+/* --- title number --- */
+
+.final-chapter-number {
   display:flex;
   align-items:center;
-  justify-content:center;
-  padding:0;
-  border:1px solid #625d55;
-  border-radius:50%;
-  color:var(--paper);
-  background:var(--ink);
-  cursor:pointer;
-  font-family:var(--mono);
-  font-size:clamp(11px,1.25vw,16px);
-  transition:
-    transform .25s var(--ease),
-    background .25s ease,
-    border-color .25s ease,
-    color .25s ease,
-    box-shadow .25s ease;
-}
+  justify-content:space-between;
 
-.final-major:hover,
-.final-major:focus-visible {
-  transform:translateY(-4px) scale(1.08);
-  outline:none;
-  border-color:var(--paper);
-}
+  padding-bottom:30px;
 
-.final-major.active {
-  transform:scale(1.12);
-  color:var(--ink);
-  box-shadow:0 0 0 5px rgba(181,138,57,.16);
-}
+  border-bottom:1px solid #383838;
 
-.final-major[data-slam="Australian Open"] {
-  background:rgba(224,184,78,.16);
-  border-color:rgba(224,184,78,.55);
-}
-
-.final-major[data-slam="Australian Open"].active {
-  background:#e0b84e;
-  border-color:#e0b84e;
-}
-
-.final-major[data-slam="Roland-Garros"] {
-  background:rgba(178,98,70,.16);
-  border-color:rgba(178,98,70,.6);
-}
-
-.final-major[data-slam="Roland-Garros"].active {
-  color:#fff;
-  background:var(--clay);
-  border-color:var(--clay);
-}
-
-.final-major[data-slam="Wimbledon"] {
-  background:rgba(128,166,141,.16);
-  border-color:rgba(128,166,141,.6);
-}
-
-.final-major[data-slam="Wimbledon"].active {
-  color:#fff;
-  background:#80a68d;
-  border-color:#80a68d;
-}
-
-.final-major[data-slam="US Open"] {
-  background:rgba(124,169,210,.16);
-  border-color:rgba(124,169,210,.6);
-}
-
-.final-major[data-slam="US Open"].active {
-  background:#7ca9d2;
-  border-color:#7ca9d2;
-}
-
-.final-major-info {
-  max-width:720px;
-  min-height:145px;
-  margin:55px auto 0;
-  padding:24px 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  text-align:center;
-  opacity:1;
-  transform:translateY(0);
-  transition:opacity .2s ease, transform .2s ease;
-}
-
-.final-major-info strong {
-  display:block;
-  margin-bottom:8px;
-  color:var(--ink);
   font-family:var(--mono);
   font-size:12px;
   letter-spacing:.12em;
   text-transform:uppercase;
 }
 
-.final-major-info .final-major-detail {
-  color:var(--ink);
-  font-family:var(--serif);
-  font-size:clamp(22px,2.5vw,31px);
-  line-height:1.4;
+.final-chapter-number span:last-child {
+  color:#77736b;
 }
 
-.final-major-counter {
-  margin-top:18px;
-  text-align:center;
-  color:#8f887e;
+
+/* --- giant year --- */
+
+.final-year {
+  margin:55px 0 15px;
+
   font-family:var(--mono);
-  font-size:11px;
+  font-size:clamp(80px,11vw,145px);
+  line-height:.8;
+  letter-spacing:-.08em;
+
+  color:#d2b26e;
+}
+
+.final-chapter:first-child .final-year {
+  color:#80a68d;
+}
+
+
+/* --- slam name --- */
+
+.final-slam-name {
+  font-family:var(--serif);
+  font-size:clamp(38px,4.5vw,62px);
+  line-height:1;
+}
+
+.final-chapter-meta {
+  margin-top:35px;
+
+  color:#9b968d;
+
+  font-family:var(--mono);
+  font-size:12px;
+  line-height:1.8;
+  text-transform:uppercase;
+}
+
+
+/* --- opponent --- */
+
+.final-opponent {
+  margin-top:60px;
+
+  color:#eee8dc;
+
+  font-family:var(--serif);
+  font-size:clamp(25px,3vw,40px);
+  line-height:1.25;
+}
+
+.final-opponent span {
+  display:block;
+
+  margin-bottom:12px;
+
+  color:#77736b;
+
+  font-family:var(--mono);
+  font-size:10px;
   letter-spacing:.12em;
   text-transform:uppercase;
 }
 
+
+/* --- score --- */
+
+.final-score {
+  margin-top:35px;
+
+  color:#aaa297;
+
+  font-family:var(--mono);
+  font-size:14px;
+  letter-spacing:.04em;
+}
+
+
+/* --- active indicator --- */
+
+.final-chapter-indicator {
+  position:absolute;
+
+  left:-9px;
+  top:48px;
+
+  width:17px;
+  height:17px;
+
+  border-radius:50%;
+
+  background:#444;
+
+  border:3px solid #11110f;
+
+  transition:
+    background .3s ease,
+    transform .3s ease;
+}
+
+.final-chapter.active .final-chapter-indicator {
+  background:var(--gold);
+  transform:scale(1.35);
+}
+
+
+/* --- central connector --- */
+
+.final-two-connector {
+  position:absolute;
+  z-index:4;
+
+  left:50%;
+  top:50%;
+
+  width:110px;
+  height:110px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transform:translate(-50%,-50%);
+
+  border:1px solid #514b41;
+  border-radius:50%;
+
+  color:#11110f;
+  background:var(--gold);
+
+  font-family:var(--mono);
+  font-size:14px;
+  text-align:center;
+
+  box-shadow:
+    0 0 0 12px #11110f;
+}
+
+.final-two-connector small {
+  display:block;
+
+  font-size:8px;
+  line-height:1.5;
+  letter-spacing:.12em;
+}
+
+
+/* --- final reveal --- */
+
+.final-two-reveal {
+  max-width:850px;
+
+  margin:120px auto 0;
+
+  padding-top:55px;
+
+  border-top:1px solid #383838;
+
+  text-align:center;
+}
+
+.final-two-reveal-label {
+  color:#77736b;
+
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+
+.final-two-reveal-title {
+  margin:22px 0 20px;
+
+  color:#eee8dc;
+
+  font-family:var(--serif);
+  font-size:clamp(34px,5vw,66px);
+  line-height:1.1;
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+.final-two-reveal-copy {
+  max-width:650px;
+
+  margin:auto;
+
+  color:#aaa297;
+
+  font-size:17px;
+  line-height:1.8;
+
+  transition:
+    opacity .25s ease,
+    transform .25s ease;
+}
+
+.final-two-reveal.fade-out .final-two-reveal-title,
+.final-two-reveal.fade-out .final-two-reveal-copy {
+  opacity:0;
+  transform:translateY(8px);
+}
+
+
+/* --- final statement --- */
+
 .twenty-words {
-  max-width:900px;
-  margin-top:100px;
+  max-width:850px;
+
+  margin:130px 0 0;
+
+  color:#eee8dc;
+
   font-family:var(--serif);
   font-size:clamp(36px,4.8vw,70px);
   line-height:1.2;
+}
+
+.twenty-words em {
+  color:#d2b26e;
+  font-style:normal;
 }
 
 
@@ -1860,22 +2091,91 @@ p {
     font-size:125px;
   }
 
-  .final-major-grid {
-    grid-template-columns:repeat(5,1fr);
-    gap:12px;
-  }
 
-  .final-major-info {
-    min-height:130px;
+  /* FINAL TWO MOBILE */
+
+  .twenty {
+    padding:125px 0 150px;
   }
 
   .twenty h2 {
     font-size:130px;
   }
 
+  .final-two-intro {
+    margin-bottom:65px;
+    font-size:26px;
+  }
+
+  .final-two-stage {
+    display:block;
+    margin-top:0;
+  }
+
+  .final-two-stage::before {
+    display:none;
+  }
+
+  .final-chapter {
+    min-height:auto;
+
+    margin:0 0 25px!important;
+
+    padding:30px;
+  }
+
+  .final-chapter-indicator {
+    display:none;
+  }
+
+  .final-year {
+    margin-top:40px;
+    font-size:90px;
+  }
+
+  .final-slam-name {
+    font-size:38px;
+  }
+
+  .final-opponent {
+    margin-top:45px;
+    font-size:27px;
+  }
+
+  .final-two-connector {
+    position:relative;
+
+    left:50%;
+    top:auto;
+
+    width:75px;
+    height:75px;
+
+    margin:5px 0 30px;
+
+    transform:translateX(-50%);
+
+    box-shadow:
+      0 0 0 8px #11110f;
+  }
+
+  .final-two-reveal {
+    margin-top:75px;
+  }
+
+  .final-two-reveal-title {
+    font-size:36px;
+  }
+
+  .final-two-reveal-copy {
+    font-size:16px;
+  }
+
   .twenty-words {
+    margin-top:85px;
     font-size:34px;
   }
+
 
   .hall h2 {
     font-size:72px;
@@ -1915,18 +2215,16 @@ p {
 
 @media(max-width:600px) {
 
-  .final-major-grid {
-    grid-template-columns:repeat(4,1fr);
-    gap:10px;
+  .final-two-intro {
+    font-size:24px;
   }
 
-  .final-major {
-    font-size:10px;
+  .final-chapter {
+    padding:25px;
   }
 
-  .final-major-info {
-    margin-top:42px;
-    min-height:120px;
+  .final-year {
+    font-size:78px;
   }
 
 }
@@ -2013,7 +2311,7 @@ p {
 
   <button class="chapter-dot"
           data-target="twenty"
-          data-label="20"></button>
+          data-label="The final two"></button>
 
   <button class="chapter-dot"
           data-target="hall"
@@ -2832,7 +3130,7 @@ p {
 
 
 <!-- =======================================================
-     FINAL 20 · INTERACTIVE GRAND SLAM RECAP
+     FINAL TWO — THE LAST TWO
 ======================================================= -->
 
 <section class="twenty reveal" id="twenty">
@@ -2844,40 +3142,145 @@ p {
     </div>
 
     <h2 class="display">
-      20.
+      19 → 20.
     </h2>
 
-    <p class="final-intro">
-      Twenty Grand Slam singles titles.
-      Every one of them has a story.
-      <br><br>
-      <strong>Click any circle to revisit the championship.</strong>
-    </p>
-
-    <div
-      class="final-major-grid"
-      id="finalMajorGrid"
-      role="group"
-      aria-label="Roger Federer's 20 Grand Slam singles titles">
+    <div class="final-two-intro">
+      The story doesn't end with twenty.
+      It ends with <strong>the two titles that came after the comeback.</strong>
+      Two championships. Two finals. One last ascent.
     </div>
 
+
+    <div class="final-two-stage">
+
+      <!-- WIMBLEDON 2017 -->
+
+      <button
+        class="final-chapter active"
+        data-final="19"
+        aria-label="Wimbledon 2017, title 19">
+
+        <div class="final-chapter-indicator"></div>
+
+        <div class="final-chapter-number">
+          <span>TITLE 19</span>
+          <span>OF 20</span>
+        </div>
+
+        <div class="final-year">
+          2017
+        </div>
+
+        <div class="final-slam-name">
+          Wimbledon
+        </div>
+
+        <div class="final-chapter-meta">
+          Grand Slam No. 19<br>
+          Age 35<br>
+          London · Grass
+        </div>
+
+        <div class="final-opponent">
+          <span>Final</span>
+          defeated Marin Čilić
+        </div>
+
+        <div class="final-score">
+          6–3 · 6–1 · 6–4
+        </div>
+
+      </button>
+
+
+      <!-- CONNECTOR -->
+
+      <div class="final-two-connector">
+        <div>
+          <small>ONE<br>MORE</small>
+          →<br>
+          <small>20</small>
+        </div>
+      </div>
+
+
+      <!-- AUSTRALIAN OPEN 2018 -->
+
+      <button
+        class="final-chapter"
+        data-final="20"
+        aria-label="Australian Open 2018, title 20">
+
+        <div class="final-chapter-indicator"></div>
+
+        <div class="final-chapter-number">
+          <span>TITLE 20</span>
+          <span>THE LAST</span>
+        </div>
+
+        <div class="final-year">
+          2018
+        </div>
+
+        <div class="final-slam-name">
+          Australian Open
+        </div>
+
+        <div class="final-chapter-meta">
+          Grand Slam No. 20<br>
+          Age 36<br>
+          Melbourne · Hard
+        </div>
+
+        <div class="final-opponent">
+          <span>Final</span>
+          defeated Marin Čilić
+        </div>
+
+        <div class="final-score">
+          6–2 · 6–7 · 6–3 · 3–6 · 6–1
+        </div>
+
+      </button>
+
+    </div>
+
+
+    <!-- DYNAMIC STORY -->
+
     <div
-      class="final-major-info"
-      id="finalMajorInfo"
+      class="final-two-reveal"
+      id="finalTwoReveal"
       aria-live="polite">
+
+      <div class="final-two-reveal-label">
+        The final chapter
+      </div>
+
+      <div
+        class="final-two-reveal-title"
+        id="finalTwoRevealTitle">
+        And then came 20.
+      </div>
+
+      <div
+        class="final-two-reveal-copy"
+        id="finalTwoRevealCopy">
+        Wimbledon 2017 was the first time Federer reached 19.
+        Six months later, he returned to Melbourne and won
+        the Australian Open for his 20th Grand Slam singles title.
+        The number that had once seemed impossible became real.
+      </div>
+
     </div>
 
-    <div
-      class="final-major-counter"
-      id="finalMajorCounter">
-      TITLE 01 / 20
-    </div>
 
     <div class="twenty-words">
       Wimbledon, 2017.<br>
       Australian Open, 2018.<br><br>
 
-      And suddenly, 20 wasn't just a number anymore.
+      And suddenly, <em>20</em> wasn't just a number anymore.
     </div>
 
   </div>
@@ -3772,9 +4175,6 @@ const bars =
 slamData.forEach(
   ([name,value,color]) => {
 
-    const percentage =
-      Math.round(value / 20 * 100);
-
     const row =
       document.createElement("div");
 
@@ -3946,118 +4346,125 @@ for (let i = 0; i < 310; i++) {
 
 
 /* =========================================================
-   FINAL 20 · INTERACTIVE GRAND SLAM RECAP
+   FINAL TWO — INTERACTION
 ========================================================= */
 
-const finalMajorGrid =
-  document.getElementById(
-    "finalMajorGrid"
+const finalChapters =
+  document.querySelectorAll(
+    ".final-chapter"
   );
 
-const finalMajorInfo =
+const finalTwoReveal =
   document.getElementById(
-    "finalMajorInfo"
+    "finalTwoReveal"
   );
 
-const finalMajorCounter =
+const finalTwoRevealTitle =
   document.getElementById(
-    "finalMajorCounter"
+    "finalTwoRevealTitle"
   );
 
-function updateFinalMajorInfo(index) {
+const finalTwoRevealCopy =
+  document.getElementById(
+    "finalTwoRevealCopy"
+  );
 
-  const [
-    slam,
-    year,
-    opponent,
-    title
-  ] = majors[index];
 
-  finalMajorInfo.style.opacity = "0";
-  finalMajorInfo.style.transform =
-    "translateY(8px)";
+const finalTwoStories = {
+
+  "19": {
+    title:"19 wasn't the ending.",
+    copy:
+      "At 35, Federer returned from six months away and won the Australian Open. Later that same year, he walked onto Centre Court and won Wimbledon without dropping a set. The comeback had become another chapter of dominance."
+  },
+
+  "20": {
+    title:"And then came 20.",
+    copy:
+      "Six months after Wimbledon, Federer returned to Melbourne and fought through a five-set final against Marin Čilić. At 36, he became a 20-time Grand Slam singles champion. The number that had once seemed impossible became real."
+  }
+
+};
+
+
+function activateFinalChapter(chapter) {
+
+  const key =
+    chapter.dataset.final;
+
+  finalChapters.forEach(
+    item =>
+      item.classList.remove("active")
+  );
+
+  chapter.classList.add("active");
+
+  const story =
+    finalTwoStories[key];
+
+  if (!story) return;
+
+  if (reducedMotion) {
+
+    finalTwoRevealTitle.textContent =
+      story.title;
+
+    finalTwoRevealCopy.textContent =
+      story.copy;
+
+    return;
+
+  }
+
+  finalTwoReveal.classList.add(
+    "fade-out"
+  );
 
   setTimeout(() => {
 
-    finalMajorInfo.innerHTML = `
-      <strong>${title}</strong>
-      <div class="final-major-detail">
-        ${slam} · ${year} · Final: defeated ${opponent}
-      </div>
-    `;
+    finalTwoRevealTitle.textContent =
+      story.title;
 
-    finalMajorInfo.style.opacity = "1";
-    finalMajorInfo.style.transform =
-      "translateY(0)";
+    finalTwoRevealCopy.textContent =
+      story.copy;
 
-  },100);
+    finalTwoReveal.classList.remove(
+      "fade-out"
+    );
 
-  finalMajorCounter.textContent =
-    `TITLE ${String(index + 1).padStart(2,"0")} / 20`;
+  },250);
 
 }
 
-majors.forEach(
-  (item,index) => {
 
-    const [
-      slam,
-      year,
-      opponent,
-      title
-    ] = item;
+finalChapters.forEach(
+  chapter => {
 
-    const button =
-      document.createElement("button");
-
-    button.className =
-      "final-major";
-
-    button.dataset.slam =
-      slam;
-
-    button.innerHTML =
-      `<span>${index + 1}</span>`;
-
-    button.setAttribute(
-      "aria-label",
-      `${slam}, ${year}, defeated ${opponent}, ${title}`
+    chapter.addEventListener(
+      "click",
+      () => activateFinalChapter(chapter)
     );
 
-    button.addEventListener(
-      "click",
-      () => {
+    chapter.addEventListener(
+      "keydown",
+      event => {
 
-        finalMajorGrid
-          .querySelectorAll(".final-major")
-          .forEach(
-            btn =>
-              btn.classList.remove("active")
-          );
+        if (
+          event.key === "Enter" ||
+          event.key === " "
+        ) {
 
-        button.classList.add("active");
-        updateFinalMajorInfo(index);
+          event.preventDefault();
+
+          activateFinalChapter(chapter);
+
+        }
 
       }
     );
 
-    finalMajorGrid.appendChild(button);
-
   }
 );
-
-/* Start with Title No. 1 selected so the section is never empty. */
-
-const firstFinalMajor =
-  finalMajorGrid.querySelector(
-    ".final-major"
-  );
-
-if (firstFinalMajor) {
-  firstFinalMajor.classList.add("active");
-  updateFinalMajorInfo(0);
-}
-
 
 
 /* =========================================================
@@ -4104,35 +4511,6 @@ window.addEventListener(
   },
   {passive:true}
 );
-
-
-/* =========================================================
-   KEYBOARD ACCESSIBILITY
-========================================================= */
-
-document
-  .querySelectorAll(".major")
-  .forEach(button => {
-
-    button.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
-
-          event.preventDefault();
-
-          button.click();
-
-        }
-
-      }
-    );
-
-  });
 
 
 /* =========================================================
