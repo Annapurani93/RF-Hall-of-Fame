@@ -1298,7 +1298,7 @@ p {
 }
 
 .comeback-card:hover {
-  transform:translateX:15px);
+  transform:translateX(15px);
 }
 
 .comeback-small {
@@ -1335,13 +1335,35 @@ p {
   font-size:clamp(105px,17vw,245px);
 }
 
+.final-intro {
+  max-width:700px;
+
+  margin-top:-10px;
+
+  color:var(--muted);
+
+  font-family:var(--mono);
+  font-size:13px;
+  line-height:1.7;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+.final-orbit-wrap {
+  position:relative;
+
+  width:min(560px,90vw);
+
+  margin:70px auto 0;
+}
+
 .final-orbit {
   position:relative;
 
   width:min(520px,85vw);
   height:min(520px,85vw);
 
-  margin:70px auto;
+  margin:0 auto;
 
   border:1px solid var(--line);
   border-radius:50%;
@@ -1361,6 +1383,8 @@ p {
   font-family:var(--mono);
   font-size:clamp(70px,10vw,120px);
   letter-spacing:-.08em;
+
+  pointer-events:none;
 }
 
 .final-dot {
@@ -1369,9 +1393,22 @@ p {
   width:42px;
   height:42px;
 
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:0;
+
+  border:2px solid var(--paper);
   border-radius:50%;
 
+  color:#fff;
   background:var(--ink);
+
+  font-family:var(--mono);
+  font-size:11px;
+
+  cursor:pointer;
 
   opacity:0;
 
@@ -1380,22 +1417,133 @@ p {
   transition:
     opacity .5s ease,
     transform .5s var(--ease),
-    background .3s ease;
+    background .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease;
 }
 
-.final-dot:hover {
-  background:var(--gold);
-  transform:scale(1.4)!important;
+.final-dot::after {
+  content:"";
+
+  position:absolute;
+  inset:-5px;
+
+  border:1px solid transparent;
+  border-radius:50%;
+
+  transition:border-color .25s ease;
+}
+
+.final-dot:hover,
+.final-dot:focus-visible {
+  transform:scale(1.35)!important;
   z-index:4;
+
+  box-shadow:0 0 0 5px rgba(181,138,57,.15);
 }
 
-.twenty.active .final-dot {
-  opacity:1;
-  transform:scale(1);
+.final-dot:hover::after,
+.final-dot:focus-visible::after {
+  border-color:rgba(181,138,57,.5);
+}
+
+.final-dot.active {
+  transform:scale(1.35)!important;
+  z-index:5;
+
+  box-shadow:
+    0 0 0 5px rgba(181,138,57,.18),
+    0 0 0 9px rgba(181,138,57,.06);
+}
+
+.final-dot[data-slam="Australian Open"] {
+  background:#b58a39;
+  border-color:#e0b84e;
+}
+
+.final-dot[data-slam="Roland-Garros"] {
+  background:var(--clay);
+  border-color:#d77b5e;
+}
+
+.final-dot[data-slam="Wimbledon"] {
+  background:var(--green);
+  border-color:#80a68d;
+}
+
+.final-dot[data-slam="US Open"] {
+  background:var(--blue);
+  border-color:#7ca9d2;
+}
+
+.final-dot.active[data-slam="Australian Open"] {
+  background:#e0b84e;
+  color:var(--ink);
+}
+
+.final-dot.active[data-slam="Wimbledon"] {
+  background:#80a68d;
+}
+
+.final-dot.active[data-slam="US Open"] {
+  background:#7ca9d2;
+}
+
+.final-dot span {
+  position:relative;
+  z-index:2;
+}
+
+.final-orbit-info {
+  min-height:125px;
+
+  margin-top:45px;
+  padding:25px 0;
+
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+
+  text-align:center;
+
+  transition:
+    opacity .3s ease,
+    transform .3s ease;
+}
+
+.final-orbit-info strong {
+  display:block;
+
+  margin-bottom:8px;
+
+  color:var(--ink);
+
+  font-family:var(--mono);
+  font-size:13px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.final-orbit-info .final-detail {
+  color:var(--muted);
+
+  font-family:var(--mono);
+  font-size:13px;
+  line-height:1.7;
+}
+
+.final-orbit-info .final-opponent {
+  margin-top:5px;
+
+  color:#4f4b45;
+
+  font-family:var(--serif);
+  font-size:20px;
 }
 
 .twenty-words {
   max-width:900px;
+
+  margin-top:75px;
 
   font-family:var(--serif);
   font-size:clamp(36px,4.8vw,70px);
@@ -1775,6 +1923,10 @@ p {
     font-size:125px;
   }
 
+  .final-orbit-wrap {
+    width:100%;
+  }
+
   .final-orbit {
     width:320px;
     height:320px;
@@ -1783,6 +1935,16 @@ p {
   .final-dot {
     width:27px;
     height:27px;
+    font-size:8px;
+  }
+
+  .final-orbit-info {
+    min-height:115px;
+    margin-top:35px;
+  }
+
+  .final-orbit-info .final-opponent {
+    font-size:18px;
   }
 
   .twenty h2 {
@@ -2038,7 +2200,12 @@ p {
 
       <div class="timeline-items">
 
-        <div class="timeline-item active">
+        <!-- IMPORTANT:
+             No .active class here.
+             All timeline dots now begin with identical styling.
+        -->
+
+        <div class="timeline-item">
 
           <div class="timeline-dot"></div>
 
@@ -2249,7 +2416,7 @@ p {
       <p>
         Twenty Grand Slam singles titles.
         One circle for every championship.
-        <strong>Click, hover and follow the career.</strong>
+        <strong>Click a title to follow the career.</strong>
       </p>
 
     </div>
@@ -2744,7 +2911,27 @@ p {
       20.
     </h2>
 
-    <div class="final-orbit" id="finalOrbit"></div>
+    <div class="final-intro">
+      One circle for each Grand Slam title.
+      Click any circle to revisit the championship.
+    </div>
+
+    <div class="final-orbit-wrap">
+
+      <div
+        class="final-orbit"
+        id="finalOrbit"
+        role="group"
+        aria-label="Roger Federer's 20 Grand Slam singles titles">
+      </div>
+
+      <div
+        class="final-orbit-info"
+        id="finalOrbitInfo"
+        aria-live="polite">
+      </div>
+
+    </div>
 
     <div class="twenty-words">
       Wimbledon, 2017.<br>
@@ -3012,6 +3199,8 @@ const animatedCounters =
 
 function animateCounters(container) {
 
+  if (!container) return;
+
   const counters =
     container.querySelectorAll(".counter");
 
@@ -3221,6 +3410,22 @@ const timelineProgress =
   document.querySelector(
     ".timeline-progress"
   );
+
+
+/*
+  IMPORTANT FIX:
+
+  There is deliberately NO initial active item.
+
+  Previously the HTML contained:
+
+      <div class="timeline-item active">
+
+  which caused the 1998 dot to be gold immediately.
+
+  Now every dot starts black and becomes gold only
+  after the user selects it.
+*/
 
 timelineItems.forEach(
   (item,index) => {
@@ -3589,6 +3794,11 @@ majors.forEach(
     button.innerHTML =
       `<span>${index + 1}</span>`;
 
+    /*
+      The first major is selected in the MAJORS section.
+      This is intentional and separate from the timeline.
+    */
+
     if (index === 0) {
       button.classList.add("active");
     }
@@ -3644,9 +3854,6 @@ const bars =
 
 slamData.forEach(
   ([name,value,color]) => {
-
-    const percentage =
-      Math.round(value / 20 * 100);
 
     const row =
       document.createElement("div");
@@ -3822,54 +4029,139 @@ for (let i = 0; i < 310; i++) {
    FINAL 20 ORBIT
 ========================================================= */
 
+/*
+  IMPORTANT FIX:
+
+  Previously the final dots were generated only as:
+
+      dot.title = `Grand Slam title ${i + 1}`;
+
+  That meant:
+  - every dot had the same black background
+  - clicking did nothing
+  - there was no information attached to the visual object
+
+  Now every dot is linked to the actual majors array.
+*/
+
 const finalOrbit =
   document.getElementById(
     "finalOrbit"
   );
 
-for (let i = 0; i < 20; i++) {
-
-  const dot =
-    document.createElement("div");
-
-  dot.className =
-    "final-dot";
-
-  const angle =
-    (i / 20) * Math.PI * 2 -
-    Math.PI / 2;
-
-  const radius =
-    window.innerWidth < 700
-      ? 130
-      : 215;
-
-  const x =
-    Math.cos(angle) * radius;
-
-  const y =
-    Math.sin(angle) * radius;
-
-  dot.style.left =
-    `calc(50% + ${x}px - 21px)`;
-
-  dot.style.top =
-    `calc(50% + ${y}px - 21px)`;
-
-  dot.title =
-    `Grand Slam title ${i + 1}`;
-
-  dot.setAttribute(
-    "aria-label",
-    `Grand Slam singles title ${i + 1}`
+const finalOrbitInfo =
+  document.getElementById(
+    "finalOrbitInfo"
   );
 
-  finalOrbit.appendChild(dot);
+
+function getSlamClass(slam) {
+  return slam;
+}
+
+
+function updateFinalOrbitInfo(index) {
+
+  const [
+    slam,
+    year,
+    opponent,
+    title
+  ] = majors[index];
+
+  finalOrbitInfo.style.opacity = "0";
+  finalOrbitInfo.style.transform =
+    "translateY(8px)";
+
+  setTimeout(() => {
+
+    finalOrbitInfo.innerHTML = `
+      <strong>${title}</strong>
+
+      <div class="final-detail">
+        ${slam} · ${year}
+      </div>
+
+      <div class="final-opponent">
+        Defeated ${opponent} in the final
+      </div>
+    `;
+
+    finalOrbitInfo.style.opacity = "1";
+    finalOrbitInfo.style.transform =
+      "translateY(0)";
+
+  },100);
+
+
+  document
+    .querySelectorAll(".final-dot")
+    .forEach(
+      dot =>
+        dot.classList.remove("active")
+    );
+
+  const selectedDot =
+    document.querySelector(
+      `.final-dot[data-index="${index}"]`
+    );
+
+  if (selectedDot) {
+    selectedDot.classList.add("active");
+  }
 
 }
 
 
-/* Recalculate orbit on resize */
+majors.forEach(
+  (item,index) => {
+
+    const [
+      slam,
+      year,
+      opponent,
+      title
+    ] = item;
+
+    const dot =
+      document.createElement("button");
+
+    dot.className =
+      "final-dot";
+
+    dot.dataset.index =
+      index;
+
+    dot.dataset.slam =
+      getSlamClass(slam);
+
+    dot.innerHTML =
+      `<span>${index + 1}</span>`;
+
+    dot.title =
+      `${title} · ${slam} · ${year} · defeated ${opponent}`;
+
+    dot.setAttribute(
+      "aria-label",
+      `${title}. ${slam}, ${year}. Defeated ${opponent}.`
+    );
+
+    dot.addEventListener(
+      "click",
+      () => {
+
+        updateFinalOrbitInfo(index);
+
+      }
+    );
+
+    finalOrbit.appendChild(dot);
+
+  }
+);
+
+
+/* Position all 20 dots */
 
 function positionFinalDots() {
 
@@ -3878,10 +4170,20 @@ function positionFinalDots() {
       ".final-dot"
     );
 
+  const isMobile =
+    window.innerWidth < 700;
+
+  const orbitSize =
+    finalOrbit.getBoundingClientRect().width;
+
+  /*
+    Radius is calculated from the actual orbit size.
+    This prevents the dots from drifting outside the circle
+    when the viewport changes.
+  */
+
   const radius =
-    window.innerWidth < 700
-      ? 130
-      : 215;
+    orbitSize / 2 - (isMobile ? 24 : 32);
 
   dots.forEach(
     (dot,index) => {
@@ -3898,7 +4200,7 @@ function positionFinalDots() {
         Math.sin(angle) * radius;
 
       const size =
-        window.innerWidth < 700
+        isMobile
           ? 27
           : 42;
 
@@ -3913,13 +4215,16 @@ function positionFinalDots() {
 
 }
 
+
 window.addEventListener(
   "resize",
   positionFinalDots
 );
 
 
-/* Animate final orbit */
+/* =========================================================
+   ANIMATE FINAL ORBIT
+========================================================= */
 
 const twentySection =
   document.querySelector(
@@ -3952,6 +4257,24 @@ const orbitObserver =
 
           }
         );
+
+        /*
+          Start with the first title selected,
+          so the user immediately understands
+          that the circles contain information.
+        */
+
+        updateFinalOrbitInfo(0);
+
+        /*
+          Give the browser a frame to calculate
+          the actual orbit dimensions before
+          positioning the dots.
+        */
+
+        requestAnimationFrame(() => {
+          positionFinalDots();
+        });
 
         orbitObserver.unobserve(
           entry.target
@@ -4022,7 +4345,7 @@ window.addEventListener(
 ========================================================= */
 
 document
-  .querySelectorAll(".major")
+  .querySelectorAll(".major, .final-dot")
   .forEach(button => {
 
     button.addEventListener(
@@ -4065,6 +4388,14 @@ if (!reducedMotion) {
   },300);
 
 }
+
+/*
+  Initial orbit positioning.
+  This also makes the orbit correct if the page
+  is already rendered at a non-default viewport size.
+*/
+
+positionFinalDots();
 
 </script>
 
