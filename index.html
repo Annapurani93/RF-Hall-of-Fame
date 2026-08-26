@@ -199,7 +199,7 @@ p {
   background:var(--ink);
 
   font-family:var(--mono);
-  font-size:9px;
+  font-size:11px;
   white-space:nowrap;
 
   opacity:0;
@@ -220,6 +220,15 @@ p {
   transform:scale(1.8);
 }
 
+
+.mobile-chapter-status {
+  display:none;
+}
+
+.chapter-dot:focus-visible {
+  outline:2px solid var(--gold);
+  outline-offset:5px;
+}
 
 /* =========================================================
    SCROLL REVEAL
@@ -654,7 +663,7 @@ p {
   opacity:.6;
 
   font-family:var(--mono);
-  font-size:10px;
+  font-size:11px;
   letter-spacing:.08em;
   text-transform:uppercase;
 }
@@ -781,173 +790,6 @@ p {
 
 
 /* =========================================================
-   MAJORS
-========================================================= */
-
-.majors {
-  position:relative;
-
-  padding:170px 0 180px;
-
-  color:var(--paper);
-  background:var(--ink);
-}
-
-.majors-head {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:70px;
-  align-items:end;
-
-  margin-bottom:70px;
-}
-
-.majors h2 {
-  margin:20px 0 0;
-  font-size:clamp(100px,16vw,215px);
-}
-
-.majors-head p {
-  max-width:470px;
-  margin:0;
-
-  color:#c9c1b4;
-
-  font-family:var(--serif);
-  font-size:31px;
-  line-height:1.38;
-}
-
-.major-grid {
-  position:relative;
-
-  display:grid;
-  grid-template-columns:repeat(10,1fr);
-  gap:14px;
-
-  padding:40px 0;
-}
-
-.major-grid::before {
-  content:"";
-
-  position:absolute;
-
-  left:0;
-  right:0;
-  top:50%;
-
-  height:1px;
-
-  background:#383838;
-}
-
-.major {
-  position:relative;
-  z-index:2;
-
-  aspect-ratio:1;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  border:1px solid #625d55;
-  border-radius:50%;
-
-  color:inherit;
-  background:var(--ink);
-
-  cursor:pointer;
-
-  transition:
-    transform .35s var(--ease),
-    background .35s ease,
-    border-color .35s ease,
-    color .35s ease;
-}
-
-.major:hover,
-.major:focus-visible,
-.major.active {
-  color:var(--ink);
-  background:var(--paper);
-  border-color:var(--paper);
-  transform:scale(1.18);
-}
-
-.major.active {
-  box-shadow:0 0 0 5px rgba(181,138,57,.16);
-}
-
-.major[data-slam="Australian Open"].active {
-  background:#e0b84e;
-  border-color:#e0b84e;
-}
-
-.major[data-slam="Roland-Garros"].active {
-  color:#fff;
-  background:var(--clay);
-  border-color:var(--clay);
-}
-
-.major[data-slam="Wimbledon"].active {
-  color:#fff;
-  background:#80a68d;
-  border-color:#80a68d;
-}
-
-.major[data-slam="US Open"].active {
-  background:#7ca9d2;
-  border-color:#7ca9d2;
-}
-
-.major span {
-  font-family:var(--mono);
-  font-size:15px;
-}
-
-.major-info {
-  min-height:110px;
-
-  margin-top:20px;
-  padding-top:23px;
-
-  border-top:1px solid #383838;
-
-  color:#aaa297;
-
-  font-size:17px;
-  line-height:1.7;
-
-  transition:transform .3s ease,opacity .3s ease;
-}
-
-.major-info strong {
-  display:block;
-
-  margin-bottom:6px;
-
-  color:var(--paper);
-
-  font-family:var(--mono);
-  font-size:13px;
-  letter-spacing:.05em;
-  text-transform:uppercase;
-}
-
-.major-counter {
-  margin-top:50px;
-
-  color:#777;
-
-  font-family:var(--mono);
-  font-size:11px;
-  text-transform:uppercase;
-}
-
-
-/* =========================================================
    DISTRIBUTION
 ========================================================= */
 
@@ -958,6 +800,30 @@ p {
 .distribution h2 {
   margin:25px 0 105px;
   font-size:clamp(60px,8.5vw,125px);
+}
+
+.distribution-scale {
+  max-width:900px;
+  margin:-65px 0 45px 210px;
+}
+
+.distribution-scale-note {
+  margin-bottom:10px;
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.05em;
+  text-transform:uppercase;
+}
+
+.distribution-scale-line {
+  display:flex;
+  justify-content:space-between;
+  color:#8b857b;
+  font-family:var(--mono);
+  font-size:11px;
+  border-top:1px solid var(--line);
+  padding-top:7px;
 }
 
 .slam-row {
@@ -971,7 +837,9 @@ p {
 
 .slam-name {
   font-family:var(--mono);
-  font-size:14px;
+  font-size:18px;
+  font-weight:500;
+  letter-spacing:.04em;
   text-transform:uppercase;
 }
 
@@ -1016,7 +884,8 @@ p {
 
 .slam-value {
   font-family:var(--mono);
-  font-size:40px;
+  font-size:42px;
+  font-weight:500;
 }
 
 
@@ -1142,7 +1011,7 @@ p {
   background:#111;
 
   font-family:var(--mono);
-  font-size:10px;
+  font-size:11px;
 
   pointer-events:none;
 
@@ -1298,8 +1167,33 @@ p {
 }
 
 .comeback-card:hover {
-  transform:translateX:15px);
+  transform:translateX(15px);
 }
+
+.comeback-card.title-18 {
+  padding:34px 30px 30px;
+  border:1px solid rgba(255,255,255,.5);
+  border-left:7px solid #fff8ef;
+  background:rgba(0,0,0,.14);
+}
+
+.comeback-card.title-18 .comeback-big {
+  font-size:clamp(120px,19vw,285px);
+}
+
+.comeback-card.title-19,
+.comeback-card.title-20 {
+  opacity:.88;
+  padding-left:18px;
+}
+
+.comeback-card.title-19 .comeback-big,
+.comeback-card.title-20 .comeback-big {
+  font-size:clamp(90px,13vw,190px);
+}
+
+.comeback-card.title-19 { margin-top:18px; }
+.comeback-card.title-20 { margin-top:18px; }
 
 .comeback-small {
   font-family:var(--mono);
@@ -1474,7 +1368,7 @@ p {
   margin-top:6px;
   color:#99938a;
   font-family:var(--mono);
-  font-size:10px;
+  font-size:11px;
   letter-spacing:.08em;
   text-transform:uppercase;
 }
@@ -1502,7 +1396,7 @@ p {
 .twenty.active .final-star { opacity:1; transform:translate(-50%,-50%) scale(1); animation:starEntrance .55s var(--ease) both; }
 .twenty.active .final-star:first-of-type { animation:starEntrance .55s var(--ease) both, firstStarPulse 1.7s ease-in-out .8s 3; }
 .final-star::before { content:""; position:absolute; inset:-9px; border:1px solid rgba(244,238,227,.16); border-radius:50%; opacity:.7; transition:inset .25s ease,border-color .25s ease,opacity .25s ease; }
-.final-star::after { content:"CLICK"; position:absolute; left:50%; top:calc(100% + 12px); transform:translateX(-50%); padding:4px 6px; border:1px solid rgba(209,178,115,.45); background:rgba(17,17,15,.92); color:#d1b273; font-family:var(--mono); font-size:8px; letter-spacing:.14em; opacity:0; pointer-events:none; transition:opacity .2s ease,transform .2s ease; }
+.final-star::after { content:"CLICK"; position:absolute; left:50%; top:calc(100% + 12px); transform:translateX(-50%); padding:4px 6px; border:1px solid rgba(209,178,115,.45); background:rgba(17,17,15,.92); color:#d1b273; font-family:var(--mono); font-size:11px; font-weight:500; letter-spacing:.14em; opacity:0; pointer-events:none; transition:opacity .2s ease,transform .2s ease; }
 .final-star:hover::before,.final-star:focus-visible::before,.final-star.selected::before { inset:-13px; border-color:rgba(209,178,115,.55); opacity:1; }
 .final-star:hover::after,.final-star:focus-visible::after { opacity:1; transform:translate(-50%,3px); }
 @keyframes starEntrance { 0%{opacity:0;transform:translate(-50%,-50%) scale(.15)} 70%{opacity:1;transform:translate(-50%,-50%) scale(1.12)} 100%{opacity:1;transform:translate(-50%,-50%) scale(1)} }
@@ -1533,7 +1427,9 @@ p {
   background:#1d1d1a;
   border:1px solid #3c3a35;
   font-family:var(--mono);
-  font-size:9px;
+  font-size:12px;
+  font-weight:500;
+  letter-spacing:.02em;
   white-space:nowrap;
   opacity:0;
   pointer-events:none;
@@ -1596,7 +1492,7 @@ p {
   margin-bottom:5px;
   color:#777;
   font-family:var(--mono);
-  font-size:9px;
+  font-size:11px;
   text-transform:uppercase;
 }
 
@@ -1613,7 +1509,7 @@ p {
   color:#c9c1b4;
   background:transparent;
   font-family:var(--mono);
-  font-size:10px;
+  font-size:11px;
   letter-spacing:.08em;
   text-transform:uppercase;
   cursor:pointer;
@@ -1776,6 +1672,31 @@ p {
     display:none;
   }
 
+  .mobile-chapter-status {
+    position:fixed;
+    left:50%;
+    bottom:14px;
+    z-index:4500;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    max-width:calc(100vw - 28px);
+    padding:8px 11px;
+    transform:translateX(-50%);
+    color:var(--paper);
+    background:rgba(17,17,15,.9);
+    border:1px solid rgba(255,255,255,.18);
+    box-shadow:0 8px 30px rgba(0,0,0,.18);
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    white-space:nowrap;
+    backdrop-filter:blur(8px);
+  }
+
+  .mobile-chapter-index { color:var(--gold); }
+  .mobile-chapter-label { overflow:hidden; text-overflow:ellipsis; }
+
   .hero .wrap {
     padding:75px 0 60px;
   }
@@ -1798,7 +1719,7 @@ p {
   }
 
   .hero-metric span {
-    font-size:9px;
+    font-size:11px;
   }
 
   .intro,
@@ -1910,26 +1831,12 @@ p {
     font-size:27px!important;
   }
 
-  .majors-head {
-    grid-template-columns:1fr;
-    gap:30px;
+  .distribution-scale {
+    margin:-55px 0 35px;
   }
 
-  .majors h2 {
-    font-size:105px;
-  }
-
-  .majors-head p {
-    font-size:25px;
-  }
-
-  .major-grid {
-    grid-template-columns:repeat(5,1fr);
-    gap:9px;
-  }
-
-  .major span {
-    font-size:12px;
+  .distribution-scale-note {
+    line-height:1.5;
   }
 
   .slam-row {
@@ -1938,7 +1845,9 @@ p {
   }
 
   .slam-name {
-    font-size:9px;
+    font-size:12px;
+    font-weight:500;
+    letter-spacing:.02em;
   }
 
   .slam-track {
@@ -1947,6 +1856,46 @@ p {
 
   .slam-value {
     font-size:27px;
+  }
+
+  .star-label {
+    font-size:11px;
+    padding:6px 8px;
+  }
+
+  .final-star {
+    width:46px;
+    height:46px;
+    min-width:46px;
+    min-height:46px;
+  }
+
+  .constellation {
+    width:min(760px,92vw);
+    margin-top:78px;
+  }
+
+  .constellation-center {
+    width:170px;
+    height:170px;
+  }
+
+  .constellation-number {
+    font-size:14px;
+  }
+
+  .constellation-slam {
+    font-size:23px;
+  }
+
+  .twenty-detail {
+    grid-template-columns:1fr;
+    gap:12px;
+    text-align:center;
+  }
+
+  .detail-opponent {
+    text-align:center;
   }
 
   .missing h2,
@@ -1966,7 +1915,7 @@ p {
   }
 
   .week-note {
-    font-size:10px;
+    font-size:11px;
   }
 
   .reign-237 {
@@ -2031,20 +1980,20 @@ p {
   }
 
   .constellation-meta {
-    font-size:8px;
+    font-size:11px;
   }
 
-  .constellation-guide { top:-27px; font-size:9px; }
+  .constellation-guide { top:-27px; font-size:11px; }
 
   .final-star {
     width:40px;
     height:40px;
     min-width:40px;
     min-height:40px;
-    font-size:8px;
+    font-size:11px;
   }
 
-  .star-label {
+ .star-label {
     display:none;
   }
 
@@ -2084,7 +2033,7 @@ p {
   }
 
   .final-stat span {
-    font-size:9px;
+    font-size:11px;
   }
 
   .creator-footer .wrap {
@@ -2149,22 +2098,27 @@ p {
 
 <nav class="chapter-nav" aria-label="Story chapters">
 
-  <button class="chapter-dot active" data-target="hero" data-label="Beginning"></button>
-  <button class="chapter-dot" data-target="career-numbers" data-label="A career in numbers"></button>
-  <button class="chapter-dot" data-target="rise" data-label="The rise"></button>
-  <button class="chapter-dot" data-target="personal-memory" data-label="A personal memory"></button>
-  <button class="chapter-dot" data-target="missing" data-label="The missing piece"></button>
-  <button class="chapter-dot" data-target="reign" data-label="The reign"></button>
-  <button class="chapter-dot" data-target="streaks" data-label="Staying power"></button>
-  <button class="chapter-dot" data-target="numbers-story" data-label="When the numbers become a story"></button>
-  <button class="chapter-dot" data-target="comeback" data-label="The final 2"></button>
-  <button class="chapter-dot" data-target="twenty" data-label="The impossible number"></button>
-  <button class="chapter-dot" data-target="distribution" data-label="The distribution"></button>
-  <button class="chapter-dot" data-target="beyond-numbers" data-label="Why we kept watching"></button>
-  <button class="chapter-dot" data-target="hall" data-label="International Tennis Hall of Fame"></button>
-  <button class="chapter-dot" data-target="final-word" data-label="A final word"></button>
+  <button class="chapter-dot active" data-target="hero" data-label="Beginning" aria-label="Go to Beginning"></button>
+  <button class="chapter-dot" data-target="career-numbers" data-label="A career in numbers" aria-label="Go to A career in numbers"></button>
+  <button class="chapter-dot" data-target="rise" data-label="The rise" aria-label="Go to The rise"></button>
+  <button class="chapter-dot" data-target="personal-memory" data-label="A personal memory" aria-label="Go to A personal memory"></button>
+  <button class="chapter-dot" data-target="missing" data-label="The missing piece" aria-label="Go to The missing piece"></button>
+  <button class="chapter-dot" data-target="reign" data-label="The reign" aria-label="Go to The reign"></button>
+  <button class="chapter-dot" data-target="streaks" data-label="Staying power" aria-label="Go to Staying power"></button>
+  <button class="chapter-dot" data-target="numbers-story" data-label="When the numbers become a story" aria-label="Go to When the numbers become a story"></button>
+  <button class="chapter-dot" data-target="comeback" data-label="The final 2" aria-label="Go to The final 2"></button>
+  <button class="chapter-dot" data-target="twenty" data-label="The impossible number" aria-label="Go to The impossible number"></button>
+  <button class="chapter-dot" data-target="distribution" data-label="The distribution" aria-label="Go to The distribution"></button>
+  <button class="chapter-dot" data-target="beyond-numbers" data-label="Why we kept watching" aria-label="Go to Why we kept watching"></button>
+  <button class="chapter-dot" data-target="hall" data-label="International Tennis Hall of Fame" aria-label="Go to International Tennis Hall of Fame"></button>
+  <button class="chapter-dot" data-target="final-word" data-label="A final word" aria-label="Go to A final word"></button>
 
 </nav>
+
+<div class="mobile-chapter-status" id="mobileChapterStatus" aria-live="polite">
+  <span class="mobile-chapter-index" id="mobileChapterIndex">01 / 14</span>
+  <span class="mobile-chapter-label" id="mobileChapterLabel">Beginning</span>
+</div>
 
 
 <!-- =======================================================
@@ -2276,7 +2230,7 @@ p {
 
       <div class="timeline-items">
 
-        <div class="timeline-item active">
+        <div class="timeline-item active" tabindex="0" role="button" aria-expanded="true" aria-label="1998 — Turns professional.">
 
           <div class="timeline-dot"></div>
 
@@ -2295,7 +2249,7 @@ p {
         </div>
 
 
-        <div class="timeline-item">
+        <div class="timeline-item" tabindex="0" role="button" aria-expanded="false" aria-label="2001 — Wins his first ATP Tour title in Milan.">
 
           <div class="timeline-dot"></div>
 
@@ -2314,7 +2268,7 @@ p {
         </div>
 
 
-        <div class="timeline-item">
+        <div class="timeline-item" tabindex="0" role="button" aria-expanded="false" aria-label="2003 — Wins Wimbledon — his first Grand Slam singles title.">
 
           <div class="timeline-dot"></div>
 
@@ -2333,7 +2287,7 @@ p {
         </div>
 
 
-        <div class="timeline-item">
+        <div class="timeline-item" tabindex="0" role="button" aria-expanded="false" aria-label="2004 — Reaches World No. 1 for the first time.">
 
           <div class="timeline-dot"></div>
 
@@ -2389,7 +2343,7 @@ p {
         It was a Wimbledon final against Nadal.
         I was staring at a 24-year-old star who already had
         7 grand slams in his kitty.
-        A ball boy who had worked hard to earn et al.
+        A ball boy who had worked hard to earn it all.
       </p>
 
       <p>
@@ -2399,7 +2353,7 @@ p {
 
       <p>
         You became the idol, you became the GOAT.
-        You became a legend that didn’t shy away when he wanted to emote.
+        You became a legend who never shied away from emotion.
       </p>
 
       <p>
@@ -2428,11 +2382,11 @@ p {
 
       <p>
         You bounced back in 2017, and how!
-        At 35, you scourged every raised eyebrow.
+        At 35, you silenced every raised eyebrow.
         You returned from six months away from the tour
         and won the Australian Open.
         You showed the world why tennis will always be your jam,
-        why you won’t let yourself be easily outrun.
+        why you wouldn’t let yourself be easily outrun.
       </p>
 
       <p>
@@ -2546,7 +2500,7 @@ p {
       The first 237 form the longest consecutive No. 1 streak
       in ATP Rankings history.
       <br><br>
-     
+      <strong>Hover over the weeks.</strong>
     </p>
 
     <div
@@ -2647,7 +2601,7 @@ p {
   <div class="poem-inner">
 
     <div class="poem-label">
-When the numbers become a story
+      When the numbers become a story
     </div>
 
     <h2 class="poem-title">
@@ -2662,10 +2616,10 @@ When the numbers become a story
     <div class="poem-body">
 
       <p>
-        From your first ATP Title in 2001, at Milan,
+        From your first ATP title in 2001, in Milan,
         to reaching the semifinals at the 2020 Australian Open,
         from capturing your Career Grand Slam in 2009,
-        to fending off bulletins that scream ‘retire now thou can’,
+        to fending off headlines that screamed, ‘retire now — you can,’
         from stepping into the field as a ball boy to figuring out
         your own paradigms,
         from outshining peers in your era to growing to become
@@ -2677,7 +2631,7 @@ When the numbers become a story
       <p>
         You always worked your fingers to the bone for every micron
         of your sheen,
-        be it clinching your first slam in 2003
+        be it clinching your first Slam in 2003
         or winning 20 in 2018,
         be it breaking into the top 100 when you were just 18,
         or finding your breakthrough – beating Sampras on Centre Court at 19,
@@ -2708,8 +2662,8 @@ When the numbers become a story
 
   <div class="wrap">
 
-    <div class="year">
-     The final two
+    <div class="kicker">
+      The final two
     </div>
 
     <h2 class="display">
@@ -2720,12 +2674,12 @@ When the numbers become a story
     <div class="comeback-copy">
       By 2017, the story should have been winding down.
       Instead, Federer came back at 35 and won again.
-      Then came the final two titles: 19 and 20.
+      Then came titles 19 and 20.
     </div>
 
     <div class="comeback-sequence">
 
-      <div class="comeback-card">
+      <div class="comeback-card title-18">
 
         <div class="comeback-small">
           THE COMEBACK · TITLE 18 · AUSTRALIAN OPEN · 2017
@@ -2742,7 +2696,7 @@ When the numbers become a story
 
       </div>
 
-      <div class="comeback-card">
+      <div class="comeback-card title-19">
 
         <div class="comeback-small">
           TITLE 19 · WIMBLEDON · 2017
@@ -2759,7 +2713,7 @@ When the numbers become a story
 
       </div>
 
-      <div class="comeback-card">
+      <div class="comeback-card title-20">
 
         <div class="comeback-small">
           TITLE 20 · AUSTRALIAN OPEN · 2018
@@ -2807,7 +2761,7 @@ When the numbers become a story
       <div class="constellation-center" id="constellationCenter">
         <div class="constellation-number" id="constellationNumber">TITLE 01 / 20</div>
         <div class="constellation-slam" id="constellationSlam">Wimbledon</div>
-        <div class="constellation-meta" id="constellationMeta">2003 · Philippoussis</div>
+        <div class="constellation-meta" id="constellationMeta">2003 · Mark Philippoussis</div>
       </div>
     </div>
 
@@ -2842,7 +2796,7 @@ When the numbers become a story
   <div class="wrap">
 
     <div class="kicker">
-     The distribution
+      The distribution
     </div>
 
     <h2 class="display">
@@ -2850,6 +2804,13 @@ When the numbers become a story
       WON THE<br>
       SAME WAY.
     </h2>
+
+    <div class="distribution-scale" aria-label="Distribution scale from 0 to 20 Grand Slam titles">
+      <div class="distribution-scale-note">Each bar represents one Grand Slam title · 20 titles total</div>
+      <div class="distribution-scale-line" aria-hidden="true">
+        <span>0</span><span>5</span><span>10</span><span>15</span><span>20</span>
+      </div>
+    </div>
 
     <div id="slamBars"></div>
 
@@ -2883,7 +2844,7 @@ When the numbers become a story
         your inexplicable grace.
         Your name will continue to reverberate the loudest in stadiums,
         your matches will continue to leave the audience in a daze,
-        Because 50 years from today…. you will still be ahead of the race.
+        Because fifty years from today… you will still be ahead of the race.
       </p>
 
       <p class="poem-emphasis">
@@ -2894,7 +2855,7 @@ When the numbers become a story
       <p>
         You stood out because, in an era where we are always engulfed
         with reasons to stop, you showed us how to keep going,
-        come storm, sunshine or rainfall.
+        come storm, sunshine or rain.
         You showed us how human you are and how flawed,
         you showed us that you might break down and fall,
         but you will get back up again as many times as you need to,
@@ -2990,7 +2951,7 @@ When the numbers become a story
   <div class="poem-inner">
 
     <div class="poem-label">
-      A Final Word
+      Final word
     </div>
 
     <h2 class="poem-title">
@@ -3015,15 +2976,15 @@ When the numbers become a story
       </p>
 
       <p>
-        It’s been 3 years, 11 months, 5 days since you bid goodbye,
-        yet - to date - every time you set foot in them, stadiums continue to erupt.
-        Because in you, we all trust, and from you, we learn what it takes to trust our gut.
+        It’s been <span id="elapsedTime">3 years, 11 months, 3 days</span> since you bid goodbye,
+        yet, to this day, every time you set foot in a stadium, it erupts.
+        Because in you, we trust — and from you, we learn what it takes to trust our gut.
       </p>
 
       <p>
         You’re the benchmark that players measure themselves against,
         it is your validation they strive for.
-        Every time we see you, you leave us in a daze,
+        Every time we see you, you leave us in a daze;
         for in our eyes, you will always be the GOAT, the star!
       </p>
 
@@ -3279,6 +3240,8 @@ function updateProgress() {
 
 }
 
+updateMobileChapter(0);
+
 window.addEventListener(
   "scroll",
   updateProgress,
@@ -3321,6 +3284,15 @@ chapterDots.forEach(dot => {
 });
 
 
+const mobileChapterIndex = document.getElementById("mobileChapterIndex");
+const mobileChapterLabel = document.getElementById("mobileChapterLabel");
+
+function updateMobileChapter(index) {
+  if (!mobileChapterIndex || !mobileChapterLabel) return;
+  mobileChapterIndex.textContent = `${String(index + 1).padStart(2,"0")} / ${chapterDots.length}`;
+  mobileChapterLabel.textContent = chapterDots[index]?.dataset.label || "";
+}
+
 const chapterSections =
   Array.from(chapterDots)
     .map(dot =>
@@ -3339,12 +3311,11 @@ const chapterObserver =
 
         if (!entry.isIntersecting) return;
 
-        chapterDots.forEach(dot =>
-          dot.classList.toggle(
-            "active",
-            dot.dataset.target === entry.target.id
-          )
-        );
+        chapterDots.forEach((dot,index) => {
+          const active = dot.dataset.target === entry.target.id;
+          dot.classList.toggle("active", active);
+          if (active) updateMobileChapter(index);
+        });
 
       });
 
@@ -3365,47 +3336,34 @@ chapterSections.forEach(
    TIMELINE
 ========================================================= */
 
-const timelineItems =
-  document.querySelectorAll(
-    ".timeline-item"
-  );
+const timelineItems = document.querySelectorAll(".timeline-item");
 
-const timelineProgress =
-  document.querySelector(
-    ".timeline-progress"
-  );
+const timelineProgress = document.querySelector(".timeline-progress");
 
-timelineItems.forEach(
-  (item,index) => {
+function activateTimelineItem(item,index){
+  timelineItems.forEach(other => {
+    other.classList.remove("active");
+    other.setAttribute("aria-expanded", other === item ? "true" : "false");
+  });
 
-    item.addEventListener(
-      "click",
-      () => {
+  item.classList.add("active");
 
-        timelineItems.forEach(
-          other =>
-            other.classList.remove("active")
-        );
+  const percentage = timelineItems.length > 1
+    ? index / (timelineItems.length - 1) * 100
+    : 0;
 
-        item.classList.add("active");
+  if (timelineProgress) timelineProgress.style.width = `${percentage}%`;
+}
 
-        const percentage =
-          index /
-          (timelineItems.length - 1) *
-          100;
-
-        if (timelineProgress) {
-
-          timelineProgress.style.width =
-            `${percentage}%`;
-
-        }
-
-      }
-    );
-
-  }
-);
+timelineItems.forEach((item,index) => {
+  item.addEventListener("click", () => activateTimelineItem(item,index));
+  item.addEventListener("keydown", event => {
+    if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
+      activateTimelineItem(item,index);
+    }
+  });
+});
 
 
 /* =========================================================
@@ -3621,7 +3579,7 @@ document
    GRAND SLAMS
 ========================================================= */
 
-const majors = [
+const slamTitles = [
 
   ["Wimbledon",2003,"Mark Philippoussis","Title No. 1"],
 
@@ -3899,7 +3857,7 @@ function updateConstellationLines(selectedIndex) {
 }
 
 function selectFinalTitle(index, animate = true) {
-  const [slam, year, opponent, title] = majors[index];
+  const [slam, year, opponent, title] = slamTitles[index];
   const guide = document.querySelector(".constellation-guide");
   if (guide && animate) guide.classList.add("used");
 
@@ -3908,11 +3866,11 @@ function selectFinalTitle(index, animate = true) {
 
   constellationNumber.textContent = `TITLE ${String(index + 1).padStart(2,"0")} / 20`;
   constellationSlam.textContent = slam;
-  constellationMeta.textContent = `${year} · ${opponent.replace(/^(Mark|Marat|Andy|Lleyton|Andre|Marcos|Rafael|Fernando|Novak|Robin|Marin)\s*/i,"")}`;
+  constellationMeta.textContent = `${year} · ${opponent}`;
 
   detailIndex.textContent = `${String(index + 1).padStart(2,"0")} / 20`;
   detailTitle.textContent = `${slam} · ${year}`;
-  detailDescription.textContent = `${opponent} · ${title}`;
+  detailDescription.textContent = `Defeated ${opponent} · ${title}`;
   detailOpponent.textContent = opponent;
 
   updateConstellationLines(index);
@@ -3924,7 +3882,7 @@ function selectFinalTitle(index, animate = true) {
   }
 }
 
-majors.forEach((item,index) => {
+slamTitles.forEach((item,index) => {
   const [slam] = item;
   const pos = constellationPosition(index);
   const star = document.createElement("button");
@@ -3988,9 +3946,9 @@ replayTwenty.addEventListener("click", () => {
 
   replayTimer = setInterval(() => {
     replayIndex++;
-    if (replayIndex >= majors.length) {
+    if (replayIndex >= slamTitles.length) {
       stopReplay();
-      replayIndex = majors.length - 1;
+      replayIndex = slamTitles.length - 1;
       selectFinalTitle(replayIndex);
       return;
     }
@@ -4061,32 +4019,34 @@ window.addEventListener(
 
 
 /* =========================================================
-   KEYBOARD ACCESSIBILITY
+   DYNAMIC ELAPSED TIME
 ========================================================= */
 
-document
-  .querySelectorAll(".major")
-  .forEach(button => {
+function calendarElapsed(startDate, endDate) {
+  let years = endDate.getUTCFullYear() - startDate.getUTCFullYear();
+  let months = endDate.getUTCMonth() - startDate.getUTCMonth();
+  let days = endDate.getUTCDate() - startDate.getUTCDate();
 
-    button.addEventListener(
-      "keydown",
-      event => {
+  if (days < 0) {
+    months--;
+    const previousMonth = new Date(Date.UTC(endDate.getUTCFullYear(), endDate.getUTCMonth(), 0));
+    days += previousMonth.getUTCDate();
+  }
 
-        if (
-          event.key === "Enter" ||
-          event.key === " "
-        ) {
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
 
-          event.preventDefault();
+  return `${years} year${years === 1 ? "" : "s"}, ${months} month${months === 1 ? "" : "s"}, ${days} day${days === 1 ? "" : "s"}`;
+}
 
-          button.click();
-
-        }
-
-      }
-    );
-
-  });
+const elapsedTime = document.getElementById("elapsedTime");
+if (elapsedTime) {
+  const farewellDate = new Date(Date.UTC(2022, 8, 23));
+  const now = new Date();
+  elapsedTime.textContent = calendarElapsed(farewellDate, new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())));
+}
 
 
 /* =========================================================
