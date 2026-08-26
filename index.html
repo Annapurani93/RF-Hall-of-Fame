@@ -973,7 +973,7 @@ p {
   font-family:var(--mono);
   font-size:18px;
   font-weight:500;
-  letter-spacing:.04em;
+  letter-spacing:.02em;
   text-transform:uppercase;
 }
 
@@ -1018,8 +1018,7 @@ p {
 
 .slam-value {
   font-family:var(--mono);
-  font-size:42px;
-  font-weight:500;
+  font-size:40px;
 }
 
 
@@ -1301,7 +1300,7 @@ p {
 }
 
 .comeback-card:hover {
-  transform:translateX(15px);
+  transform:translateX:15px);
 }
 
 .comeback-small {
@@ -1505,7 +1504,7 @@ p {
 .twenty.active .final-star { opacity:1; transform:translate(-50%,-50%) scale(1); animation:starEntrance .55s var(--ease) both; }
 .twenty.active .final-star:first-of-type { animation:starEntrance .55s var(--ease) both, firstStarPulse 1.7s ease-in-out .8s 3; }
 .final-star::before { content:""; position:absolute; inset:-9px; border:1px solid rgba(244,238,227,.16); border-radius:50%; opacity:.7; transition:inset .25s ease,border-color .25s ease,opacity .25s ease; }
-.final-star::after { content:"CLICK"; position:absolute; left:50%; top:calc(100% + 12px); transform:translateX(-50%); padding:4px 6px; border:1px solid rgba(209,178,115,.45); background:rgba(17,17,15,.92); color:#d1b273; font-family:var(--mono); font-size:9px; font-weight:500; letter-spacing:.14em; opacity:0; pointer-events:none; transition:opacity .2s ease,transform .2s ease; }
+.final-star::after { content:"CLICK"; position:absolute; left:50%; top:calc(100% + 12px); transform:translateX(-50%); padding:4px 6px; border:1px solid rgba(209,178,115,.45); background:rgba(17,17,15,.92); color:#d1b273; font-family:var(--mono); font-size:8px; letter-spacing:.14em; opacity:0; pointer-events:none; transition:opacity .2s ease,transform .2s ease; }
 .final-star:hover::before,.final-star:focus-visible::before,.final-star.selected::before { inset:-13px; border-color:rgba(209,178,115,.55); opacity:1; }
 .final-star:hover::after,.final-star:focus-visible::after { opacity:1; transform:translate(-50%,3px); }
 @keyframes starEntrance { 0%{opacity:0;transform:translate(-50%,-50%) scale(.15)} 70%{opacity:1;transform:translate(-50%,-50%) scale(1.12)} 100%{opacity:1;transform:translate(-50%,-50%) scale(1)} }
@@ -1536,7 +1535,7 @@ p {
   background:#1d1d1a;
   border:1px solid #3c3a35;
   font-family:var(--mono);
-  font-size:12px;
+  font-size:14px;
   font-weight:500;
   letter-spacing:.02em;
   white-space:nowrap;
@@ -1547,7 +1546,7 @@ p {
 
 .final-star:hover .star-label,
 .final-star:focus-visible .star-label,
-.final-star.selected.star-label {
+.final-star.selected .star-label {
   opacity:1;
   transform:translateX(-50%) translateY(0);
 }
@@ -1945,7 +1944,6 @@ p {
   .slam-name {
     font-size:12px;
     font-weight:500;
-    letter-spacing:.02em;
   }
 
   .slam-track {
@@ -1954,46 +1952,6 @@ p {
 
   .slam-value {
     font-size:27px;
-  }
-
-  .star-label {
-    font-size:11px;
-    padding:6px 8px;
-  }
-
-  .final-star {
-    width:46px;
-    height:46px;
-    min-width:46px;
-    min-height:46px;
-  }
-
-  .constellation {
-    width:min(760px,92vw);
-    margin-top:78px;
-  }
-
-  .constellation-center {
-    width:170px;
-    height:170px;
-  }
-
-  .constellation-number {
-    font-size:14px;
-  }
-
-  .constellation-slam {
-    font-size:23px;
-  }
-
-  .twenty-detail {
-    grid-template-columns:1fr;
-    gap:12px;
-    text-align:center;
-  }
-
-  .detail-opponent {
-    text-align:center;
   }
 
   .missing h2,
@@ -2091,7 +2049,7 @@ p {
     font-size:8px;
   }
 
- .star-label {
+  .star-label {
     display:none;
   }
 
@@ -2593,7 +2551,7 @@ p {
       The first 237 form the longest consecutive No. 1 streak
       in ATP Rankings history.
       <br><br>
-      
+     
     </p>
 
     <div
@@ -2694,7 +2652,7 @@ p {
   <div class="poem-inner">
 
     <div class="poem-label">
-      When the numbers become a story
+When the numbers become a story
     </div>
 
     <h2 class="poem-title">
@@ -2755,8 +2713,8 @@ p {
 
   <div class="wrap">
 
-    <div class="kicker">
-      The final two
+    <div class="year">
+     The final two
     </div>
 
     <h2 class="display">
@@ -2854,7 +2812,7 @@ p {
       <div class="constellation-center" id="constellationCenter">
         <div class="constellation-number" id="constellationNumber">TITLE 01 / 20</div>
         <div class="constellation-slam" id="constellationSlam">Wimbledon</div>
-        <div class="constellation-meta" id="constellationMeta">20Philippoussis</div>
+        <div class="constellation-meta" id="constellationMeta">2003 · Philippoussis</div>
       </div>
     </div>
 
@@ -2889,7 +2847,7 @@ p {
   <div class="wrap">
 
     <div class="kicker">
-      The distribution
+     The distribution
     </div>
 
     <h2 class="display">
@@ -3037,7 +2995,7 @@ p {
   <div class="poem-inner">
 
     <div class="poem-label">
-      Final word
+      A Final Word
     </div>
 
     <h2 class="poem-title">
