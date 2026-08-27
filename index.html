@@ -210,9 +210,15 @@ p {
     transform .2s ease;
 }
 
-.chapter-dot:hover::after {
+.chapter-dot:hover::after,
+.chapter-dot:focus-visible::after {
   opacity:1;
   transform:translateY(-50%) translateX(0);
+}
+
+.chapter-dot:focus-visible {
+  outline:2px solid var(--gold);
+  outline-offset:5px;
 }
 
 .chapter-dot.active {
@@ -689,6 +695,10 @@ p {
   filter:none;
 }
 
+.poem-body #retirementElapsed {
+  white-space:nowrap;
+}
+
 .poem-word {
   display:inline-block;
 
@@ -1128,10 +1138,13 @@ p {
   background:var(--ink);
 }
 
-.week:hover {
+.week:hover,
+.week:focus-visible {
   transform:scale(1.8);
   z-index:3;
   background:var(--gold);
+  outline:2px solid var(--gold);
+  outline-offset:2px;
 }
 
 .week-tooltip {
@@ -1300,7 +1313,7 @@ p {
 }
 
 .comeback-card:hover {
-  transform:translateX:15px);
+  transform:translateX(15px);
 }
 
 .comeback-small {
@@ -2154,20 +2167,20 @@ p {
 
 <nav class="chapter-nav" aria-label="Story chapters">
 
-  <button class="chapter-dot active" data-target="hero" data-label="Beginning"></button>
-  <button class="chapter-dot" data-target="career-numbers" data-label="A career in numbers"></button>
-  <button class="chapter-dot" data-target="rise" data-label="The rise"></button>
-  <button class="chapter-dot" data-target="personal-memory" data-label="A personal memory"></button>
-  <button class="chapter-dot" data-target="missing" data-label="The missing piece"></button>
-  <button class="chapter-dot" data-target="reign" data-label="The reign"></button>
-  <button class="chapter-dot" data-target="streaks" data-label="Staying power"></button>
-  <button class="chapter-dot" data-target="numbers-story" data-label="When the numbers become a story"></button>
-  <button class="chapter-dot" data-target="comeback" data-label="The final 2"></button>
-  <button class="chapter-dot" data-target="twenty" data-label="The impossible number"></button>
-  <button class="chapter-dot" data-target="distribution" data-label="The distribution"></button>
-  <button class="chapter-dot" data-target="beyond-numbers" data-label="Why we kept watching"></button>
-  <button class="chapter-dot" data-target="hall" data-label="International Tennis Hall of Fame"></button>
-  <button class="chapter-dot" data-target="final-word" data-label="A final word"></button>
+  <button class="chapter-dot active" data-target="hero" data-label="Beginning" aria-label="Beginning"></button>
+  <button class="chapter-dot" data-target="career-numbers" data-label="A career in numbers" aria-label="A career in numbers"></button>
+  <button class="chapter-dot" data-target="rise" data-label="The rise" aria-label="The rise"></button>
+  <button class="chapter-dot" data-target="personal-memory" data-label="A personal memory" aria-label="A personal memory"></button>
+  <button class="chapter-dot" data-target="missing" data-label="The missing piece" aria-label="The missing piece"></button>
+  <button class="chapter-dot" data-target="reign" data-label="The reign" aria-label="The reign"></button>
+  <button class="chapter-dot" data-target="streaks" data-label="Staying power" aria-label="Staying power"></button>
+  <button class="chapter-dot" data-target="numbers-story" data-label="When the numbers become a story" aria-label="When the numbers become a story"></button>
+  <button class="chapter-dot" data-target="comeback" data-label="The final 2" aria-label="The final 2"></button>
+  <button class="chapter-dot" data-target="twenty" data-label="The impossible number" aria-label="The impossible number"></button>
+  <button class="chapter-dot" data-target="distribution" data-label="The distribution" aria-label="The distribution"></button>
+  <button class="chapter-dot" data-target="beyond-numbers" data-label="Why we kept watching" aria-label="Why we kept watching"></button>
+  <button class="chapter-dot" data-target="hall" data-label="International Tennis Hall of Fame" aria-label="International Tennis Hall of Fame"></button>
+  <button class="chapter-dot" data-target="final-word" data-label="A final word" aria-label="A final word"></button>
 
 </nav>
 
@@ -2394,7 +2407,7 @@ p {
         It was a Wimbledon final against Nadal.
         I was staring at a 24-year-old star who already had
         7 grand slams in his kitty.
-        A ball boy who had worked hard to earn et al.
+        A ball boy who had worked hard to earn it all.
       </p>
 
       <p>
@@ -2433,7 +2446,7 @@ p {
 
       <p>
         You bounced back in 2017, and how!
-        At 35, you scourged every raised eyebrow.
+        At 35, you silenced every raised eyebrow.
         You returned from six months away from the tour
         and won the Australian Open.
         You showed the world why tennis will always be your jam,
@@ -3019,7 +3032,7 @@ When the numbers become a story
       </p>
 
       <p>
-        It’s been 3 years, 11 months, 5 days since you bid goodbye,
+        It’s been <span id="retirementElapsed">nearly four years</span> since you bid goodbye,
         yet - to date - every time you set foot in them, stadiums continue to erupt.
         Because in you, we all trust, and from you, we learn what it takes to trust our gut.
       </p>
@@ -3812,6 +3825,12 @@ for (let i = 0; i < 310; i++) {
       ? "Consecutive"
       : "Additional";
 
+  week.setAttribute("tabindex", "0");
+  week.setAttribute(
+    "role",
+    "img"
+  );
+
   week.setAttribute(
     "aria-label",
     consecutive
@@ -3861,6 +3880,36 @@ for (let i = 0; i < 310; i++) {
         "show"
       );
 
+    }
+  );
+
+  week.addEventListener(
+    "focus",
+    () => {
+      const rect = week.getBoundingClientRect();
+
+      weekTooltip.textContent =
+        consecutive
+          ? `Week ${i + 1} · consecutive`
+          : `Week ${i - 236} · additional`;
+
+      weekTooltip.style.left =
+        `${rect.left + rect.width / 2}px`;
+
+      weekTooltip.style.top =
+        `${rect.top - 12}px`;
+
+      weekTooltip.style.transform =
+        "translate(-50%,-100%)";
+
+      weekTooltip.classList.add("show");
+    }
+  );
+
+  week.addEventListener(
+    "blur",
+    () => {
+      weekTooltip.classList.remove("show");
     }
   );
 
@@ -4094,8 +4143,60 @@ document
 
 
 /* =========================================================
-   INITIALIZE
+   RETIREMENT ELAPSED TIME
 ========================================================= */
+
+function calendarElapsed(startDate, endDate) {
+  let years = endDate.getFullYear() - startDate.getFullYear();
+  let months = endDate.getMonth() - startDate.getMonth();
+  let days = endDate.getDate() - startDate.getDate();
+
+  if (days < 0) {
+    const previousMonth = new Date(
+      endDate.getFullYear(),
+      endDate.getMonth(),
+      0
+    );
+    days += previousMonth.getDate();
+    months--;
+  }
+
+  if (months < 0) {
+    months += 12;
+    years--;
+  }
+
+  return { years, months, days };
+}
+
+function updateRetirementElapsed() {
+  const output = document.getElementById("retirementElapsed");
+  if (!output) return;
+
+  const retirementDate = new Date(2022, 8, 23);
+  const today = new Date();
+
+  const { years, months, days } =
+    calendarElapsed(retirementDate, today);
+
+  const parts = [];
+
+  if (years) parts.push(`${years} year${years === 1 ? "" : "s"}`);
+  if (months) parts.push(`${months} month${months === 1 ? "" : "s"}`);
+  if (days) parts.push(`${days} day${days === 1 ? "" : "s"}`);
+
+  output.textContent =
+    parts.length
+      ? parts.join(", ")
+      : "less than a day";
+}
+
+updateRetirementElapsed();
+
+
+/* =========================================================
+   INITIALIZE
+======================================================== */
 
 if (!reducedMotion) {
 
