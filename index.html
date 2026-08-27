@@ -210,15 +210,9 @@ p {
     transform .2s ease;
 }
 
-.chapter-dot:hover::after,
-.chapter-dot:focus-visible::after {
+.chapter-dot:hover::after {
   opacity:1;
   transform:translateY(-50%) translateX(0);
-}
-
-.chapter-dot:focus-visible {
-  outline:2px solid var(--gold);
-  outline-offset:5px;
 }
 
 .chapter-dot.active {
@@ -1120,6 +1114,30 @@ p {
   margin-top:85px;
 }
 
+.week-stint-break {
+  grid-column:1 / -1;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin:14px 0 2px;
+  color:var(--muted);
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+}
+
+.week-stint-break::before {
+  content:"";
+  flex:0 0 28px;
+  height:1px;
+  background:#c9c3b9;
+}
+
+.week-stint-break span {
+  white-space:nowrap;
+}
+
 .week {
   position:relative;
 
@@ -1137,14 +1155,10 @@ p {
 .week.consecutive {
   background:var(--ink);
 }
-
-.week:hover,
-.week:focus-visible {
+.week:hover {
   transform:scale(1.8);
   z-index:3;
   background:var(--gold);
-  outline:2px solid var(--gold);
-  outline-offset:2px;
 }
 
 .week-tooltip {
@@ -1313,7 +1327,7 @@ p {
 }
 
 .comeback-card:hover {
-  transform:translateX(15px);
+  transform:translateX:15px);
 }
 
 .comeback-small {
@@ -1983,6 +1997,20 @@ p {
     margin-top:55px;
   }
 
+  .week-stint-break {
+    gap:9px;
+    margin:10px 0 1px;
+    font-size:9px;
+  }
+
+  .week-stint-break::before {
+    flex-basis:18px;
+  }
+
+  .week-stint-break span {
+    white-space:normal;
+  }
+
   .week-note {
     font-size:10px;
   }
@@ -2167,20 +2195,20 @@ p {
 
 <nav class="chapter-nav" aria-label="Story chapters">
 
-  <button class="chapter-dot active" data-target="hero" data-label="Beginning" aria-label="Beginning"></button>
-  <button class="chapter-dot" data-target="career-numbers" data-label="A career in numbers" aria-label="A career in numbers"></button>
-  <button class="chapter-dot" data-target="rise" data-label="The rise" aria-label="The rise"></button>
-  <button class="chapter-dot" data-target="personal-memory" data-label="A personal memory" aria-label="A personal memory"></button>
-  <button class="chapter-dot" data-target="missing" data-label="The missing piece" aria-label="The missing piece"></button>
-  <button class="chapter-dot" data-target="reign" data-label="The reign" aria-label="The reign"></button>
-  <button class="chapter-dot" data-target="streaks" data-label="Staying power" aria-label="Staying power"></button>
-  <button class="chapter-dot" data-target="numbers-story" data-label="When the numbers become a story" aria-label="When the numbers become a story"></button>
-  <button class="chapter-dot" data-target="comeback" data-label="The final 2" aria-label="The final 2"></button>
-  <button class="chapter-dot" data-target="twenty" data-label="The impossible number" aria-label="The impossible number"></button>
-  <button class="chapter-dot" data-target="distribution" data-label="The distribution" aria-label="The distribution"></button>
-  <button class="chapter-dot" data-target="beyond-numbers" data-label="Why we kept watching" aria-label="Why we kept watching"></button>
-  <button class="chapter-dot" data-target="hall" data-label="International Tennis Hall of Fame" aria-label="International Tennis Hall of Fame"></button>
-  <button class="chapter-dot" data-target="final-word" data-label="A final word" aria-label="A final word"></button>
+  <button class="chapter-dot active" data-target="hero" data-label="Beginning"></button>
+  <button class="chapter-dot" data-target="career-numbers" data-label="A career in numbers"></button>
+  <button class="chapter-dot" data-target="rise" data-label="The rise"></button>
+  <button class="chapter-dot" data-target="personal-memory" data-label="A personal memory"></button>
+  <button class="chapter-dot" data-target="missing" data-label="The missing piece"></button>
+  <button class="chapter-dot" data-target="reign" data-label="The reign"></button>
+  <button class="chapter-dot" data-target="streaks" data-label="Staying power"></button>
+  <button class="chapter-dot" data-target="numbers-story" data-label="When the numbers become a story"></button>
+  <button class="chapter-dot" data-target="comeback" data-label="The final 2"></button>
+  <button class="chapter-dot" data-target="twenty" data-label="The impossible number"></button>
+  <button class="chapter-dot" data-target="distribution" data-label="The distribution"></button>
+  <button class="chapter-dot" data-target="beyond-numbers" data-label="Why we kept watching"></button>
+  <button class="chapter-dot" data-target="hall" data-label="International Tennis Hall of Fame"></button>
+  <button class="chapter-dot" data-target="final-word" data-label="A final word"></button>
 
 </nav>
 
@@ -2407,7 +2435,7 @@ p {
         It was a Wimbledon final against Nadal.
         I was staring at a 24-year-old star who already had
         7 grand slams in his kitty.
-        A ball boy who had worked hard to earn it all.
+        A ball boy who had worked hard to earn et al.
       </p>
 
       <p>
@@ -2446,7 +2474,7 @@ p {
 
       <p>
         You bounced back in 2017, and how!
-        At 35, you silenced every raised eyebrow.
+        At 35, you scourged every raised eyebrow.
         You returned from six months away from the tour
         and won the Australian Open.
         You showed the world why tennis will always be your jam,
@@ -2561,10 +2589,12 @@ p {
     <p class="reign-copy">
       Every square below represents one week Federer spent
       ranked World No. 1.
-      The first 237 form the longest consecutive No. 1 streak
-      in ATP Rankings history.
+      The squares are ordered chronologically: the first 237
+      are his record consecutive streak, followed by 73 weeks
+      across five later stints at No. 1.
       <br><br>
-     
+      The breaks mark each return to the top spot, so the field
+      shows both the total and the shape of his reign.
     </p>
 
     <div
@@ -2574,8 +2604,8 @@ p {
     </div>
 
     <div class="week-note">
-      <span>237 consecutive weeks</span>
-      <span>73 additional weeks</span>
+      <span>237 consecutive weeks · 2 Feb 2004–17 Aug 2008</span>
+      <span>73 additional weeks · 5 later stints</span>
     </div>
 
     <div class="reign-reveal">
@@ -3803,120 +3833,161 @@ const weekTooltip =
     "weekTooltip"
   );
 
+/*
+   Federer's 310 weeks at No. 1 were spread across six stints:
+   237 consecutive weeks from 2 Feb 2004 to 17 Aug 2008,
+   followed by five later stints: 48 weeks, 17 weeks, 6 weeks,
+   1 week and 1 week. The cells below preserve that chronology
+   and visibly separate each stint so the 73 additional weeks
+   are not presented as one continuous reign.
+*/
+const weekStints = [
+  {
+    label: "2004–2008 · 237 consecutive weeks",
+    count: 237,
+    consecutive: true,
+    start: "2 Feb 2004",
+    end: "17 Aug 2008"
+  },
+  {
+    label: "2009–2010 · 48 weeks",
+    count: 48,
+    consecutive: false,
+    start: "6 Jul 2009",
+    end: "6 Jun 2010"
+  },
+  {
+    label: "2012 · 17 weeks",
+    count: 17,
+    consecutive: false,
+    start: "9 Jul 2012",
+    end: "4 Nov 2012"
+  },
+  {
+    label: "2018 · 6 weeks",
+    count: 6,
+    consecutive: false,
+    start: "19 Feb 2018",
+    end: "25 Mar 2018"
+  },
+  {
+    label: "2018 · 1 week",
+    count: 1,
+    consecutive: false,
+    start: "14 May 2018",
+    end: "20 May 2018"
+  },
+  {
+    label: "2018 · 1 week",
+    count: 1,
+    consecutive: false,
+    start: "18 Jun 2018",
+    end: "24 Jun 2018"
+  }
+];
 
-for (let i = 0; i < 310; i++) {
+let overallWeek = 0;
+let additionalWeek = 0;
 
-  const week =
-    document.createElement("div");
+weekStints.forEach((stint, stintIndex) => {
 
-  const consecutive =
-    i < 237;
+  if (stintIndex > 0) {
+    const breakMarker = document.createElement("div");
+    breakMarker.className = "week-stint-break";
+    breakMarker.innerHTML = `<span>${stint.label} · ${stint.start}–${stint.end}</span>`;
+    weekGrid.appendChild(breakMarker);
+  }
 
-  week.className =
-    consecutive
-      ? "week consecutive"
-      : "week";
+  for (let i = 0; i < stint.count; i++) {
 
-  week.dataset.week =
-    i + 1;
+    overallWeek++;
 
-  week.dataset.type =
-    consecutive
-      ? "Consecutive"
-      : "Additional";
+    const week =
+      document.createElement("div");
 
-  week.setAttribute("tabindex", "0");
-  week.setAttribute(
-    "role",
-    "img"
-  );
+    const stintWeek = i + 1;
 
-  week.setAttribute(
-    "aria-label",
-    consecutive
-      ? `Consecutive World No. 1 week ${i + 1}`
-      : `Additional World No. 1 week ${i - 236}`
-  );
-
-  week.addEventListener(
-    "pointerenter",
-    event => {
-
-      if (
-        window.matchMedia(
-          "(pointer:coarse)"
-        ).matches
-      ) return;
-
-      const rect =
-        event.target.getBoundingClientRect();
-
-      weekTooltip.textContent =
-        consecutive
-          ? `Week ${i + 1} · consecutive`
-          : `Week ${i - 236} · additional`;
-
-      weekTooltip.style.left =
-        `${rect.left + rect.width / 2}px`;
-
-      weekTooltip.style.top =
-        `${rect.top - 12}px`;
-
-      weekTooltip.style.transform =
-        "translate(-50%,-100%)";
-
-      weekTooltip.classList.add(
-        "show"
-      );
-
+    if (!stint.consecutive) {
+      additionalWeek++;
     }
-  );
 
-  week.addEventListener(
-    "pointerleave",
-    () => {
+    const additionalWeekNumber = additionalWeek;
 
-      weekTooltip.classList.remove(
-        "show"
-      );
+    week.className =
+      stint.consecutive
+        ? "week consecutive"
+        : "week";
 
-    }
-  );
+    week.dataset.week =
+      overallWeek;
 
-  week.addEventListener(
-    "focus",
-    () => {
-      const rect = week.getBoundingClientRect();
+    week.dataset.stint =
+      stintIndex + 1;
 
-      weekTooltip.textContent =
-        consecutive
-          ? `Week ${i + 1} · consecutive`
-          : `Week ${i - 236} · additional`;
+    week.dataset.stintWeek =
+      stintWeek;
 
-      weekTooltip.style.left =
-        `${rect.left + rect.width / 2}px`;
+    week.dataset.type =
+      stint.consecutive
+        ? "Consecutive"
+        : "Additional";
 
-      weekTooltip.style.top =
-        `${rect.top - 12}px`;
+    week.setAttribute(
+      "aria-label",
+      stint.consecutive
+        ? `Consecutive World No. 1 week ${stintWeek} of 237; overall week ${overallWeek}; ${stint.start}–${stint.end}`
+        : `Additional World No. 1 week ${additionalWeek} of 73; overall week ${overallWeek}; ${stint.start}–${stint.end}`
+    );
 
-      weekTooltip.style.transform =
-        "translate(-50%,-100%)";
+    week.addEventListener(
+      "pointerenter",
+      event => {
 
-      weekTooltip.classList.add("show");
-    }
-  );
+        if (
+          window.matchMedia(
+            "(pointer:coarse)"
+          ).matches
+        ) return;
 
-  week.addEventListener(
-    "blur",
-    () => {
-      weekTooltip.classList.remove("show");
-    }
-  );
+        const rect =
+          event.target.getBoundingClientRect();
 
-  weekGrid.appendChild(week);
+        weekTooltip.textContent =
+          stint.consecutive
+            ? `Week ${stintWeek} of 237 · consecutive · ${stint.start}–${stint.end}`
+            : `Week ${additionalWeekNumber} of 73 · additional · ${stint.start}–${stint.end}`;
 
-}
+        weekTooltip.style.left =
+          `${rect.left + rect.width / 2}px`;
 
+        weekTooltip.style.top =
+          `${rect.top - 12}px`;
+
+        weekTooltip.style.transform =
+          "translate(-50%,-100%)";
+
+        weekTooltip.classList.add(
+          "show"
+        );
+
+      }
+    );
+
+    week.addEventListener(
+      "pointerleave",
+      () => {
+
+        weekTooltip.classList.remove(
+          "show"
+        );
+
+      }
+    );
+
+    weekGrid.appendChild(week);
+
+  }
+});
 
 /* =========================================================
    FINAL 20 · CONSTELLATION
@@ -4193,10 +4264,9 @@ function updateRetirementElapsed() {
 
 updateRetirementElapsed();
 
-
 /* =========================================================
    INITIALIZE
-======================================================== */
+========================================================= */
 
 if (!reducedMotion) {
 
